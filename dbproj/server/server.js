@@ -8,17 +8,16 @@ const db = mysql.createPool({
     user: 'root',
     password: 'bjs3091',
     database: 'testdb',
-    port: '3306'
-})
+    port: '3306',
+});
 
-app.get("/", (req, res) => {
-    const sqlQuery = "INSERT INTO requested (rowno) VALUES (1)";
+app.get('/', (req, res) => {
+    const sqlQuery = 'INSERT INTO requested (rowno) VALUES (1)';
     db.query(sqlQuery, (err, result) => {
         console.log(err);
-        res.send("success");
+        res.send('success');
     });
 });
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT} // http://localhost:${PORT}`);
 });
-
