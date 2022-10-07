@@ -1,6 +1,10 @@
 import axios from "axios";
+import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import "./App.css";
+import BoardPage from "./components/views/BoardPage/BoardPage";
+import ArticlePage from "./components/views/ArticlePage/ArticlePage";
+import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 
 function App() {
     const callApi = async () => {
@@ -9,7 +13,15 @@ function App() {
     useEffect(() => {
         callApi();
     }, []);
-    return <div>test</div>;
+    return (
+        <div>
+            <Routes>
+                <Route path="/" element={<BoardPage />} />
+                <Route path="/article/:articleId" element={<ArticlePage />} />
+                <Route path="/register" element={<RegisterPage />} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
