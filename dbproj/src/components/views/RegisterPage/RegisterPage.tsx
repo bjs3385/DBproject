@@ -3,11 +3,11 @@ import { useState } from "react";
 import RegisterOrEdit from "../BoardPage/Sections/RegisterOrEdit";
 
 function RegisterPage() {
-    const [TitleValue, setTitleVatue] = useState("");
+    const [TitleValue, setTitleValue] = useState("");
     const [ContentValue, setContentValue] = useState("");
 
     const onTitleChange = (event: any) => {
-        setTitleVatue(event.currentTarget.value);
+        setTitleValue(event.currentTarget.value);
     };
     console.log(TitleValue);
 

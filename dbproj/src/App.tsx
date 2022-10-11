@@ -5,6 +5,7 @@ import "./App.css";
 import BoardPage from "./components/views/BoardPage/BoardPage";
 import ArticlePage from "./components/views/ArticlePage/ArticlePage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
+import LoginPage from "components/views/LoginPage/LoginPage";
 
 function App() {
     const callApi = async () => {
@@ -16,7 +17,7 @@ function App() {
     return (
         <div>
             <Routes>
-                <Route path="/" element={<BoardPage />} />
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/article/:articleId" element={<ArticlePage />} />
                 <Route path="/register" element={<RegisterPage />} />
             </Routes>
