@@ -29,9 +29,7 @@ jobs:
     - run: npm ci
       working-directory: ${{ env.working-directory }}
       
-    - run: |
-      cd ./dbproj/server
-      npm run build --if-present
+    - run: npm run build --if-present
       working-directory: ${{ env.working-directory }}
       
     - run: npm test
