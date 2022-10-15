@@ -20,6 +20,7 @@ function App() {
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/article/:articleId" element={<ArticlePage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/board" element={<BoardPage />} />
             </Routes>
         </div>
     );
