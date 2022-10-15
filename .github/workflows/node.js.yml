@@ -27,6 +27,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: ./dbproj/server/package-lock.json
     - run: npm ci
       working-directory: ${{ env.working-directory }}
       
