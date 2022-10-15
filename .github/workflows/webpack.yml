@@ -6,12 +6,13 @@ on:
   pull_request:
     branches: [ "main" ]
 
-defaults:
-  run:
-    working-directory: ./dbproj/server
-
-
 jobs:
+  deploy:
+    name: test
+    runs-on: [ubuntu-latest]
+    env:
+      working-directory: ./dbproj/server
+      
   build:
     runs-on: ubuntu-latest
 
