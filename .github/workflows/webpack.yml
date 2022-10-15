@@ -30,5 +30,6 @@ jobs:
 
     - name: Build
       run: |
+        cd ./dbproj/server
         npm install
         npx webpack
