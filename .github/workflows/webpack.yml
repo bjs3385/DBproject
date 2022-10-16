@@ -7,6 +7,12 @@ on:
     branches: [ "main" ]
 
 jobs:
+  deploy:
+    name: test
+    runs-on: [ubuntu-latest]
+    env:
+      working-directory: ./dbproj/server
+      
   build:
     runs-on: ubuntu-latest
 
@@ -24,5 +30,6 @@ jobs:
 
     - name: Build
       run: |
+        cd ./dbproj/server
         npm install
         npx webpack
