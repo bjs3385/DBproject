@@ -67,7 +67,7 @@ function LoginPage() {
                 </ThemeProvider>
                 <Grid container>
                     <Grid item xs>
-                        <Link>비밀번호 찾기</Link>
+                        <Link href="http://localhost:3000/article/:articleId">비밀번호 찾기</Link>
                     </Grid>
                     <Grid item>
                         <Link>회원 가입</Link>
