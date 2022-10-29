@@ -9,6 +9,7 @@ import LoginPage from "components/views/LoginPage/LoginPage";
 
 function App() {
     const callApi = async () => {
+        axios.get("/users").then((res) => console.log(res.data));
         axios.get("/api").then((res) => console.log(res.data.test));
     };
     useEffect(() => {
