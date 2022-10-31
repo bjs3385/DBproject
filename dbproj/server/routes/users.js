@@ -1,4 +1,5 @@
 var express = require('express');
+const { connect } = require('http2');
 var router = express.Router();
 const mysql = require("mysql");
 
@@ -10,8 +11,7 @@ const connection = mysql.createConnection({
     database: "db1",
 });
 
-const util = require('util');
-
+connection.connect();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send({data: "data"});
@@ -29,6 +29,15 @@ router.post('/onLogin', function(req, res, next) {
   const user_id = req.query.email;
   const password = req.query.password;
   console.log("user_id: " + user_id + " password: " + password);
+/*
+  connection.query("SELECT * FROM admin WHERE user_id = ? AND password = ?", [user_id, password], function (error, results, fields) {
+    if (error) throw error;
+    console.log("The solution is: ", results);
+    res.send({data: results});
+  });
+
+*/
+
 });
 
 module.exports = router;
