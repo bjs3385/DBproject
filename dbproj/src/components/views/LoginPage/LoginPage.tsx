@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { purple } from "@mui/material/colors";
+import e from "express";
 
 const theme = createTheme({
     palette: {
@@ -26,6 +28,37 @@ const theme = createTheme({
 });
 
 function LoginPage() {
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    
+
+    const onClickLogin = () => {
+        axios.post("http://localhost:4000/users/onLogin", null, {
+            params: {
+                email: email,
+                password: password,
+            }})
+            .then(res => console.log (res))
+            .catch()
+    }
+
+    const handleInputID = (e : any) =>{
+        setEmail(e.target.value);
+    }
+    const handleInputPW = (e : any) =>{
+        setPassword(e.target.value);
+    }
+    
+    const callApi = async () => {
+        axios.get("/users").then((res) => console.log(res.data));
+    };
+    useEffect(() => {
+        callApi();
+    }, []);
+
+   
+    
+
     return (
         <Container component="main" maxWidth="xs">
             <Box
@@ -47,20 +80,24 @@ function LoginPage() {
                     label="아이디"
                     required
                     fullWidth
+                    type = "email"
                     name="email"
                     autoComplete="email"
                     autoFocus
+                    onChange = {handleInputID}
                 ></TextField>
-                <TextField label="비밀번호" required fullWidth name="password"></TextField>
+                <TextField label="비밀번호" required fullWidth name="password" type = "password" onChange = {handleInputPW}></TextField>
                 <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
                 <ThemeProvider theme={theme}>
                     <Button
-                        href="http://localhost:3000/register"
+                        
                         color="secondary"
                         variant="contained"
                         type="submit"
                         fullWidth
                         sx={{ mt: 3, mb: 2 }}
+                        onClick={() => onClickLogin()}
+                        
                     >
                         로그인
                     </Button>
