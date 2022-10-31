@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Cafe24SsurroundAir';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/web/upload/font/Cafe24SsurroundAir.eot);
+    src: url(/web/upload/font/Cafe24SsurroundAir.woff) format('woff'),
+         url(/web/upload/font/Cafe24SsurroundAir.ttf) format('truetype');
+  }
+  html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,span,option,img  { font-family:'카페24써라운드에어',Cafe24SsurroundAir,'맑은 고딕','돋움', Dotum, sans-serif; }
+  
