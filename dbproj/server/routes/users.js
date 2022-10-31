@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
 connection.connect();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send({data: "data"});
+  res.send({test : "users api success"});
 });
 
 /*
@@ -29,14 +29,25 @@ router.post('/onLogin', function(req, res, next) {
   const user_id = req.query.email;
   const password = req.query.password;
   console.log("user_id: " + user_id + " password: " + password);
-/*
-  connection.query("SELECT * FROM admin WHERE user_id = ? AND password = ?", [user_id, password], function (error, results, fields) {
+
+  connection.query("SELECT * FROM admin WHERE aID = ? AND aPW = ?", [user_id, password], function (error, results, fields) {
     if (error) throw error;
+    if(results.length > 0){
+      if(error) throw error;
+        
+      
+     if(results[0].aID === user_id && results[0].aPW === password){
+      res.send({result : "success"});
+    }
+    }
     console.log("The solution is: ", results);
-    res.send({data: results});
+    res.send({data: results.aID});
+    
   });
 
-*/
+
+
+
 
 });
 

@@ -6,10 +6,10 @@ import BoardPage from "./components/views/BoardPage/BoardPage";
 import ArticlePage from "./components/views/ArticlePage/ArticlePage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import LoginPage from "components/views/LoginPage/LoginPage";
-
+import NewRegisterPage from "components/views/LoginPage/NewRegisterPage";
 function App() {
     const callApi = async () => {
-        axios.get("/users").then((res) => console.log(res.data));
+        
         axios.get("/api").then((res) => console.log(res.data.test));
     };
     useEffect(() => {
@@ -22,6 +22,7 @@ function App() {
                 <Route path="/article/:articleId" element={<ArticlePage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/board" element={<BoardPage />} />
+                <Route path="/newregister" element={<NewRegisterPage />} />
             </Routes>
         </div>
     );

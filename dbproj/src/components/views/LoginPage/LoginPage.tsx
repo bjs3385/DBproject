@@ -14,7 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { purple } from "@mui/material/colors";
-import e from "express";
+
 
 const theme = createTheme({
     palette: {
@@ -90,14 +90,12 @@ function LoginPage() {
                 <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
                 <ThemeProvider theme={theme}>
                     <Button
-                        
                         color="secondary"
                         variant="contained"
                         type="submit"
                         fullWidth
                         sx={{ mt: 3, mb: 2 }}
-                        onClick={() => onClickLogin()}
-                        
+                        onClick={() => onClickLogin()}  
                     >
                         로그인
                     </Button>
