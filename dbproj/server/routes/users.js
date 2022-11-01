@@ -44,11 +44,29 @@ router.post('/onLogin', function(req, res, next) {
     res.send({data: results.aID});
     
   });
+});
 
+router.post('/onRegister', function(req, res, next) {
+  const user_id = req.query.email;
+  const password = req.query.password;
+  const born = null;
+  const phone = req.query.phone;
 
+  console.log("user_id: " + user_id + " password: " + password + " born: " + born + " phone: " + phone);
 
+  connection.query("SELECT * FROM admin WHERE aID = ?", [user_id], function (error, results, fields) {
+    if (error) throw error;
+    if(results.length === 0){
+    
 
-
+    connection.query("INSERT INTO admin (aID, aPW, aRDATE) VALUES (?, ?, ?)", [user_id, password, born], function (error, data) {
+      if (error) throw error2;
+      console.log("The solution is: ", data);
+     res.send({test: data});
+    });
+    
+  }
+  });
 });
 
 module.exports = router;
