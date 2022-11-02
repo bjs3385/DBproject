@@ -8,10 +8,10 @@ const mysql = require("mysql");
 
 const connection = mysql.createConnection({
     host: "kwonbiver.iptime.org",
-    user: "db4",
+    user: "shopadmin",
     password: "password",
     port: 3306,
-    database: "db1",
+    database: "shop",
 });
 
 const port = 4000;
@@ -38,7 +38,7 @@ app.use("/users", usersRouter);
 app.use("/api", apiRouter);
 
 connection.connect();
-connection.query("SELECT * FROM admin", function (error, results, fields) {
+connection.query("SELECT * FROM test", function (error, results, fields) {
     if (error) throw error;
     console.log("The solution is: ", results);
 });
