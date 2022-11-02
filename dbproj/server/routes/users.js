@@ -1,5 +1,5 @@
-var express = require('express');
-const { connect } = require('http2');
+var express = require("express");
+const { connect } = require("http2");
 var router = express.Router();
 const mysql = require("mysql");
 
@@ -13,8 +13,8 @@ const connection = mysql.createConnection({
 
 connection.connect();
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send({test : "users api success"});
+router.get("/", function (req, res, next) {
+    res.send({ test: "users api success" });
 });
 
 /*
@@ -25,48 +25,51 @@ password = 비밀번호
 
 */
 
-router.post('/onLogin', function(req, res, next) {
-  const user_id = req.query.email;
-  const password = req.query.password;
-  console.log("user_id: " + user_id + " password: " + password);
+router.post("/onLogin", function (req, res, next) {
+    const user_id = req.query.email;
+    const password = req.query.password;
+    console.log("user_id: " + user_id + " password: " + password);
 
-  connection.query("SELECT * FROM admin WHERE aID = ? AND aPW = ?", [user_id, password], function (error, results, fields) {
-    if (error) throw error;
-    if(results.length > 0){
-      if(error) throw error;
-        
-      
-     if(results[0].aID === user_id && results[0].aPW === password){
-      res.send({result : "success"});
-    }
-    }
-    console.log("The solution is: ", results);
-    res.send({data: results.aID});
-    
-  });
+    connection.query(
+        "SELECT * FROM admin WHERE aID = ? AND aPW = ?",
+        [user_id, password],
+        function (error, results, fields) {
+            if (error) throw error;
+            if (results.length > 0) {
+                if (error) throw error;
+
+                if (results[0].aID === user_id && results[0].aPW === password) {
+                    res.send({ result: "success" });
+                }
+            }
+            console.log("The solution is: ", results);
+            res.send({ data: results.aID });
+        },
+    );
 });
 
-router.post('/onRegister', function(req, res, next) {
-  const user_id = req.query.email;
-  const password = req.query.password;
-  const born = null;
-  const phone = req.query.phone;
+router.post("/onRegister", function (req, res, next) {
+    const user_id = req.query.email;
+    const password = req.query.password;
+    const born = null;
+    const phone = req.query.phone;
 
-  console.log("user_id: " + user_id + " password: " + password + " born: " + born + " phone: " + phone);
+    console.log("user_id: " + user_id + " password: " + password + " born: " + born + " phone: " + phone);
 
-  connection.query("SELECT * FROM admin WHERE aID = ?", [user_id], function (error, results, fields) {
-    if (error) throw error;
-    if(results.length === 0){
-    
-
-    connection.query("INSERT INTO admin (aID, aPW, aRDATE) VALUES (?, ?, ?)", [user_id, password, born], function (error, data) {
-      if (error) throw error2;
-      console.log("The solution is: ", data);
-     res.send({test: data});
+    connection.query("SELECT * FROM admin WHERE aID = ?", [user_id], function (error, results, fields) {
+        if (error) throw error;
+        if (results.length === 0) {
+            connection.query(
+                "INSERT INTO admin (aID, aPW, aRDATE) VALUES (?, ?, ?)",
+                [user_id, password, born],
+                function (error, data) {
+                    if (error) throw error;
+                    console.log("The solution is: ", data);
+                    res.send({ test: data });
+                },
+            );
+        }
     });
-    
-  }
-  });
 });
 
 module.exports = router;

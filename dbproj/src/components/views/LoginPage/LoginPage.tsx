@@ -15,7 +15,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { purple } from "@mui/material/colors";
 
-
 const theme = createTheme({
     palette: {
         primary: {
@@ -30,34 +29,32 @@ const theme = createTheme({
 function LoginPage() {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-    
 
     const onClickLogin = () => {
-        axios.post("http://localhost:4000/users/onLogin", null, {
-            params: {
-                email: email,
-                password: password,
-            }})
-            .then(res => console.log (res))
-            .catch()
-    }
+        axios
+            .post("http://localhost:4000/users/onLogin", null, {
+                params: {
+                    email: email,
+                    password: password,
+                },
+            })
+            .then((res) => console.log(res))
+            .catch();
+    };
 
-    const handleInputID = (e : any) =>{
+    const handleInputID = (e: any) => {
         setEmail(e.target.value);
-    }
-    const handleInputPW = (e : any) =>{
+    };
+    const handleInputPW = (e: any) => {
         setPassword(e.target.value);
-    }
-    
+    };
+
     const callApi = async () => {
         axios.get("/users").then((res) => console.log(res.data));
     };
     useEffect(() => {
         callApi();
     }, []);
-
-   
-    
 
     return (
         <Container component="main" maxWidth="xs">
@@ -80,13 +77,20 @@ function LoginPage() {
                     label="아이디"
                     required
                     fullWidth
-                    type = "email"
+                    type="email"
                     name="email"
                     autoComplete="email"
                     autoFocus
-                    onChange = {handleInputID}
+                    onChange={handleInputID}
                 ></TextField>
-                <TextField label="비밀번호" required fullWidth name="password" type = "password" onChange = {handleInputPW}></TextField>
+                <TextField
+                    label="비밀번호"
+                    required
+                    fullWidth
+                    name="password"
+                    type="password"
+                    onChange={handleInputPW}
+                ></TextField>
                 <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
                 <ThemeProvider theme={theme}>
                     <Button
@@ -95,7 +99,7 @@ function LoginPage() {
                         type="submit"
                         fullWidth
                         sx={{ mt: 3, mb: 2 }}
-                        onClick={() => onClickLogin()}  
+                        onClick={() => onClickLogin()}
                     >
                         로그인
                     </Button>
@@ -105,7 +109,7 @@ function LoginPage() {
                         <Link href="http://localhost:3000/article/:articleId">비밀번호 찾기</Link>
                     </Grid>
                     <Grid item>
-                        <Link>회원 가입</Link>
+                        <Link href="http://localhost:3000/newRegister">회원 가입</Link>
                     </Grid>
                 </Grid>
             </Box>
