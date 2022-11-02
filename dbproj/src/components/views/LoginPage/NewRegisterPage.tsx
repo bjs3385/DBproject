@@ -18,7 +18,7 @@ function NewRegisterPage() {
     const [Date, setDate] = useState<Dayjs | null>(dayjs("1999-09-17T21:11:54"));
 
     const onClickRegister = () => {
-        if (password1 === password2) {
+        if (password1 === password2 && password1 !== "" && password2 !== "") {
             axios
                 .post("http://localhost:4000/users/onRegister", null, {
                     params: {
@@ -30,6 +30,17 @@ function NewRegisterPage() {
                 })
                 .then((res) => console.log(res))
                 .catch();
+        }
+        else if (password1 !== password2) {
+            alert("비밀번호가 일치하지 않습니다.");
+        }else if (email === "") {
+            alert("아이디를 입력해주세요."); 
+        } else if (password1 === "" || password2 === "") {
+            alert("비밀번호를 입력해주세요.");
+        } else if (phonenum === "") {
+            alert("전화번호를 입력해주세요.");
+        } else if (Date === null) {
+            alert("생년월일을 입력해주세요.");
         }
     };
     const handleInputID = (e: any) => {

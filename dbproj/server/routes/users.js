@@ -5,10 +5,10 @@ const mysql = require("mysql");
 
 const connection = mysql.createConnection({
     host: "kwonbiver.iptime.org",
-    user: "db4",
+    user: "shopadmin",
     password: "password",
     port: 3306,
-    database: "db1",
+    database: "shop",
 });
 
 connection.connect();
