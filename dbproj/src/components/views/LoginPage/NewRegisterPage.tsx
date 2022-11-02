@@ -3,43 +3,34 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs, { Dayjs } from "dayjs";
+import { koKR } from "@mui/x-date-pickers";
+import koLocale from "date-fns/locale/ko";
 
 function NewRegisterPage() {
-    const [email, setEmail] = React.useState("");
-    const [password1, setPassword1] = React.useState("");
-    const [password2, setPassword2] = React.useState("");
-    const [phonenum, setPhonenum] = React.useState("");
-    const [born, setborn] = React.useState("");
+    const [email, setEmail] = useState("");
+    const [password1, setPassword1] = useState("");
+    const [password2, setPassword2] = useState("");
+    const [phonenum, setPhonenum] = useState("");
+    const [Date, setDate] = useState<Dayjs | null>(dayjs("1999-09-17T21:11:54"));
 
     const onClickRegister = () => {
-        if (password1 === password2 && password1 !== "" && password2 !== "") {
+        if (password1 === password2) {
             axios
                 .post("http://localhost:4000/users/onRegister", null, {
                     params: {
                         email: email,
                         password: password1,
                         phonenum: phonenum,
-                        born: born,
+                        Date: Date,
                     },
                 })
                 .then((res) => console.log(res))
                 .catch();
-        } else if (password1 !== password2) {
-            alert("비밀번호가 일치하지 않습니다");
-        } else if(email === ""){
-            alert("이메일을 입력해주세요");
-        } else if(password1 === ""){
-            alert("비밀번호를 입력해주세요");
-        } else if(password2 === ""){
-            alert("비밀번호를 입력해주세요");
-        } else if(phonenum === ""){
-            alert("전화번호를 입력해주세요");
-        } else if(born === ""){
-            alert("생년월일을 입력해주세요");
         }
-        
     };
     const handleInputID = (e: any) => {
         setEmail(e.target.value);
@@ -52,6 +43,9 @@ function NewRegisterPage() {
     };
     const handleInputPhone = (e: any) => {
         setPhonenum(e.target.value);
+    };
+    const handleChange = (newValue: Dayjs | null) => {
+        setDate(newValue);
     };
 
     const callApi = async () => {
@@ -94,17 +88,22 @@ function NewRegisterPage() {
                 onChange={handleInputPW2}
             ></TextField>
 
-            <InputLabel id="label1">년</InputLabel>
-            <Select labelId="label1" label="test"></Select>
-
-            <InputLabel id="label2">월</InputLabel>
-            <Select labelId="label2" label="test"></Select>
-
-            <InputLabel id="label3">일</InputLabel>
-            <Select labelId="label3" label="test"></Select>
+            <LocalizationProvider
+                dateAdapter={AdapterDayjs}
+                adapterLocale={koLocale}
+                localeText={koKR.components.MuiLocalizationProvider.defaultProps.localeText}
+            >
+                <DesktopDatePicker
+                    label="생년월일"
+                    inputFormat="MM/DD/YYYY"
+                    value={Date}
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField {...params} />}
+                />
+            </LocalizationProvider>
 
             <TextField
-                label="전화번호"
+                label="번호"
                 required
                 fullWidth
                 name="phonenum"
