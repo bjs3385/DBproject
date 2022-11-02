@@ -1,19 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { purple } from "@mui/material/colors";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 
@@ -25,7 +14,7 @@ function NewRegisterPage() {
     const [born, setborn] = React.useState("");
 
     const onClickRegister = () => {
-        if (password1 === password2) {
+        if (password1 === password2 && password1 !== "" && password2 !== "") {
             axios
                 .post("http://localhost:4000/users/onRegister", null, {
                     params: {
@@ -37,7 +26,20 @@ function NewRegisterPage() {
                 })
                 .then((res) => console.log(res))
                 .catch();
+        } else if (password1 !== password2) {
+            alert("비밀번호가 일치하지 않습니다");
+        } else if(email === ""){
+            alert("이메일을 입력해주세요");
+        } else if(password1 === ""){
+            alert("비밀번호를 입력해주세요");
+        } else if(password2 === ""){
+            alert("비밀번호를 입력해주세요");
+        } else if(phonenum === ""){
+            alert("전화번호를 입력해주세요");
+        } else if(born === ""){
+            alert("생년월일을 입력해주세요");
         }
+        
     };
     const handleInputID = (e: any) => {
         setEmail(e.target.value);
