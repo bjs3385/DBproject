@@ -2,7 +2,7 @@ var express = require("express");
 const { connect } = require("http2");
 var router = express.Router();
 const mysql = require("mysql");
-
+const jwt = require("jsonwebtoken");
 const connection = mysql.createConnection({
     host: "kwonbiver.iptime.org",
     user: "db4",
@@ -39,7 +39,9 @@ router.post("/onLogin", function (req, res, next) {
                 if (error) throw error;
 
                 if (results[0].aID === user_id && results[0].aPW === password) {
-                    res.send({ result: "success" });
+
+                    var token = jwt.sign({ user_id: user_id }, "secret", { expiresIn: '60m'})
+                    res.send({ result: "success", token: token });
                 }
                 if (password !== results[0].aPW) {
                     res.send({ result: "wrong password" });
@@ -49,6 +51,7 @@ router.post("/onLogin", function (req, res, next) {
         },
     );
 });
+
 router.post("/checkEmail", function (req, res, next) {
     const user_id = req.query.email;
     console.log("user_id: " + user_id);
@@ -64,6 +67,11 @@ router.post("/checkEmail", function (req, res, next) {
         });
     }
 });
+
+router.post("/logout", function (req, res) {
+    
+});
+
 router.post("/onRegister", function (req, res, next) {
     const user_id = req.query.email;
     const password = req.query.password;
