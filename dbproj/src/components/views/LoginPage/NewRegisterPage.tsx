@@ -52,7 +52,15 @@ function NewRegisterPage() {
                         Date: Dateformat,
                     },
                 })
-                .then((res) => alert(res.data.test))
+                .then((res) => {
+                    console.log(res);
+                    if (res.data.test === "회원가입 완료") {
+                        alert("회원가입이 완료되었습니다.");
+                        window.location.href = "/";
+                    } else {
+                        alert("회원가입에 실패했습니다.");
+                    }
+                })
                 .catch();
         } else if (emailCheck === false) {
             alert("이메일 중복확인을 해주세요.");
