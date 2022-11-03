@@ -1,11 +1,19 @@
-import React from "react";
-
+import React, {useEffect} from "react";
+import Logout from "../LoginPage/Logout";
+import { Box, Container } from '@mui/system';
 function HomePage() {
+
+    
     return (
-        <div>
-            <h1>HomePage</h1>
-            <a href = "http://localhost:3000/login">login</a>
-        </div>
+        
+        <Container fixed>
+            
+            <Logout></Logout>
+            <Box sx={{ height: "100vh" }}>HomePage</Box>
+            <Box sx={{ bgcolor: '#cfe8fc', height: '200vh' }} />
+
+        </Container>
+
     );
 }
 export default HomePage;

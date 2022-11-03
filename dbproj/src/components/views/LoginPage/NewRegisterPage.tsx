@@ -128,6 +128,7 @@ function NewRegisterPage() {
                 중복 확인
             </Button>
             <TextField
+                sx={{ mt: 3, mb: 2 }}
                 label="비밀번호"
                 required
                 fullWidth
@@ -136,6 +137,7 @@ function NewRegisterPage() {
                 onChange={handleInputPW1}
             ></TextField>
             <TextField
+            sx={{ mt: 3, mb: 2 }}
                 label="비밀번호 확인"
                 required
                 fullWidth
@@ -145,11 +147,13 @@ function NewRegisterPage() {
             ></TextField>
 
             <LocalizationProvider
+            sx={{ mt: 3, mb: 2 }}
                 dateAdapter={AdapterDayjs}
                 adapterLocale={koLocale}
                 localeText={koKR.components.MuiLocalizationProvider.defaultProps.localeText}
             >
                 <DesktopDatePicker
+                
                     label="생년월일"
                     inputFormat="MM/DD/YYYY"
                     value={Date?.format("YYYY-MM-DD")}
@@ -159,6 +163,7 @@ function NewRegisterPage() {
             </LocalizationProvider>
 
             <TextField
+            sx={{ mt: 3, mb: 2 }}
                 label="번호"
                 required
                 fullWidth

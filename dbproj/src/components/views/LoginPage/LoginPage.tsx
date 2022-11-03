@@ -41,6 +41,9 @@ function LoginPage() {
                 })
                 .then((res) => {
                     if(res.data.result ==="success"){
+                        localStorage.clear();
+                        localStorage.setItem("id", email);
+                        localStorage.setItem("token", res.data.token);
                         alert("로그인 성공");
                         window.location.replace("/");
                     }else if(res.data.result ==="wrong password"){

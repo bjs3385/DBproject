@@ -1,7 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import BoardList from "./Sections/BoardList";
 import { Link } from "react-router-dom";
 function BoardPage() {
+
+    useEffect(() => {
+        if (localStorage.getItem('token') === null) {
+            alert("잘못된 접근입니다.");
+          window.location.replace('/')
+        }
+      }, []);
     return (
         <div>
             <div>
