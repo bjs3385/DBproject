@@ -56,7 +56,7 @@ function NewRegisterPage() {
                     console.log(res);
                     if (res.data.test === "회원가입 완료") {
                         alert("회원가입이 완료되었습니다.");
-                        window.location.href = "/";
+                        window.location.replace("/login");
                     } else {
                         alert("회원가입에 실패했습니다.");
                     }

@@ -39,7 +39,14 @@ function LoginPage() {
                         password: password,
                     },
                 })
-                .then((res) => console.log(res))
+                .then((res) => {
+                    if(res.data.result ==="success"){
+                        alert("로그인 성공");
+                        window.location.replace("/");
+                    }else if(res.data.result ==="wrong password"){
+                        alert("잘못된 비밀번호 입니다.");
+                    }
+                })
                 .catch();
         } else if (email === "") {
             alert("아이디를 입력해주세요.");

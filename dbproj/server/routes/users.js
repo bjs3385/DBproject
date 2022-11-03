@@ -41,9 +41,11 @@ router.post("/onLogin", function (req, res, next) {
                 if (results[0].aID === user_id && results[0].aPW === password) {
                     res.send({ result: "success" });
                 }
+                if (password !== results[0].aPW) {
+                    res.send({ result: "wrong password" });
+                }
             }
-            console.log("The solution is: ", results);
-            res.send({ data: results.aID });
+            
         },
     );
 });
