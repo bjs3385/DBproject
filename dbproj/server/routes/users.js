@@ -5,10 +5,10 @@ const mysql = require("mysql");
 
 const connection = mysql.createConnection({
     host: "kwonbiver.iptime.org",
-    user: "shopadmin",
+    user: "db4",
     password: "password",
     port: 3306,
-    database: "shop",
+    database: "db1",
 });
 
 connection.connect();
@@ -47,15 +47,29 @@ router.post("/onLogin", function (req, res, next) {
         },
     );
 });
-
+router.post("/checkEmail", function (req, res, next) {
+    const user_id = req.query.email;
+    console.log("user_id: " + user_id);
+    if (user_id !== "") {
+        connection.query("SELECT * FROM admin WHERE aID = ?", [user_id], function (error, results, fields) {
+            if (error) throw error;
+            if (results.length > 0) {
+                if (error) throw error;
+                res.send({ result: false });
+            } else {
+                res.send({ result: true });
+            }
+        });
+    }
+});
 router.post("/onRegister", function (req, res, next) {
     const user_id = req.query.email;
     const password = req.query.password;
-    const date = null;
+    const date = req.query.Date;
     const phone = req.query.phone;
 
-    console.log("user_id: " + user_id + " password: " + password + " born: " + date + " phone: " + phone);
-    if (user_id) {
+    console.log("user_id: " + user_id + " password: " + password + " date: " + date + " phone: " + phone);
+    if (user_id !== "") {
         connection.query("SELECT * FROM admin WHERE aID = ?", [user_id], function (error, results, fields) {
             if (error) throw error;
             if (results.length === 0) {
@@ -65,15 +79,14 @@ router.post("/onRegister", function (req, res, next) {
                     function (error, data) {
                         if (error) throw error;
                         console.log("The solution is: ", data);
-                        res.send({ test: data });
+                        res.send({ test: "회원가입 완료" });
                     },
                 );
+            } else {
+                res.send({ test: "이미 존재하는 아이디입니다." });
             }
         });
-    } else {
-        res.send({ test: "fail" });
     }
 });
 
 module.exports = router;
-

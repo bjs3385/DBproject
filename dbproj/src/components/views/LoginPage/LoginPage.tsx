@@ -27,19 +27,25 @@ const theme = createTheme({
 });
 
 function LoginPage() {
-    const [email, setEmail] = React.useState("");
-    const [password, setPassword] = React.useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const onClickLogin = () => {
-        axios
-            .post("http://localhost:4000/users/onLogin", null, {
-                params: {
-                    email: email,
-                    password: password,
-                },
-            })
-            .then((res) => console.log(res))
-            .catch();
+        if (email !== "" && password !== "") {
+            axios
+                .post("http://localhost:4000/users/onLogin", null, {
+                    params: {
+                        email: email,
+                        password: password,
+                    },
+                })
+                .then((res) => console.log(res))
+                .catch();
+        } else if (email === "") {
+            alert("아이디를 입력해주세요.");
+        } else if (password === "") {
+            alert("비밀번호를 입력해주세요.");
+        }
     };
 
     const handleInputID = (e: any) => {
@@ -50,7 +56,7 @@ function LoginPage() {
     };
 
     const callApi = async () => {
-        axios.get("/users").then((res) => console.log(res.data));
+        axios.get("/users").then((res) => console.log(res.data.test));
     };
     useEffect(() => {
         callApi();

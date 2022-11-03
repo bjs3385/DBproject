@@ -7,9 +7,10 @@ import ArticlePage from "./components/views/ArticlePage/ArticlePage";
 import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import LoginPage from "components/views/LoginPage/LoginPage";
 import NewRegisterPage from "components/views/LoginPage/NewRegisterPage";
+import HomePage from "components/views/HomePage/HomePage";
+
 function App() {
     const callApi = async () => {
-        
         axios.get("/api").then((res) => console.log(res.data.test));
     };
     useEffect(() => {
@@ -18,11 +19,12 @@ function App() {
     return (
         <div>
             <Routes>
-                <Route path="/" element={<LoginPage />} />
+                <Route path="/" element={<HomePage />} />
                 <Route path="/article/:articleId" element={<ArticlePage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/board" element={<BoardPage />} />
                 <Route path="/newregister" element={<NewRegisterPage />} />
+                <Route path="/login" element={<LoginPage />} />
             </Routes>
         </div>
     );
