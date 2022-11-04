@@ -47,6 +47,8 @@ router.post("/onLogin", function (req, res, next) {
                 if (password !== results[0].aPW) {
                     res.send({ result: "wrong password" });
                 }
+            } else if (results.length === 0) {
+                res.send({ result: "wrong id" });
             }
         },
     );

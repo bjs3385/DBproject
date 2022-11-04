@@ -30,10 +30,10 @@ function NewRegisterPage() {
                 .then((res) => {
                     console.log(res);
                     if (res.data.result) {
-                        alert("사용 가능한 이메일입니다.");
+                        alert("사용 가능한 아이디입니다.");
                         emailCheck = true;
                     } else {
-                        alert("이미 사용중인 이메일입니다.");
+                        alert("이미 사용중인 아이디입니다.");
                     }
                 })
                 .catch();

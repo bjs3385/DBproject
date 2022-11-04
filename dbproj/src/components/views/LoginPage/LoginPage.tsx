@@ -48,6 +48,8 @@ function LoginPage() {
                         window.location.replace("/");
                     }else if(res.data.result ==="wrong password"){
                         alert("잘못된 비밀번호 입니다.");
+                    }else if(res.data.result ==="wrong id"){
+                        alert("존재하지 않는 아이디 입니다.");
                     }
                 })
                 .catch();
