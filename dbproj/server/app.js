@@ -8,10 +8,10 @@ const mysql = require("mysql");
 
 const connection = mysql.createConnection({
     host: "kwonbiver.iptime.org",
-    user: "shopadmin",
+    user: "db4",
     password: "password",
     port: 3306,
-    database: "shop",
+    database: "db1",
 });
 
 const port = 4000;
@@ -36,12 +36,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/api", apiRouter);
-
-connection.connect();
-connection.query("SELECT * FROM test", function (error, results, fields) {
-    if (error) throw error;
-    console.log("The solution is: ", results);
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

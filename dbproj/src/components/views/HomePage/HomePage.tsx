@@ -1,19 +1,14 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Logout from "../LoginPage/Logout";
-import { Box, Container } from '@mui/system';
+import { Box, Container } from "@mui/system";
+import axios from "axios";
 function HomePage() {
-
-    
     return (
-        
         <Container fixed>
-            
             <Logout></Logout>
             <Box sx={{ height: "100vh" }}>HomePage</Box>
-            <Box sx={{ bgcolor: '#cfe8fc', height: '200vh' }} />
-
+            <Box sx={{ bgcolor: "#cfe8fc", height: "200vh" }} />
         </Container>
-
     );
 }
 export default HomePage;
