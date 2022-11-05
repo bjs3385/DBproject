@@ -8,6 +8,7 @@ import RegisterPage from "./components/views/RegisterPage/RegisterPage";
 import LoginPage from "components/views/LoginPage/LoginPage";
 import NewRegisterPage from "components/views/LoginPage/NewRegisterPage";
 import HomePage from "components/views/HomePage/HomePage";
+import BoardList from "components/views/BoardPage/Sections/BoardList";
 
 function App() {
     const callApi = async () => {
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/article/:articleId" element={<ArticlePage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/board" element={<BoardPage />} />
+                <Route path="/board/:boardId" element={<BoardList />} />
                 <Route path="/newregister" element={<NewRegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
             </Routes>

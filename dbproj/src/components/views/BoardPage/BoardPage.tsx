@@ -24,6 +24,9 @@ function BoardPage() {
     const [data, setData] = useState([]);
     
     
+    const clickBoard = (boardId: any) => {
+      window.location.href = "/board/" + boardId;
+    };
       
       
 
@@ -53,7 +56,7 @@ function BoardPage() {
               key={row.nID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell component="th" scope="row" onClick={()=>clickBoard(row.nID)}> 
                 {row.nTITLE}
               </TableCell>
               <TableCell align="right">{row.nID}</TableCell>
