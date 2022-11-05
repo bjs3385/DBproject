@@ -13,4 +13,10 @@ module.exports = (app) => {
             changeOrigin: true,
         }),
     );
+    app.use(
+        createProxyMiddleware("/setboard", {
+            target: "http://localhost:4000",
+            changeOrigin: true,
+        }),
+    );
 };
