@@ -158,7 +158,7 @@ function NewRegisterPage() {
                     inputFormat="MM/DD/YYYY"
                     value={Date?.format("YYYY-MM-DD")}
                     onChange={handleChange}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params : any) => <TextField {...params} />}
                 />
             </LocalizationProvider>
 

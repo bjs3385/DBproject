@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from "react";
-import BoardList from "./Sections/BoardList";
-import { Link } from "react-router-dom";
 import axios from "axios";
 
 import Table from '@mui/material/Table';
