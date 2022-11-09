@@ -20,6 +20,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const apiRouter = require("./routes/api");
 const boardRouter = require("./routes/setboard");
+const itmeRouter = require("./routes/setitem");
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/api", apiRouter);
 app.use("/setboard", boardRouter);
+app.use("/setitem", itmeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

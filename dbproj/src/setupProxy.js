@@ -19,4 +19,10 @@ module.exports = (app) => {
             changeOrigin: true,
         }),
     );
+    app.use(
+        createProxyMiddleware("/setitem", {
+            target: "http://localhost:4000",
+            changeOrigin: true,
+        }),
+    );
 };

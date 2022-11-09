@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import axios from "axios";
 
 
 
@@ -19,9 +20,11 @@ function ImagePage(props : any) {
         itemDescription: "test",
     }]);
     
-    /** 
+    
     const callApi = async () => {
-
+        const res = await axios.get("/setitem/getItem");
+        const result = res.data.result;
+        setdata(result);
     };
 
     useEffect(() => {
@@ -29,7 +32,7 @@ function ImagePage(props : any) {
         callApi();
     },[]);
 
-    */
+    
     return (
         <div>
         {data.map((row: any) => (
