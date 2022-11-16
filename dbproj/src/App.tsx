@@ -10,6 +10,7 @@ import NewRegisterPage from "components/views/LoginPage/NewRegisterPage";
 import HomePage from "components/views/HomePage/HomePage";
 import BoardList from "components/views/BoardPage/Sections/BoardList";
 import ImagePage from "components/views/ArticlePage/ImagePage";
+import ReplyPage from "components/views/ArticlePage/ReplyPage";
 function App() {
     const callApi = async () => {
         axios.get("/api").then((res) => console.log(res.data.test));
@@ -27,7 +28,8 @@ function App() {
                 <Route path="/board/:boardId" element={<BoardList />} />
                 <Route path="/newregister" element={<NewRegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/image" element={<ImagePage/>} />
+                <Route path="/image" element={<ImagePage />} />
+                <Route path="/reply" element={<ReplyPage boardId={1} />} />
             </Routes>
         </div>
     );

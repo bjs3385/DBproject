@@ -11,31 +11,37 @@ router.get("/", function (req, res, next) {
 router.get("/getBoard", function (req, res, next) {
     connection.query("SELECT * FROM notice", function (error, results, fields) {
         if (error) throw error;
-        if(results.length > 0){
-            
+        if (results.length > 0) {
             res.send({ result: results });
         }
         console.log("Sucess solution getBoard");
-    }
-);
+    });
 });
 
 router.post("/setBoard", function (req, res, next) {
     const boardId = req.query.boardId;
     console.log("boardId: " + boardId);
-    
+
     connection.query("SELECT * FROM notice WHERE nID = ?", [boardId], function (error, results, fields) {
         if (error) throw error;
-        if(results.length > 0){
+        if (results.length > 0) {
             res.send({ result: results });
         }
         console.log("Sucess solution setBoard");
-    }
-    
+    });
+});
 
+router.post("/getReply", function (req, res, next) {
+    const boardId = req.query.boardId;
+    console.log("boardId: " + boardId);
 
-
-);
+    connection.query("SELECT * FROM reply WHERE nID = ?", [boardId], function (error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+            res.send({ result: results });
+        }
+        console.log("Sucess solution getReply");
+    });
 });
 
 module.exports = router;
