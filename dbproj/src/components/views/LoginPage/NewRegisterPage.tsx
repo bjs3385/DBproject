@@ -15,6 +15,8 @@ function NewRegisterPage() {
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
     const [phonenum, setPhonenum] = useState("");
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
     const [Date, setDate] = useState<Dayjs | null>(dayjs("1999-09-17"));
     var emailCheck = false;
     const Dateformat = dayjs(Date).format("YYYY-MM-DD");
@@ -47,9 +49,11 @@ function NewRegisterPage() {
                 .post("http://localhost:4000/users/onRegister", null, {
                     params: {
                         email: email,
+                        name: name,
                         password: password1,
                         phonenum: phonenum,
                         Date: Dateformat,
+                        address: address,
                     },
                 })
                 .then((res) => {
@@ -74,7 +78,10 @@ function NewRegisterPage() {
             alert("전화번호를 입력해주세요.");
         } else if (Date === null) {
             alert("생년월일을 입력해주세요.");
+        } else if (name === null) {
+            alert("이름을 입력해주세요.");
         }
+        
     };
     const handleInputID = (e: any) => {
         emailCheck = false;
@@ -87,15 +94,18 @@ function NewRegisterPage() {
         setPassword2(e.target.value);
     };
     const handleInputPhone = (e: any) => {
-        const regex = /^[0-9\b -]{0,13}$/;
-        if (regex.test(e.target.value)) {
-            setPhonenum(e.target.value);
-        }
+        setPhonenum(e.target.value);
+    };
+    const handleInputName = (e: any) => {
+        setName(e.target.value);
+    };
+    const handleInputAddress = (e: any) => {
+        setAddress(e.target.value);
     };
     const handleChange = (newValue: Dayjs | null) => {
         setDate(newValue);
     };
-
+    
     const callApi = async () => {
         axios.get("/users").then((res) => console.log(res.data));
     };
@@ -126,7 +136,7 @@ function NewRegisterPage() {
                 }}
             >
                 중복 확인
-            </Button>
+            </Button>            
             <TextField
                 sx={{ mt: 3, mb: 2 }}
                 label="비밀번호"
@@ -145,7 +155,17 @@ function NewRegisterPage() {
                 type="password"
                 onChange={handleInputPW2}
             ></TextField>
-
+            <TextField
+                sx={{ mt: 3, mb: 2 }}
+                label="이름"
+                required
+                fullWidth
+                type="name"
+                name="name"
+                autoComplete="name"
+                autoFocus
+                onChange={handleInputName}
+            ></TextField>
             <LocalizationProvider
             sx={{ mt: 3, mb: 2 }}
                 dateAdapter={AdapterDayjs}
@@ -171,6 +191,15 @@ function NewRegisterPage() {
                 type="text"
                 onChange={handleInputPhone}
             ></TextField>
+            <TextField
+            sx={{ mt: 1, mb: 1 }}
+                label="주소"
+                required
+                fullWidth
+                name="address"
+                type="text"
+                onChange={handleInputAddress}
+            ></TextField>
             <Button
                 variant="contained"
                 type="submit"
@@ -187,3 +216,4 @@ function NewRegisterPage() {
 }
 
 export default NewRegisterPage;
+
