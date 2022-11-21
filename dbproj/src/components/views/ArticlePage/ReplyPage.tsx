@@ -8,12 +8,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import ClearIcon from '@mui/icons-material/Clear';
 interface props {
     boardId?: number;
     boardType?: string;
 }
 function ReplyPage({ boardId = 0, boardType = ""}: props) {
+
+    const [visible, setVisible] = useState(false);
     console.log(boardId);
     const [data, setData] = useState([]);
     const callApi = async () => {
@@ -51,6 +53,24 @@ function ReplyPage({ boardId = 0, boardType = ""}: props) {
         
     };
     console.log(data);
+
+    const onClickDelete = (id : any) => {
+        console.log(id);
+        axios.post("/setboard/deleteReply", null, {
+            params: {
+                id: id,
+                },
+                })
+                .then((res) => {
+                    console.log(res);
+                    }
+                )
+                .catch((err) => {
+                    console.log(err);
+                }
+            );
+    }
+
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
             alert("잘못된 접근입니다.");
@@ -80,9 +100,11 @@ function ReplyPage({ boardId = 0, boardType = ""}: props) {
                             <TableCell align="right">{row.rREPLY}</TableCell>
                             <TableCell align="right">{row.mID}</TableCell>
                             <TableCell align="right">
-                                <IconButton key = {row.rID + 10} color = "error" aria-label="delete" size="small">
-                                    <DeleteIcon fontSize="inherit" />
+                                {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") &&
+                                <IconButton key = {row.rID + 10} color = "error" aria-label="delete" size="small" onClick = {() => onClickDelete(row.rID)}>
+                                    <ClearIcon fontSize="inherit" />
                                 </IconButton>
+                                }
                             </TableCell>
                         </TableRow>
                     ))}
