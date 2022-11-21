@@ -31,7 +31,20 @@ router.post("/setBoard", function (req, res, next) {
     });
 });
 
-router.post("/getReply", function (req, res, next) {
+router.post("/getItemReply", function (req, res, next) {
+    const boardId = req.query.boardId;
+    console.log("boardId: " + boardId);
+
+    connection.query("SELECT * FROM reply WHERE pID = ?", [boardId], function (error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+            res.send({ result: results });
+        }
+        console.log("Sucess solution getReply");
+    });
+});
+
+router.post("/getNoticeReply", function (req, res, next) {
     const boardId = req.query.boardId;
     console.log("boardId: " + boardId);
 

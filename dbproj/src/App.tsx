@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import "./App.css";
 import BoardPage from "./components/views/BoardPage/BoardPage";
@@ -24,7 +24,7 @@ function App() {
         <div>
             <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/article/:articleId" element={<ArticlePage />} />
+                <Route path="/article/:id" element={<ArticlePage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/board" element={<BoardPage />} />
                 <Route path="/board/:boardId" element={<BoardList />} />
@@ -32,7 +32,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/image" element={<ImagePage />} />
                 <Route path="/mypage" element={<MyPage />} />
-                <Route path="/reply" element={<ReplyPage boardId={1} />} />
+                <Route path="/reply" element={<ReplyPage boardId={1} boardType="notice" />} />
             </Routes>
         </div>
     );

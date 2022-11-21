@@ -7,15 +7,19 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 interface props {
     boardId?: number;
+    boardType?: string;
 }
-function ReplyPage({ boardId = 0 }: props) {
+function ReplyPage({ boardId = 0, boardType = ""}: props) {
     console.log(boardId);
     const [data, setData] = useState([]);
     const callApi = async () => {
+        if(boardType ==="item"){
         axios
-            .post("/setboard/getReply", null, {
+            .post("/setboard/getItemReply", null, {
                 params: {
                     boardId: boardId,
                 },
@@ -27,6 +31,24 @@ function ReplyPage({ boardId = 0 }: props) {
             .catch((err) => {
                 console.log(err);
             });
+        }
+        else if (boardType === "notice"){
+            axios
+            .post("/setboard/getNoticeReply", null, {
+                params: {
+                    boardId: boardId,
+                },
+            })
+            .then((res) => {
+                setData(res.data.result);
+                console.log(res.data.result);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+        else console.log("error");
+        
     };
     console.log(data);
     useEffect(() => {
@@ -41,23 +63,27 @@ function ReplyPage({ boardId = 0 }: props) {
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>내용</TableCell>
-                        <TableCell align="right">Calories</TableCell>
-                        <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                        <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                        <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                        <TableCell>번호</TableCell>
+                        <TableCell align="right"></TableCell>
+                        <TableCell align="right">댓글</TableCell>
+                        <TableCell align="right">작성자</TableCell>
+                        <TableCell align="right"></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((row: any) => (
+                    {data.map((row: any, index) => (
                         <TableRow key={row.rID} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                             <TableCell component="th" scope="row">
-                                {row.rREPLY}
+                                {index + 1}
                             </TableCell>
-                            <TableCell align="right">{row.number}</TableCell>
                             <TableCell align="right"></TableCell>
-                            <TableCell align="right"></TableCell>
-                            <TableCell align="right"></TableCell>
+                            <TableCell align="right">{row.rREPLY}</TableCell>
+                            <TableCell align="right">{row.mID}</TableCell>
+                            <TableCell align="right">
+                                <IconButton key = {row.rID + 10} color = "error" aria-label="delete" size="small">
+                                    <DeleteIcon fontSize="inherit" />
+                                </IconButton>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
