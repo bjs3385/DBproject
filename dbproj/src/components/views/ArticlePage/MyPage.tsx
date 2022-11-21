@@ -70,9 +70,17 @@ function MyPage() {
     return (
         <div>
             <h1>MyPage</h1>
-            <button onClick={() => onClickDelete()}>
+            <Button
+                variant="contained"
+                type="submit"
+                fullWidth
+                sx={{ mt: 1, mb: 2 }}
+                onClick={() => {
+                    onClickDelete();
+                }}
+            >
                 계정삭제
-            </button>
+            </Button>
         </div>
         
     );
