@@ -38,7 +38,7 @@ router.post("/onLogin", function (req, res, next) {
                     var token = jwt.sign({ user_id: user_id }, TOKEN_CHECK, { expiresIn: "60m" });
                     res.send({ result: "success", token: token });
                 }
-                if (password !== results[0].aPW) {
+                if (password !== results[0].mPW) {
                     res.send({ result: "wrong password" });
                 }
             } else if (results.length === 0) {
