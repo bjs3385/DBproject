@@ -12,6 +12,7 @@ const apiRouter = require("./routes/api");
 const boardRouter = require("./routes/setboard");
 const itmeRouter = require("./routes/setitem");
 const connection = require("./routes/db");
+const deleteRouter = require("./routes/delete");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/users", usersRouter);
 app.use("/api", apiRouter);
 app.use("/setboard", boardRouter);
 app.use("/setitem", itmeRouter);
+app.use("/delete", deleteRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

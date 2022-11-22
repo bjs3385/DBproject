@@ -42,7 +42,7 @@ function MyPage() {
     const onClickDelete = () => {
         if (email !== "") {
             axios
-                .post("http://localhost:4000/users/onDelete", null, {
+                .post("http://localhost:4000/delete/onDelete", null, {
                     params: {
                         email: email,
                     },
@@ -61,12 +61,7 @@ function MyPage() {
                 .catch();
         }
     };
-    const callApi = async () => {
-        axios.get("/delete").then((res) => console.log(res.data.test));
-    };
-    useEffect(() => {
-        callApi();
-    }, []);
+
     return (
         <div>
             <h1>MyPage</h1>

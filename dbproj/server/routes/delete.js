@@ -24,22 +24,16 @@ password = 비밀번호
 router.post("/onDelete", function (req, res, next) {
     const user_id = req.query.email;
     console.log("user_id: " + user_id);
-
     connection.query(
-        "DELETE * FROM member WHERE mID = ?",
+        "SELECT * FROM member WHERE mID = ?",
         [user_id],
         function (error, results, fields) {
             if (error) throw error;
-            if (results.length > 0) {
-                if (error) throw error;
-
-                if (results[0].mID === user_id) {
-                    var token = jwt.sign({ user_id: user_id }, TOKEN_CHECK, { expiresIn: "60m" });
-                    res.send({ result: "success", token: token });
-                }
-            } else if (results.length === 0) {
-                res.send({ result: "wrong id" });
-            }
+            if(results.length > 0 ){
+                connection.query("DELETE FROM member WHERE mID = ?", [user_id], function (err, val, arr) {
+                   console.log("Success");
+                });
+            } else console.log("fail");
         },
     );
 });
