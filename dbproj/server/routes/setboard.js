@@ -61,11 +61,8 @@ router.post("/deleteReply", function (req, res, next) {
     const replyId = req.query.id;
     console.log("replyId: " + replyId);
 
-    connection.delete("DELETE FROM reply WHERE rID = ?", [replyId], function (error, results, fields) {
+    connection.query("DELETE FROM reply WHERE rID = ?", [replyId], function (error, results, fields) {
         if (error) throw error;
-        if (results.length > 0) {
-            res.send({ result: results });
-        }
         console.log("Sucess solution deleteReply");
     });
 });

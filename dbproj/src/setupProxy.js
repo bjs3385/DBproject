@@ -25,4 +25,10 @@ module.exports = (app) => {
             changeOrigin: true,
         }),
     );
+    app.use(
+        createProxyMiddleware("/delete", {
+            target: "http://localhost:4000",
+            changeOrigin: true,
+        }),
+    );
 };
