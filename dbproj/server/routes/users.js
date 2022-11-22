@@ -1,6 +1,5 @@
-var express = require("express");
-const { connect } = require("http2");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 const mysql = require("mysql");
 const jwt = require("jsonwebtoken");
 const TOKEN_CHECK = "secret";
@@ -33,9 +32,8 @@ router.post("/onLogin", function (req, res, next) {
             if (error) throw error;
             if (results.length > 0) {
                 if (error) throw error;
-
                 if (results[0].mID === user_id && results[0].mPW === password) {
-                    var token = jwt.sign({ user_id: user_id }, TOKEN_CHECK, { expiresIn: "60m" });
+                    const token = jwt.sign({user_id: user_id}, TOKEN_CHECK, {expiresIn: "60m"});
                     res.send({ result: "success", token: token });
                 }
                 if (password !== results[0].mPW) {

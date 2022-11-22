@@ -13,8 +13,9 @@ interface props {
     boardId?: number;
     boardType?: string;
 }
+
 function ReplyPage({ boardId = 0, boardType = "" }: props) {
-    const [visible, setVisible] = useState(false);
+
     console.log(boardId);
     const [data, setData] = useState([]);
     const callApi = async () => {

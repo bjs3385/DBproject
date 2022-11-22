@@ -1,28 +1,19 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const cors = require("cors");
-const mysql = require("mysql");
-
-const connection = mysql.createConnection({
-    host: "kwonbiver.iptime.org",
-    user: "db4",
-    password: "password",
-    port: 3306,
-    database: "db1",
-});
-
 const port = 4000;
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 const apiRouter = require("./routes/api");
 const boardRouter = require("./routes/setboard");
 const itmeRouter = require("./routes/setitem");
+const connection = require("./routes/db");
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
