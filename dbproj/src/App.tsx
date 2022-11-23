@@ -12,6 +12,7 @@ import BoardList from "components/views/BoardPage/Sections/BoardList";
 import ImagePage from "components/views/ArticlePage/ImagePage";
 import ReplyPage from "components/views/ArticlePage/ReplyPage";
 import MyPage from "components/views/ArticlePage/MyPage";
+import CartPage from "components/views/ArticlePage/CartPage";
 
 function App() {
     const callApi = async () => {
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/image" element={<ImagePage />} />
                 <Route path="/mypage" element={<MyPage />} />
+                <Route path="/cartpage" element={<CartPage />} />
                 <Route path="/reply" element={<ReplyPage boardId={1} boardType="notice" />} />
             </Routes>
         </div>
