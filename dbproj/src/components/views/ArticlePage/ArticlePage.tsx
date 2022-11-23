@@ -12,6 +12,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ReplyPage from "./ReplyPage";
+import ReplyCreate from "./ReplyCreate";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -38,12 +39,10 @@ function ArticlePage() {
                 .then((res) => {
                     if(res.data.result){
                         setItem(res.data.rows);
-                        console.log(item);
                 }})
                 .catch();
     };
-    
-    console.log(item);
+
     
     useEffect(() => {
         callApi();
@@ -92,8 +91,10 @@ function ArticlePage() {
             </Item>
             </Grid>
 
-
             <Grid xs={4} sm = {8} md = { 12}>
+                <Item>
+                    <ReplyCreate boardId={reply_id} boardType="item"></ReplyCreate>
+                </Item>
             <Item>
                 <ReplyPage boardId = {reply_id} boardType = "item"></ReplyPage>
             </Item>

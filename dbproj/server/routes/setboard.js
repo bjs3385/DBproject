@@ -66,4 +66,21 @@ router.post("/deleteReply", function (req, res, next) {
         console.log("Sucess solution deleteReply");
     });
 });
+
+router.post("/createReply", function (req, res, next ){
+
+    const boardId = req.query.boardId;
+    const text = req.query.text;
+    const id = req.query.id;
+
+    console.log("replyId : " + boardId);
+
+    connection.query("INSERT INTO reply (nID, rREPLY, mID, pID) VALUES (?, ?, ?, ?)", [boardId, text, id, boardId], function (err, result, fields){
+       if(err) throw err;
+       console.log(result);
+       res.send({ result: result });
+
+    });
+
+});
 module.exports = router;
