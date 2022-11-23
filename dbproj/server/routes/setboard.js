@@ -73,7 +73,7 @@ router.post("/createReply", function (req, res, next ){
     const text = req.query.text;
     const id = req.query.id;
 
-    console.log("replyId : " + boardId);
+    console.log("replyId : " + boardId + " Id : " + id);
 
     connection.query("INSERT INTO reply (nID, rREPLY, mID, pID) VALUES (?, ?, ?, ?)", [boardId, text, id, boardId], function (err, result, fields){
        if(err) throw err;

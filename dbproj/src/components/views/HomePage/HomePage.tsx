@@ -3,15 +3,13 @@ import Logout from "../LoginPage/Logout";
 import MyPage from "../ArticlePage/MyPagebtn";
 import { Box, Container } from "@mui/system";
 import axios from "axios";
-import ImagePage from "../ArticlePage/ImagePage";
+import ImagePage2 from "../ArticlePage/ImagePage2";
 function HomePage() {
     return (
-        <Container fixed>
-            <ImagePage></ImagePage>
+        <Container>
             <Logout></Logout>
             <MyPage></MyPage>
-            <Box sx={{ height: "100vh" }}>HomePage</Box>
-            <Box sx={{ bgcolor: "#cfe8fc", height: "200vh" }} />
+            <ImagePage2></ImagePage2>
         </Container>
     );
 }

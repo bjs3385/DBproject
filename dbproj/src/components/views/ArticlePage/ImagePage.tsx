@@ -39,9 +39,9 @@ function ImagePage(props: any) {
     }, []);
 
     return (
-
-            <Carousel >
+        <Grid>
             {data.map((row: any) => (
+                <Grid>
                     <Card sx={{ maxWidth: 400, border: 1 }}>
                         <CardMedia key={row.pID + 0} component="img" height="200" image={row.pIMAGE1} />
                         <CardContent>
@@ -54,16 +54,16 @@ function ImagePage(props: any) {
                         </CardContent>
                         <CardActions>
                             <Button key={row.pID + 1} size="small">
-                                Share
+                                구매하기
                             </Button>
                             <Button key={row.pID + 2} size="small">
-                                Learn More
+                                장바구니
                             </Button>
                         </CardActions>
                     </Card>
+                </Grid>
             ))}
-            </Carousel>
-
+        </Grid>
     );
 }
 

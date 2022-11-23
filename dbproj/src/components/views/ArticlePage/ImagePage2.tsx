@@ -52,11 +52,13 @@ function ImagePage2(props: any) {
     return (
         <Carousel>
             {
-                sliceData(data, 5).map((row: any) => (
+                sliceData(data, 4).map((row: any) => (
                     <Grid alignItems="center" justifyContent="center" container spacing={12}>{
                     row.map((val:any) => (
                         <Grid >
-                        <img height={200} width={200} key={val.pID} src = {val.pIMAGE1}></img>
+                            <a href={"http://localhost:3000/article/" + val.pID}>
+                                <img  height={200} width={200} key={val.pID} src = {val.pIMAGE1}></img>
+                            </a>
                         </Grid>
                             ))}
                     </Grid>
