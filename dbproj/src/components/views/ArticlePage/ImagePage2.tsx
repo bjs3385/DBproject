@@ -21,8 +21,21 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-function ImagePage(props: any) {
+function ImagePage2(props: any) {
     const [data, setdata] = useState([]);
+    const limit = 5;
+    const [list, setList] = useState(1);
+    const offset = (list-1)*limit;
+
+    const sliceData = (data : any, size : number) => {
+        const res = [];
+        for(let i=0; i< data.length;i+=size){
+            const chunk = data.slice(i, i+size);
+            res.push(chunk);
+        }
+        return res;
+    }
+    console.log(sliceData(data, 5));
     const test = {
         width: "500px",
         height: "500px",
@@ -30,41 +43,26 @@ function ImagePage(props: any) {
     const callApi = async () => {
         const res = await axios.get("/setitem/getItem");
         const result = res.data.rows;
-
         setdata(result);
     };
-    console.log(data);
     useEffect(() => {
         callApi();
     }, []);
 
     return (
-
-            <Carousel >
-            {data.map((row: any) => (
-                    <Card sx={{ maxWidth: 400, border: 1 }}>
-                        <CardMedia key={row.pID + 0} component="img" height="200" image={row.pIMAGE1} />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div" key={row.pID + 3}>
-                                {row.pNAME}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary" key={row.pID + 4}>
-                                {row.pDETAIL}
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
-                            <Button key={row.pID + 1} size="small">
-                                Share
-                            </Button>
-                            <Button key={row.pID + 2} size="small">
-                                Learn More
-                            </Button>
-                        </CardActions>
-                    </Card>
+        <Carousel>
+            {
+                sliceData(data, 5).map((row: any) => (
+                    <Grid alignItems="center" justifyContent="center" container spacing={12}>{
+                    row.map((val:any) => (
+                        <Grid >
+                        <img height={200} width={200} key={val.pID} src = {val.pIMAGE1}></img>
+                        </Grid>
+                            ))}
+                    </Grid>
             ))}
-            </Carousel>
-
+        </Carousel>
     );
 }
 
-export default ImagePage;
+export default ImagePage2;
