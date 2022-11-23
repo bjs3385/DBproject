@@ -9,32 +9,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-
-
-
 function BoardPage() {
-    
     const callApi = async () => {
         const res = await axios.get("/cart/getCart");
         const result = res.data.result;
         setData(result);
     }
-    const [data, setData] = useState([
-      {
-        cID: "",
-        pID : "",
-        cPRICE : "",
-        cQTY : ""
-      }
-    ]);
+    const [data, setData] = useState([]);
     
-    
-    const clickBoard = (boardId: any) => {
-      window.location.href = "/board/" + boardId;
-    };
-      
-      
-
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
             alert("잘못된 접근입니다.");
@@ -56,15 +38,12 @@ function BoardPage() {
         <TableBody>
           {data.map((row: any) => (
             <TableRow
-              key={row.nID}
+              key={row.cID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row" onClick={()=>clickBoard(row.nID)}> 
-                {row.nTITLE}
-              </TableCell>
-              <TableCell align="right">{row.cID}</TableCell>
-              <TableCell align="right">{row.cQTY}</TableCell>
-              <TableCell align="right">{row.cPRICE}</TableCell>
+              <TableCell align="left">{row.pID}</TableCell>
+              <TableCell align="left">{row.cQTY}</TableCell>
+              <TableCell align="left">{row.cPRICE}</TableCell>
             </TableRow>
           ))}
         </TableBody>

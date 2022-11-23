@@ -9,23 +9,19 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/getCart", function (req, res, next) {
-    const user_id = req.query.mID;
-    connection.query("SELECT * FROM cart WHERE mID = ?",
-    [user_id],
-    function (error, results, fields) {
+    connection.query("SELECT * FROM cart", function (error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
             res.send({ result: results });
         }
-        console.log("Sucess solution getCart");
+        console.log("Sucess solution getBoard");
     });
 });
 
 router.post("/setCart", function (req, res, next) {
-    const boardId = req.query.boardId;
-    console.log("boardId: " + boardId);
-
-    connection.query("SELECT * FROM notice WHERE nID = ?", [boardId], function (error, results, fields) {
+    const user_id = "admin";
+    console.log(user_id);
+    connection.query("SELECT * FROM cart WHERE mID = ?", [user_id], function (error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
             res.send({ result: results });
