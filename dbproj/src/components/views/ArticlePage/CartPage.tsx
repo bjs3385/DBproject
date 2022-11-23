@@ -19,7 +19,14 @@ function BoardPage() {
         const result = res.data.result;
         setData(result);
     }
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([
+      {
+        cID: "",
+        pID : "",
+        cPRICE : "",
+        cQTY : ""
+      }
+    ]);
     
     
     const clickBoard = (boardId: any) => {
