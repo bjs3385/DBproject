@@ -42,24 +42,33 @@ function MyPage() {
     const email = localStorage.getItem('id') as string;
     const onClickDelete = () => {
         if (email !== "") {
-            axios
+            if(email == "admin")
+            {
+                alert("관리자 계정은 삭제가 불가능합니다.")
+            }
+            else
+            {
+                axios
                 .post("http://localhost:4000/delete/onDelete", null, {
                     params: {
                         email: email,
                     },
                 })
                 .then((res) => {
-                    if(res.data.result ==="success"){
+                    const rest = axios.post("/delete/token",null);
+                    if(res.data.result ===""){
+                        alert("존재하지 않는 아이디 입니다.");
+                    }else{
                         localStorage.clear();
                         localStorage.setItem("id", email);
                         localStorage.setItem("token", res.data.token);
                         alert(email + " 계정이 삭제되었습니다.");
                         window.location.replace("/");
-                    }else if(res.data.result ==="wrong id"){
-                        alert("존재하지 않는 아이디 입니다.");
                     }
                 })
                 .catch();
+            }
+            
         }
     };
 
