@@ -16,7 +16,7 @@ function BoardPage() {
         setData(result);
     }
     const [data, setData] = useState([]);
-    
+    const asd = 1;
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
             alert("잘못된 접근입니다.");
