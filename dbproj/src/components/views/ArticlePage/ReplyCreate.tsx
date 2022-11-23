@@ -25,8 +25,6 @@ interface props {
 
 function ReplyCreate({ boardId = 0, boardType = ""}:props) {
 
-    console.log(boardId);
-    console.log(boardType);
     const [text, setText] = useState("");
     const id = localStorage.getItem("id");
 

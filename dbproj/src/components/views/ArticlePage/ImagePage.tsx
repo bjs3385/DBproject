@@ -6,6 +6,18 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import Grid from "@mui/material/Unstable_Grid2";
+import { styled } from '@mui/material/styles';
+import Paper from "@mui/material/Paper";
+import Container from '@mui/material/Container';
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 function ImagePage(props: any) {
     const [data, setdata] = useState([]);
@@ -25,11 +37,12 @@ function ImagePage(props: any) {
     }, []);
 
     return (
-        <div style={test}>
+        <Grid  direction={"row-reverse"} spacing={3}>
             {data.map((row: any) => (
-                <div key={row.pID + 5}>
-                    <Card sx={{ maxWidth: 345 }}>
-                        <CardMedia key={row.pID + 0} component="img" height="140" image={row.pIMAGE1} />
+                <Grid direction={"row-reverse"} spacing={3}>
+                    <Container fixed={true}>
+                    <Card sx={{ maxWidth: 400, border: 1 }}>
+                        <CardMedia key={row.pID + 0} component="img" height="200" image={row.pIMAGE1} />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div" key={row.pID + 3}>
                                 {row.pNAME}
@@ -47,9 +60,11 @@ function ImagePage(props: any) {
                             </Button>
                         </CardActions>
                     </Card>
-                </div>
+                    </Container>
+                </Grid>
             ))}
-        </div>
+        </Grid>
+
     );
 }
 
