@@ -8,8 +8,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import ClearIcon from "@mui/icons-material/Clear";
+import Homepage from "components/views/HomePage/HomePage";
 
 function CartPage() {
+    const [data, setData] = useState([]);
     const email = localStorage.getItem('id') as string;
     const callApi = async () => {
       if(email !== "")
@@ -21,10 +26,8 @@ function CartPage() {
               },
           })
             .then((res) => {
-                if(res.data.result ==="success"){
+                if(res.data.result){
                     setData(res.data.result);
-                    console.log("asdasd"+data);
-                    window.location.replace("/");
                 }
                 else if(res.data.result === "wrong id")
                 {
@@ -33,13 +36,9 @@ function CartPage() {
             })
             .catch();
         }else if (email === "") {
-          alert("아이디를 입력해주세요.");
+          alert("로그인을 해주세요.");
       }
-    }
-    const [data, setData] = useState([]);
-    
-    
-    
+    }    
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
             alert("잘못된 접근입니다.");
@@ -48,6 +47,22 @@ function CartPage() {
         callApi();
         
       }, []);
+      const onClickDelete = (mid: any, pid: any) => {
+        axios
+            .post("/cart/deleteCart", null, {
+                params: {
+                    mid: mid,
+                    pid: pid,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        window.location.reload();
+    };
     return (
         <TableContainer component={Paper}>
       <Table sx={{ minWidth: 100 }} aria-label="simple table">
@@ -56,6 +71,16 @@ function CartPage() {
             <TableCell align="left">상품명</TableCell>
             <TableCell align="left">개수</TableCell>
             <TableCell align="left">가격</TableCell>
+            <Button
+                    variant="contained"
+                    type="submit"
+                    sx={{ mt: 1, mb: 1 }}
+                    onClick={() => {
+                        window.location.replace("/");
+                    }}
+                >
+                     홈페이지로
+            </Button>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -64,9 +89,20 @@ function CartPage() {
               key={row.cID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="left">{row.pID}</TableCell>
+              <TableCell align="left">{row.cNAME}</TableCell>
               <TableCell align="left">{row.cQTY}</TableCell>
-              <TableCell align="left">{row.cPRICE}</TableCell>
+              <TableCell align="left">{(row.cPRICE)*(row.cQTY)}</TableCell>
+              {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
+                                    <IconButton
+                                        key={row.cID + 10}
+                                        color="error"
+                                        aria-label="delete"
+                                        size="small"
+                                        onClick={() => onClickDelete(row.mID,row.pID)}
+                                    >
+                                        <ClearIcon fontSize="inherit" />
+                                    </IconButton>
+                                )}
             </TableRow>
           ))}
         </TableBody>
