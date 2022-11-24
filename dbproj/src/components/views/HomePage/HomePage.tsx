@@ -9,6 +9,15 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import axios from "axios";
 import ImagePage2 from "../ArticlePage/ImagePage2";
+import styles from "./HomePage.module.css"; //add
+import Header from "./Header"; //add
+import TopBanner from "./TopBanner";    //add
+import TopBar from "./TopBar";
+import {ImageList, ImageListItem} from "@mui/material"
+
+
+
+//배너이미지 출처 - TheAmall
 function HomePage() {
     const onclickMyPage = () => {
         window.location.replace("/mypage");
@@ -19,11 +28,22 @@ function HomePage() {
     }
     const loginState = false;
     return (
-        <Container>
-            <Logout></Logout>
-            <MyPage></MyPage>
+        <Container fixed>
+            <Header />
+            <div className={styles.MyMenu}>
+                <p className={styles.Box}>DIV</p>
+                <Logout></Logout>
+                <MyPage></MyPage>
+            </div>
+            <TopBar />
+            <div className="{styles.Content}">
+                <TopBanner />
+            </div>
             <ImagePage2></ImagePage2>
-        </Container>
+
+
+
+
     );
 }
 export default HomePage;

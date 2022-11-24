@@ -1,0 +1,42 @@
+
+#top_gnb{
+    overflow:hidden;
+    width:100%;
+    background-color: black;
+    align-items: center;
+}
+
+#top_gnb > div.menu {
+    float:left;
+    width:10%; height:30px;
+    text-align: center;
+}
+#top_gnb > div.item10 {
+    width:14%;
+}
+#top_gnb >div.item2{
+    width:12%;
+}
+#top_gnb >div.item5{
+    width:12%;
+}
+#top_gnb >div.item6{
+    width:12%;
+}
+
+#top_gnb > div.menu > a{
+    font-weight: bold;
+    font-size: 1.1em;
+    color: whitesmoke;
+    background-repeat: no-repeat;
+    padding: 4px;
+    line-height: 21px;
+    font-family: Musinsa, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+}
+
+#top_gnb > div.menu > a:hover{
+    color:white;
+    text-decoration: underline;
+    cursor: pointer;
+
+}
