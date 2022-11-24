@@ -17,6 +17,7 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 import StarPurple500Icon from '@mui/icons-material/StarPurple500';
 import Popover from '@mui/material/Popover';
 import "./ImagePage.css"
+
 interface props{
     productCategory : string,
 }
@@ -33,9 +34,11 @@ function ImagePage({productCategory = "" } : props) {
     const [data, setdata] = useState([]);
     let 좋아요 = Array.from({length: data.length}, () => false);
     const [따봉, 따봉설정] = useState([false]);
+    const id = localStorage.getItem("id");
 
 
-    const 좋아요클릭 = async (index : any, product : any, id : any) => {
+    const 좋아요클릭 = async (index : any, product : any) => {
+
         if(!따봉[index]){
             let copy = [...따봉];
             copy[index] = true;
@@ -116,7 +119,7 @@ function ImagePage({productCategory = "" } : props) {
                                 장바구니
                             </Button>
                                 <IconButton onClick={() =>{
-                                    좋아요클릭(index, row.pID, row.mID);
+                                    좋아요클릭(index, row.pID);
                                 }} color={"primary"}>
                                     {
                                         따봉[index] ? (<StarRateIcon/>) : (<StarPurple500Icon/>)

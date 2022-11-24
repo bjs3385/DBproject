@@ -78,7 +78,7 @@ router.post("/insertWishlist", function (req, res, next){
             console.log("fail");
             res.send({ result: false});
         } else {
-            connection.query("INSERT INTO wishlist (mID, pID) VALUES (?, ?)", [product, id], function (err, result, fields){
+            connection.query("INSERT INTO wishlist (mID, pID) VALUES (?, ?)", [id, product], function (err, result, fields){
                 if(err) throw err;
                 console.log(result);
                 res.send({ result: result });
