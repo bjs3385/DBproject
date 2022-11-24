@@ -40,6 +40,7 @@ function HomePage() {
                 <TopBanner />
             </div>
             <ImagePage2></ImagePage2>
+        </Container>
 
 
 
