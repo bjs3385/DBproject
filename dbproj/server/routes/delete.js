@@ -31,9 +31,11 @@ router.post("/onDelete", function (req, res, next) {
             if (error) throw error;
             if(results.length > 0 ){
                 connection.query("DELETE FROM member WHERE mID = ?", [user_id], function (err, val, arr) {
-                   console.log("Success");
+                    console.log(results + " Delete Success");
                 });
-            } else console.log("fail");
+            } else{
+                console.log(results + " fail");
+            } 
         },
     );
 });

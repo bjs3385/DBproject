@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -41,41 +42,65 @@ function MyPage() {
     const email = localStorage.getItem('id') as string;
     const onClickDelete = () => {
         if (email !== "") {
-            axios
+            if(email == "admin")
+            {
+                alert("관리자 계정은 삭제가 불가능합니다.")
+            }
+            else
+            {
+                axios
                 .post("http://localhost:4000/delete/onDelete", null, {
                     params: {
                         email: email,
                     },
                 })
                 .then((res) => {
-                    if(res.data.result ==="success"){
+                    const rest = axios.post("/delete/token",null);
+                    if(res.data.result ===""){
+                        alert("존재하지 않는 아이디 입니다.");
+                    }else{
                         localStorage.clear();
                         localStorage.setItem("id", email);
                         localStorage.setItem("token", res.data.token);
-                        alert("로그인 성공");
+                        alert(email + " 계정이 삭제되었습니다.");
                         window.location.replace("/");
-                    }else if(res.data.result ==="wrong id"){
-                        alert("존재하지 않는 아이디 입니다.");
                     }
                 })
                 .catch();
+            }
+            
         }
     };
 
     return (
         <div>
             <h1>MyPage</h1>
-            <Button
-                variant="contained"
-                type="submit"
-                fullWidth
-                sx={{ mt: 1, mb: 2 }}
-                onClick={() => {
-                    onClickDelete();
-                }}
-            >
-                계정삭제
-            </Button>
+            <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
+                <Button
+                    variant="contained"
+                    type="submit"
+                    fullWidth
+                    sx={{ mt: 1, mb: 2 }}
+                    onClick={() => {
+                        onClickDelete();
+                    }}
+                >
+                    계정삭제
+                </Button>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    fullWidth
+                    sx={{ mt: 1, mb: 2 }}
+                    onClick={() => {
+                        window.location.replace("/CartPage");
+                    }}
+                >
+                    장바구니
+                </Button>
+            </ButtonGroup>
+            
+            
         </div>
         
     );

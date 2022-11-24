@@ -31,4 +31,10 @@ module.exports = (app) => {
             changeOrigin: true,
         }),
     );
+    app.use(
+        createProxyMiddleware("/cart", {
+            target: "http://localhost:4000",
+            changeOrigin: true,
+        }),
+    );
 };
