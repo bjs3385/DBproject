@@ -12,7 +12,6 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ReplyPage from "./ReplyPage";
-import ReplyCreate from "./ReplyCreate";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -92,9 +91,7 @@ function ArticlePage() {
             </Grid>
 
             <Grid xs={4} sm = {8} md = { 12}>
-                <Item>
-                    <ReplyCreate boardId={reply_id} boardType="item"></ReplyCreate>
-                </Item>
+
             <Item>
                 <ReplyPage boardId = {reply_id} boardType = "item"></ReplyPage>
             </Item>

@@ -9,15 +9,30 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
+import Grid from "@mui/material/Unstable_Grid2";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import {styled} from "@mui/material/styles";
 interface props {
     boardId?: number;
     boardType?: string;
 }
 
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
+
 function ReplyPage({ boardId = 0, boardType = "" }: props) {
 
     console.log(boardId);
     const [data, setData] = useState([]);
+    const [text, setText] = useState("");
+    const id = localStorage.getItem("id");
     const callApi = async () => {
         if (boardType === "item") {
             axios
@@ -42,17 +57,40 @@ function ReplyPage({ boardId = 0, boardType = "" }: props) {
                 })
                 .then((res) => {
                     setData(res.data.result);
-                    console.log(res.data.result);
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         } else console.log("error");
     };
-    console.log(data);
+    const onClickCreate = () => {
+        console.log(id);
+        axios.post("/setboard/createReply", null, {
+            params: {
+                boardId: boardId,
+                text,
+                id: id
+            },
+        })
+            .then((res) =>{
+                if(res.data.result){
+                    console.log("success!");
+                    callApi();
+                }else console.log("fail");
+            })
+            .catch((err) =>{
+                    console.log(err);
+                }
+            );
+
+    }
+
+    const onTextHandler = (e : any) =>{
+        setText(e.currentTarget.value);
+    }
 
     const onClickDelete = (id: any) => {
-        console.log(id);
+
         axios
             .post("/setboard/deleteReply", null, {
                 params: {
@@ -60,12 +98,12 @@ function ReplyPage({ boardId = 0, boardType = "" }: props) {
                 },
             })
             .then((res) => {
-                console.log(res);
+                console.log(res.data.result);
+                callApi();
             })
             .catch((err) => {
                 console.log(err);
             });
-        window.location.reload();
     };
 
     useEffect(() => {
@@ -76,7 +114,24 @@ function ReplyPage({ boardId = 0, boardType = "" }: props) {
         callApi();
     }, []);
     return (
-        <TableContainer component={Paper}>
+        <div>
+            <Box sx={{ width: '100%' }}>
+                <Grid container spacing={3} columns={2}>
+
+                    <Grid xs={6}>
+                        <Item>
+                            <TextField InputProps={{ disableUnderline: true }} label={"댓글"}  onChange={onTextHandler} rows={5}  multiline={true} fullWidth={true} size={"medium"} ></TextField>
+                        </Item>
+                    </Grid>
+                    <Grid xs>
+                        <Item>
+                            <Button onClick={onClickCreate} fullWidth={true} variant={"contained"} size={"medium"}>등록하기</Button>
+                        </Item>
+                    </Grid>
+                </Grid>
+            </Box>
+
+    <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
@@ -114,6 +169,7 @@ function ReplyPage({ boardId = 0, boardType = "" }: props) {
                 </TableBody>
             </Table>
         </TableContainer>
+        </div>
     );
 }
 

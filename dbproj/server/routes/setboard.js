@@ -12,6 +12,7 @@ router.get("/getBoard", function (req, res, next) {
     connection.query("SELECT * FROM notice", function (error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
+
             res.send({ result: results });
         }
         console.log("Sucess solution getBoard");
@@ -64,6 +65,7 @@ router.post("/deleteReply", function (req, res, next) {
     connection.query("DELETE FROM reply WHERE rID = ?", [replyId], function (error, results, fields) {
         if (error) throw error;
         console.log("Sucess solution deleteReply");
+        res.send({result: "sucess"});
     });
 });
 
