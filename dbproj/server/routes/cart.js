@@ -41,5 +41,15 @@ router.post("/deleteCart", function (req, res, next) {
         console.log("Sucess solution deleteCart");
     });
 });
+router.post("/updateCart", function (req, res, next) {
+    const user_id = req.query.mid;
+    const product_id = req.query.pid;
+    const quantity = req.query.cQTY;
+    console.log("replyId: " + quantity +" "+user_id+" "+product_id);
 
+    connection.query("UPDATE cart SET cQTY = ? WHERE mID = ? and pID = ?", [quantity,user_id,product_id], function (error, results, fields) {
+        if (error) throw error;
+        console.log("Sucess solution deleteCart");
+    });
+});
 module.exports = router;
