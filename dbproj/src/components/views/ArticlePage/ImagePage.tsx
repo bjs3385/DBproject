@@ -11,7 +11,9 @@ import { styled } from '@mui/material/styles';
 import Paper from "@mui/material/Paper";
 import Container from '@mui/material/Container';
 import Carousel from 'react-material-ui-carousel'
-
+interface props{
+    productCategory : string,
+}
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,17 +23,25 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-function ImagePage(props: any) {
+function ImagePage({productCategory = "" } : props) {
     const [data, setdata] = useState([]);
     const test = {
         width: "500px",
         height: "500px",
     };
     const callApi = async () => {
-        const res = await axios.get("/setitem/getItem");
-        const result = res.data.rows;
+        axios.post("/setitem/getItemCategory", null, {
+            params: {
+                productCategory: productCategory,
+            }
+        }).then((res) =>{
+            setdata(res.data.rows);
+        }).catch((err)=>{
+            console.log(err);
+        });
 
-        setdata(result);
+
+
     };
     console.log(data);
     useEffect(() => {

@@ -14,17 +14,19 @@ import Header from "./Header"; //add
 import TopBanner from "./TopBanner";    //add
 import TopBar from "./TopBar";
 import {ImageList, ImageListItem} from "@mui/material"
+import {useNavigate} from "react-router-dom";
 
 
 
 //배너이미지 출처 - TheAmall
 function HomePage() {
+    const navi = useNavigate();
     const onclickMyPage = () => {
-        window.location.replace("/mypage");
+        navi("/mypage");
     }
     const onclickLogout = () => {
         localStorage.clear();
-        window.location.replace("/login");
+        navi("/login");
     }
     const loginState = false;
     return (
