@@ -1,0 +1,13 @@
+.TopBanner {
+    width: 100%;
+}
+
+.collection {
+    display: flex;
+    margin: 20px 0 0;
+}
+
+.collection-item {
+    margin: 0 20px 0 0;
+    flex: 1;
+}
