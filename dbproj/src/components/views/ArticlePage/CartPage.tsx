@@ -11,10 +11,12 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import ClearIcon from "@mui/icons-material/Clear";
+import { TextField } from "@mui/material";
 import Homepage from "components/views/HomePage/HomePage";
 
 function CartPage() {
     const [data, setData] = useState([]);
+    const [qty, setQty] = useState("");
     const email = localStorage.getItem('id') as string;
     const callApi = async () => {
       if(email !== "")
@@ -38,7 +40,10 @@ function CartPage() {
         }else if (email === "") {
           alert("로그인을 해주세요.");
       }
-    }    
+    }
+    const handleInputQTY = (e: any) => {
+        setQty(e.target.value);
+    };   
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
             alert("잘못된 접근입니다.");
@@ -53,6 +58,23 @@ function CartPage() {
                 params: {
                     mid: mid,
                     pid: pid,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        window.location.reload();
+    };
+    const onClickChange = (mid : any, pid : any, qty: any) => {
+        axios
+            .post("/cart/updateCart", null, {
+                params: {
+                    mid : mid,
+                    pid : pid,
+                    qty: qty,
                 },
             })
             .then((res) => {
@@ -90,19 +112,35 @@ function CartPage() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell align="left">{row.cNAME}</TableCell>
-              <TableCell align="left">{row.cQTY}</TableCell>
+              <TableCell align="left">
+                  <TextField
+                    label={row.cQTY}
+                    required
+                    type="qty"
+                    name="qty"
+                    autoComplete="qty"
+                    autoFocus
+                    onChange={handleInputQTY}
+                ></TextField>
+                  <Button 
+                    onClick={() => onClickChange(row.mID,row.pID,qty)}>확인
+                  </Button>
+              </TableCell>
               <TableCell align="left">{(row.cPRICE)*(row.cQTY)}</TableCell>
-              {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
-                                    <IconButton
-                                        key={row.cID + 10}
-                                        color="error"
-                                        aria-label="delete"
-                                        size="small"
-                                        onClick={() => onClickDelete(row.mID,row.pID)}
-                                    >
-                                        <ClearIcon fontSize="inherit" />
-                                    </IconButton>
-                                )}
+              <TableCell align="left">
+                {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
+                    <IconButton
+                        key={row.cID + 10}
+                        color="error"
+                        aria-label="delete"
+                        size="small"
+                        onClick={() => onClickDelete(row.mID,row.pID)}
+                    >
+                        <ClearIcon fontSize="inherit" />
+                    </IconButton>
+                )}
+              </TableCell>
+              
             </TableRow>
           ))}
         </TableBody>

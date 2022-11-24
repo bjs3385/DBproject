@@ -85,7 +85,7 @@ function LoginPage() {
                 }}
             >
                 <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                    <LockOutlinedIcon />
+                    <LockOutlinedIcon></LockOutlinedIcon>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     로그인
