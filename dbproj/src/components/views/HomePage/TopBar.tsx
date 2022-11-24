@@ -13,7 +13,7 @@ const TopBar = () => {
 
     return (
         <nav id="top_gnb"><p>----Nav----</p>
-            <div className="menu item1 active">
+            <div  className="menu item1 active">
                 <Link to="/category/all">ALL</Link>
             </div>
             <div className="menu item2">

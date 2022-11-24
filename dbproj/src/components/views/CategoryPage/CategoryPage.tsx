@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import ImagePage from "../ArticlePage/ImagePage";
 import {useParams} from "react-router-dom";
+import Grid from "@mui/material/Unstable_Grid2";
 
 
 
@@ -13,7 +14,9 @@ function CategoryPage() {
 
 
     return (
+        <Grid>
         <ImagePage productCategory={parms}></ImagePage>
+        </Grid>
     );
 }
 

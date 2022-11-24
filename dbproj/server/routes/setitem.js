@@ -68,4 +68,46 @@ router.post("/setItem", function (req, res, next) {
 
 });
 
+router.post("/insertWishlist", function (req, res, next){
+    const id = req.query.id;
+    const product = req.query.product;
+
+    connection.query("SELECT * FROM wishlist WHERE pID = ?", [product], (err, rows, fields) => {
+        if (err) throw err;
+        if (rows.length > 0) {
+            console.log("fail");
+            res.send({ result: false});
+        } else {
+            connection.query("INSERT INTO wishlist (mID, pID) VALUES (?, ?)", [product, id], function (err, result, fields){
+                if(err) throw err;
+                console.log(result);
+                res.send({ result: result });
+            });
+        }
+    });
+
+
+
+});
+
+router.post("/deleteWishlist", function (req, res, next){
+    const id = req.query.id;
+    const product = req.query.product;
+
+    connection.query("SELECT * FROM wishlist WHERE pID = ?", [product], (err, rows, fields) => {
+        if (err) throw err;
+        if (rows.length > 0) {
+            connection.query("DELETE FROM wishlist WHERE pID = ?", [product], function (error, results, fields) {
+            if (error) throw error;
+            console.log("Sucess solution delete Wishlist");
+            res.send({result: "sucess"});
+            });
+        } else {
+            res.send({ result: false});
+        }
+    });
+
+
+})
+
 module.exports = router;
