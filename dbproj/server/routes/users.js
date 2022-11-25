@@ -93,6 +93,17 @@ router.post("/onRegister", function (req, res, next) {
     }
 });
 
+router.post("/updatePassword", function (req, res, next) {
+    const user_id = req.query.mid;
+    const user_pw = req.query.mpw;
+    console.log("replyId: "+user_id+" "+user_pw);
+
+    connection.query("UPDATE member SET mPW = ? WHERE mID = ?", [user_pw,user_id], function (error, results, fields) {
+        if (error) throw error;
+        console.log("Sucess solution update Password");
+    });
+});
+
 router.post("/token", function (req, res, next) {
     const token = req.query.token;
     const id = req.query.id;

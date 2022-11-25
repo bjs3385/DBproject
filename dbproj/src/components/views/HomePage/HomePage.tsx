@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Logout from "../LoginPage/Logout";
-import MyPage from "../ArticlePage/MyPagebtn";
+import MyPage from "../MyPage/MyPagebtn";
 import { Box, Container } from "@mui/system";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';

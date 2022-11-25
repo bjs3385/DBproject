@@ -44,7 +44,7 @@ function NewRegisterPage() {
         }
     };
     const onClickRegister = () => {
-        if (password1 === password2 && password1 !== "" && password2 !== "" && emailCheck === true) {
+        if (password1 === password2 && password1 !== "" && password2 !== "" && phonenum !== "" && address !== "" && emailCheck === true) {
             axios
                 .post("http://localhost:4000/users/onRegister", null, {
                     params: {
@@ -66,9 +66,7 @@ function NewRegisterPage() {
                     }
                 })
                 .catch();
-        } else if (emailCheck === false) {
-            alert("이메일 중복확인을 해주세요.");
-        } else if (password1 !== password2) {
+        }  else if (password1 !== password2) {
             alert("비밀번호가 일치하지 않습니다.");
         } else if (email === "") {
             alert("아이디를 입력해주세요.");
@@ -80,6 +78,10 @@ function NewRegisterPage() {
             alert("생년월일을 입력해주세요.");
         } else if (name === null) {
             alert("이름을 입력해주세요.");
+        } else if( address === null) {
+            alert("주소를 입력해주세요.");
+        }else if (emailCheck === false) {
+            alert("이메일 중복확인을 해주세요.");
         }
         
     };
