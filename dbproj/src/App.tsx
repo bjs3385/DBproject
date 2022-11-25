@@ -11,7 +11,7 @@ import HomePage from "components/views/HomePage/HomePage";
 import BoardList from "components/views/BoardPage/Sections/BoardList";
 import ImagePage from "components/views/ArticlePage/ImagePage";
 import ReplyPage from "components/views/ArticlePage/ReplyPage";
-import MyPage from "components/views/ArticlePage/MyPage";
+import MyPage from "components/views/MyPage/MyPage";
 import CartPage from "components/views/ArticlePage/CartPage";
 import ImagePage2 from "components/views/ArticlePage/ImagePage2";
 

@@ -43,6 +43,7 @@ function CartPage() {
     }
     const handleInputQTY = (e: any) => {
         setQty(e.target.value);
+        console.log(qty);
     };   
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
@@ -116,7 +117,7 @@ function CartPage() {
                   <TextField
                     label={row.cQTY}
                     required
-                    type="qty"
+                    type="number"
                     name="qty"
                     autoComplete="qty"
                     autoFocus

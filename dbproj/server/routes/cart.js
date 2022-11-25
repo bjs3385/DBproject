@@ -44,7 +44,7 @@ router.post("/deleteCart", function (req, res, next) {
 router.post("/updateCart", function (req, res, next) {
     const user_id = req.query.mid;
     const product_id = req.query.pid;
-    const quantity = req.query.cQTY;
+    const quantity = req.query.qty;
     console.log("replyId: " + quantity +" "+user_id+" "+product_id);
 
     connection.query("UPDATE cart SET cQTY = ? WHERE mID = ? and pID = ?", [quantity,user_id,product_id], function (error, results, fields) {
