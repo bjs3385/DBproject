@@ -20,6 +20,13 @@ import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { koKR } from "@mui/x-date-pickers";
 import koLocale from "date-fns/locale/ko";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 function MyPage() {
     const [password1, setPassword1] = useState("");
@@ -31,7 +38,32 @@ function MyPage() {
     const [Date, setDate] = useState<Dayjs | null>(dayjs("1999-09-17"));
     var emailCheck = false;
     const Dateformat = dayjs(Date).format("YYYY-MM-DD");
+    const [data, setData] = useState([]);
 
+    const email = localStorage.getItem('id') as string;
+    const callApi = async () => {
+            if(email !== "")
+            {
+            axios
+                .post("/wishlist/getWishlist", null, {
+                    params: {
+                        email: email,
+                    },
+                })
+                .then((res) => {
+                    if(res.data.result){
+                        setData(res.data.result);
+                    }
+                    else if(res.data.result === "wrong id")
+                    {
+                        alert("로그인을 해주시길 바랍니다.");
+                    }
+                })
+                .catch();
+            }else if (email === "") {
+                alert("로그인을 해주세요.");
+            }
+        }
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
             alert("잘못된 접근입니다.");
@@ -51,10 +83,10 @@ function MyPage() {
                     }
                 });
         }
+        callApi();
     }, []);
     
     //const email = JSON.parse(localStorage.getItem('id') as string);
-    const email = localStorage.getItem('id') as string;
     const onClickDelete = () => {
         if (email !== "") {
             if(email == "admin")
@@ -233,7 +265,6 @@ function MyPage() {
                         renderInput={(params : any) => <TextField {...params} />}
                     />
                 </LocalizationProvider>
-
                 <TextField
                 sx={{ mt: 3, mb: 2 }}
                     label="번호"
@@ -252,6 +283,30 @@ function MyPage() {
                     type="text"
                     onChange={handleInputAddress}
                 ></TextField>
+            </Container>
+            <Container>
+                <h1>Wish List</h1>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 100 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell align="left">상품명</TableCell>
+                            <TableCell align="left">개수</TableCell>
+                        </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        {data.map((row: any) => (
+                            <TableRow
+                            key={row.wID}
+                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                            <TableCell align="left">{row.wNAME}</TableCell>
+                            <TableCell align="left">{row.wQUANTITY}</TableCell>
+                            </TableRow>
+                        ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Container>
             
             
