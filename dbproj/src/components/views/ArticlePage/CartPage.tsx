@@ -87,7 +87,7 @@ function CartPage() {
         window.location.reload();
     };
     return (
-        <TableContainer component={Paper}>
+      <TableContainer component={Paper}>
       <Table sx={{ minWidth: 100 }} aria-label="simple table">
         <TableHead>
           <TableRow>
