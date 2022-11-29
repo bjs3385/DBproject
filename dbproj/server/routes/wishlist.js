@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const connection = require("./db");
 
+
 /* GET home page. */
 router.get("/", function (req, res, next) {
     res.render("setWishlist", { title: "Express" });
@@ -13,11 +14,19 @@ router.post("/getWishlist", function (req, res, next) {
     connection.query("SELECT * FROM wishlist WHERE mID = ?",[user_id], function (error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
-            res.send({ result: results });
-            console.log(results);
+            console.log(results.length);
             console.log("Sucess solution getBoard "+user_id);
-        }
-        
+            res.send({result : results });
+            /*connection.query("SELECT * FROM productwhere pID = ?;",[results[1].pID], function (err, res, fid) {
+                if (err) throw err;
+                if (res.length > 0) {
+                    res.send({ res : res});
+                    console.log(results);
+                    console.log(res);
+                    console.log("Sucess solution getBoard "+user_id);
+                } 
+            });*/
+        } 
     });
 });
 

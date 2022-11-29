@@ -104,6 +104,17 @@ router.post("/updatePassword", function (req, res, next) {
     });
 });
 
+router.post("/getUser", function (req, res, next) {
+    const user_id = req.query.email;
+    connection.query("SELECT * FROM member WHERE mID = ?",[user_id], function (error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+            res.send({result : results });
+            console.log("Sucess solution getuser "+user_id);
+        } 
+    });
+});
+
 router.post("/token", function (req, res, next) {
     const token = req.query.token;
     const id = req.query.id;

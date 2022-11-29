@@ -14,6 +14,7 @@ import ReplyPage from "components/views/ArticlePage/ReplyPage";
 import MyPage from "components/views/MyPage/MyPage";
 import CartPage from "components/views/ArticlePage/CartPage";
 import ImagePage2 from "components/views/ArticlePage/ImagePage2";
+import UpdatePage from "components/views/UpdatePage/UpdatePage";
 
 function App() {
     const callApi = async () => {
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/image2" element={<ImagePage2 />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/cartpage" element={<CartPage />} />
+                <Route path="/updatepage" element={<UpdatePage />} />
                 <Route path="/reply" element={<ReplyPage boardId={1} boardType="notice" />} />
             </Routes>
         </div>
