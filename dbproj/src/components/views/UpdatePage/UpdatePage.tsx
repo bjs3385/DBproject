@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { purple } from "@mui/material/colors";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs, { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { koKR } from "@mui/x-date-pickers";
@@ -27,11 +15,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import ClearIcon from "@mui/icons-material/Clear";
-import CardMedia from '@mui/material/CardMedia';
 
-function MyPage() {
+function UpdatePage() {
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
     const [password3, setPassword3] = useState("");
@@ -42,14 +27,13 @@ function MyPage() {
     var emailCheck = false;
     const Dateformat = dayjs(Date).format("YYYY-MM-DD");
     const [data, setData] = useState([]);
-    const [imageData, setImage] = useState([]);
 
-    const email = localStorage.getItem('id') as string;
+    const email = localStorage.getItem('id') as string; 
     const callApi = async () => {
-            if(email !== "")
+        if(email !== "")
             {
             axios
-                .post("/wishlist/getWishlist", null, {
+                .post("/users/getUser", null, {
                     params: {
                         email: email,
                     },
@@ -57,7 +41,6 @@ function MyPage() {
                 .then((res) => {
                     if(res.data.result){
                         setData(res.data.result);
-                        setImage(res.data.imageData);
                     }
                     else if(res.data.result === "wrong id")
                     {
@@ -68,7 +51,7 @@ function MyPage() {
             }else if (email === "") {
                 alert("로그인을 해주세요.");
             }
-        }
+    };
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
             alert("잘못된 접근입니다.");
@@ -124,12 +107,14 @@ function MyPage() {
         }
     };
 
-    const onClickWishDelete = (mid: any, pid: any) => {
-        axios
-            .post("/wishlist/deleteWishlist", null, {
+    const onClickChangePW = (mid : any, mpw : any) => {
+        if(password1 !== "" && password2 !== "" && password3 !== "" && password2 == password3)
+        {
+            axios
+            .post("/users/updatePassword", null, {
                 params: {
-                    mid: mid,
-                    pid: pid,
+                    mid : mid,
+                    mpw : mpw,
                 },
             })
             .then((res) => {
@@ -137,30 +122,30 @@ function MyPage() {
             })
             .catch((err) => {
                 console.log(err);
+                alert("비밀번호 변경 실패");
             });
-        window.location.reload();
+            alert("비밀번호 변경 완료");
+            window.location.reload();
+        } else if(password1 == "") {
+            alert("현재 비밀번호를 입력해주세요");
+        } else if(password2 == "") {
+            alert("변경할 비밀번호를 입력해주세요");
+        }
+        
     };
-
-    const LoadImage = (id: any) => {
-        axios
-            .post("/setItem/setItem", null, {
-                params: {
-                    id: id,
-                },
-            })
-            .then((res) => {
-                console.log(res);
-                return res.data.rows;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        window.location.reload();
+    const handleInputPW1 = (e: any) => {
+        setPassword1(e.target.value);
+    };
+    const handleInputPW2 = (e: any) => {
+        setPassword2(e.target.value);
+    };
+    const handleInputPW3 = (e: any) => {
+        setPassword3(e.target.value);
     };
 
     return (
         <div>
-            <h1>MyPage</h1>
+            <h1>UpdatePage</h1>
             <Container>
                 <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
                     <Button
@@ -180,70 +165,87 @@ function MyPage() {
                         fullWidth
                         sx={{ mt: 1, mb: 2 }}
                         onClick={() => {
-                            window.location.replace("/CartPage");
+                            window.location.replace("/");
                         }}
                     >
-                        장바구니
-                    </Button>
-                    <Button
-                        variant="contained"
-                        type="submit"
-                        fullWidth
-                        sx={{ mt: 1, mb: 2 }}
-                        onClick={() => {
-                            window.location.replace("/UpdatePage");
-                        }}
-                    >
-                        회원정보수정
+                        홈페이지로
                     </Button>
                 </ButtonGroup>
             </Container>
             <Container>
-                <h1>Wish List</h1>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 100 }} aria-label="simple table">
                     <TableHead>
-                        <TableRow>
-                            <TableCell align="left">상품사진</TableCell>
-                            <TableCell align="left">상품명</TableCell>
-                            <TableCell align="left">개수</TableCell>
+                        <TableCell align="left">계정</TableCell>
+                        <TableCell align="left">이름</TableCell>
+                        <TableCell align="left">주소</TableCell>
+                        <TableCell align="left">보유 캐쉬</TableCell>
+                        <TableCell align="left">전화번호</TableCell>
+                        <TableCell align="left">생년월일</TableCell>
+                    </TableHead>
+                    <TableBody>
+                    {data.map((row: any) => (
+                        <TableRow
+                        key={row.mID}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell align="left">{row.mID}</TableCell>
+                            <TableCell align="left">{row.mNAME}</TableCell>
+                            <TableCell align="left">{row.mADDRESS}</TableCell>
+                            <TableCell align="left">{row.mCASH}</TableCell>
+                            <TableCell align="left">{row.mPHONENUM}</TableCell>
+                            <TableCell align="left">{row.mBIRTH}</TableCell>
                         </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {data.map((row: any) => (
-                            <TableRow
-                            key={row.wID}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell align="left">
-                                    <CardMedia key={row.pID + 0} component="img" height="200" image={""}/>
-                                </TableCell>
-                                <TableCell align="left">{row.wNAME}</TableCell>
-                                <TableCell align="left">{row.wQUANTITY}</TableCell>
-                                <TableCell align="left">
-                                    {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
-                                        <IconButton
-                                            key={row.wID + 10}
-                                            color="error"
-                                            aria-label="delete"
-                                            size="small"
-                                            onClick={() => onClickWishDelete(row.mID,row.pID)}
-                                        >
-                                            <ClearIcon fontSize="inherit" />
-                                        </IconButton>
-                                    )}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                    ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
             </Container>
-            
-            
+            <Container component="main" maxWidth="xs" sx={{ mt : 3, mb : 3}}>
+                
+                <h1>회원정보 수정</h1>
+                <TextField
+                    sx={{ mt: 0, mb: 2 }}
+                    label="현재 비밀번호"
+                    required
+                    fullWidth
+                    name="password"
+                    type="password"
+                    onChange={handleInputPW1}
+                ></TextField>
+                <TextField
+                    sx={{ mt: 0, mb: 2 }}
+                    label="새 비밀번호"
+                    required
+                    fullWidth
+                    name="password"
+                    type="password"
+                    onChange={handleInputPW2}
+                ></TextField>
+                <TextField
+                sx={{ mt: 0, mb: 2 }}
+                    label="새 비밀번호 확인"
+                    required
+                    fullWidth
+                    name="check_password"
+                    type="password"
+                    onChange={handleInputPW3}
+                ></TextField>
+                <Button
+                    variant="contained"
+                    type="submit"
+                    fullWidth
+                    sx={{ mt: 0, mb: 2 }}
+                    onClick={() => {
+                        onClickChangePW(email, password2);
+                    }}
+                >
+                    비밀번호 변경
+                </Button>
+            </Container>
             
         </div>
         
     );
 }
-export default MyPage;
+export default UpdatePage;
