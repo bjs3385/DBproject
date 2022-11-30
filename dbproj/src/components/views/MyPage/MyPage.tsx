@@ -141,23 +141,25 @@ function MyPage() {
         window.location.reload();
     };
 
-    const LoadImage = (id: any) => {
+    const LoadImage = (pid: any) => {
         axios
-            .post("/setItem/setItem", null, {
+            .post("/wishlist/getWishlistImage", null, {
                 params: {
-                    id: id,
+                    pid: pid,
                 },
             })
             .then((res) => {
                 console.log(res);
-                return res.data.rows;
+                const result = res.data.result;
+                console.log("값 : "+result.pIMAGE1);
+                return result;
             })
             .catch((err) => {
                 console.log(err);
             });
-        window.location.reload();
+        //window.location.reload();
     };
-
+//onClickWishDelete(row.mID,row.pID) delete에 들어가야함
     return (
         <div>
             <h1>MyPage</h1>
@@ -227,7 +229,7 @@ function MyPage() {
                                             color="error"
                                             aria-label="delete"
                                             size="small"
-                                            onClick={() => onClickWishDelete(row.mID,row.pID)}
+                                            onClick={() => LoadImage(row.pID)}
                                         >
                                             <ClearIcon fontSize="inherit" />
                                         </IconButton>

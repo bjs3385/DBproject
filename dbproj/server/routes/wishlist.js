@@ -50,4 +50,16 @@ router.post("/deleteWishlist", function (req, res, next) {
         console.log("Sucess solution deleteCart");
     });
 });
+
+router.post("/getWishlistImage", function (req, res, next) {
+    const product_id = req.query.pid;
+    connection.query("SELECT pIMAGE1 FROM product WHERE pID = ?",[product_id], function (error, results, fields) {
+        if (error) throw error;
+        if (results.length > 0) {
+            console.log("Sucess solution getImage "+product_id);
+            res.send({result : results.pIMAGE1 });
+            console.log(results);
+        } 
+    });
+});
 module.exports = router;
