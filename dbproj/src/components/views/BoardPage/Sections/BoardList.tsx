@@ -29,12 +29,12 @@ function BoardList(props: any) {
     console.log("data : ", data);
     const row = data.map((row: any) => (
         <div key = "main">
-            <div key="{row.nID+1}">{row.nID}</div>
-            <div key="{row.nID+2}">{row.nTITLE}</div>
-            <div key="{row.nID+3}">{row.nWRITER}</div>
-            <div key="{row.nID+4}">{row.nDATE}</div>
-            <div key="{row.nID+5}">{row.nCONTENT}</div>
-            <div key="{row.nID+6}">{row.views}</div>
+            <div key={row.nID+1}>{row.nID}</div>
+            <div key={row.nID+2}>{row.nTITLE}</div>
+            <div key={row.nID+3}>{row.nWRITER}</div>
+            <div key={row.nID+4}>{row.nDATE}</div>
+            <div key={row.nID+5}>{row.nCONTENT}</div>
+            <div key={row.nID+6}>{row.views}</div>
         </div>
     ));
     console.log();

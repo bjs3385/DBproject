@@ -1,13 +1,72 @@
 .TopBanner {
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex: 1;
+}
+
+.TopBanner-img {
     width: 100%;
+}
+
+.TopBanner-here {
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.TopBanner-text {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size : clamp(18px, 3vw, 60px);
+    
+}
+
+.TopBanner a {
+    display: inline-block;
+    min-width: 187px;
+    padding: 18px 20px;
+    font-size: 16px;
+    text-align: center; 
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.9);
+    text-decoration: none;
+    color: black;
+    
+    height : 54px;
+    margin : 4vw 0 1vw;
+    font-weight: bold;
+    font-family: 'Dotum';
 }
 
 .collection {
     display: flex;
-    margin: 20px 0 0;
+    margin: 20px 0 20px;
+}
+
+.collection > div.col-item3 {
+    margin : 0;
 }
 
 .collection-item {
     margin: 0 20px 0 0;
     flex: 1;
+}
+
+@media (min-width : 1025px){
+    .collection{
+    max-width : 100%;
+    margin : 20px 0px;
+    padding : 0 0 44px;
+    }
+}
+
+@media (max-width: 1024px){
+    .collection{
+        padding-bottom : 44px;
+        position : relative;
+    }
 }
