@@ -34,7 +34,6 @@ function App() {
                 <Route path="/board/:boardId" element={<BoardList />} />
                 <Route path="/newregister" element={<NewRegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/image" element={<ImagePage />} />
                 <Route path="/image2" element={<ImagePage2 />} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/cartpage" element={<CartPage />} />
