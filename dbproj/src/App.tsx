@@ -12,7 +12,7 @@ import BoardList from "components/views/BoardPage/Sections/BoardList";
 import ImagePage from "components/views/ArticlePage/ImagePage";
 import ReplyPage from "components/views/ArticlePage/ReplyPage";
 import MyPage from "components/views/MyPage/MyPage";
-import CartPage from "components/views/ArticlePage/CartPage";
+import WishlistPage from "components/views/ArticlePage/WishlistPage";
 import ImagePage2 from "components/views/ArticlePage/ImagePage2";
 import UpdatePage from "components/views/UpdatePage/UpdatePage";
 import CategoryPage from "./components/views/CategoryPage/CategoryPage";
@@ -37,7 +37,8 @@ function App() {
                 <Route path="/image2" element={<ImagePage2 />} />
                 <Route path="/category/:category" element={<CategoryPage/>} />
                 <Route path="/mypage" element={<MyPage />} />
-                <Route path="/cartpage" element={<CartPage />} />
+                <Route path="/wishpage" element={<WishlistPage />} />
+                <Route path="/updatepage" element={<UpdatePage />} />
                 <Route path="/reply" element={<ReplyPage boardId={1} boardType="notice" />} />
             </Routes>
         </div>

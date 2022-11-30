@@ -29,46 +29,37 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import ClearIcon from "@mui/icons-material/Clear";
-import CardMedia from '@mui/material/CardMedia';
+
 
 function MyPage() {
-    const [password1, setPassword1] = useState("");
-    const [password2, setPassword2] = useState("");
-    const [password3, setPassword3] = useState("");
-    const [phonenum, setPhonenum] = useState("");
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
-    const [Date, setDate] = useState<Dayjs | null>(dayjs("1999-09-17"));
     var emailCheck = false;
-    const Dateformat = dayjs(Date).format("YYYY-MM-DD");
     const [data, setData] = useState([]);
-    const [imageData, setImage] = useState([]);
+    const [qty, setQty] = useState("");
 
     const email = localStorage.getItem('id') as string;
     const callApi = async () => {
-            if(email !== "")
-            {
-            axios
-                .post("/wishlist/getWishlist", null, {
-                    params: {
-                        email: email,
-                    },
-                })
-                .then((res) => {
-                    if(res.data.result){
-                        setData(res.data.result);
-                        setImage(res.data.imageData);
-                    }
-                    else if(res.data.result === "wrong id")
-                    {
-                        alert("로그인을 해주시길 바랍니다.");
-                    }
-                })
-                .catch();
-            }else if (email === "") {
-                alert("로그인을 해주세요.");
-            }
+        if(email !== "")
+        {
+          axios
+              .post("/cart/getCart", null, {
+                params: {
+                    email: email,
+                },
+            })
+              .then((res) => {
+                  if(res.data.result){
+                      setData(res.data.result);
+                  }
+                  else if(res.data.result === "wrong id")
+                  {
+                    alert("로그인을 해주시길 바랍니다.");
+                  }
+              })
+              .catch();
+          }else if (email === "") {
+            alert("로그인을 해주세요.");
         }
+      }
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
             alert("잘못된 접근입니다.");
@@ -90,6 +81,39 @@ function MyPage() {
         }
         callApi();
     }, []);
+    const onClickDeleteCart = (mid: any, pid: any) => {
+        axios
+            .post("/cart/deleteCart", null, {
+                params: {
+                    mid: mid,
+                    pid: pid,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        window.location.reload();
+    };
+    const onClickChange = (mid : any, pid : any, qty: any) => {
+        axios
+            .post("/cart/updateCart", null, {
+                params: {
+                    mid : mid,
+                    pid : pid,
+                    qty: qty,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        window.location.reload();
+    };
     
     //const email = JSON.parse(localStorage.getItem('id') as string);
     const onClickDelete = () => {
@@ -123,43 +147,12 @@ function MyPage() {
             
         }
     };
+    const handleInputQTY = (e: any) => {
+        setQty(e.target.value);
+        console.log(qty);
+    };   
+    
 
-    const onClickWishDelete = (mid: any, pid: any) => {
-        axios
-            .post("/wishlist/deleteWishlist", null, {
-                params: {
-                    mid: mid,
-                    pid: pid,
-                },
-            })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        window.location.reload();
-    };
-
-    const LoadImage = (pid: any) => {
-        axios
-            .post("/wishlist/getWishlistImage", null, {
-                params: {
-                    pid: pid,
-                },
-            })
-            .then((res) => {
-                console.log(res);
-                const result = res.data.result;
-                console.log("값 : "+result.pIMAGE1);
-                return result;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        //window.location.reload();
-    };
-//onClickWishDelete(row.mID,row.pID) delete에 들어가야함
     return (
         <div>
             <h1>MyPage</h1>
@@ -182,10 +175,10 @@ function MyPage() {
                         fullWidth
                         sx={{ mt: 1, mb: 2 }}
                         onClick={() => {
-                            window.location.replace("/CartPage");
+                            window.location.replace("/wishpage");
                         }}
                     >
-                        장바구니
+                        위시 리스트
                     </Button>
                     <Button
                         variant="contained"
@@ -193,7 +186,7 @@ function MyPage() {
                         fullWidth
                         sx={{ mt: 1, mb: 2 }}
                         onClick={() => {
-                            window.location.replace("/UpdatePage");
+                            window.location.replace("/updatepage");
                         }}
                     >
                         회원정보수정
@@ -202,42 +195,64 @@ function MyPage() {
             </Container>
             <Container>
                 <h1>Wish List</h1>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 100 }} aria-label="simple table">
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 100 }} aria-label="simple table">
                     <TableHead>
-                        <TableRow>
-                            <TableCell align="left">상품사진</TableCell>
-                            <TableCell align="left">상품명</TableCell>
-                            <TableCell align="left">개수</TableCell>
+          <TableRow>
+            <TableCell align="left">상품명</TableCell>
+            <TableCell align="left">개수</TableCell>
+            <TableCell align="left">가격</TableCell>
+            <Button
+                    variant="contained"
+                    type="submit"
+                    sx={{ mt: 1, mb: 1 }}
+                    onClick={() => {
+                        window.location.replace("/");
+                    }}
+                >
+                     홈페이지로
+            </Button>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((row: any) => (
+                <TableRow
+                key={row.cID}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                        <TableCell align="left">{row.cNAME}</TableCell>
+                        <TableCell align="left">
+                            <TextField
+                                label={row.cQTY}
+                                required
+                                type="number"
+                                name="qty"
+                                autoComplete="qty"
+                                autoFocus
+                                onChange={handleInputQTY}
+                            ></TextField>
+                            <Button 
+                                onClick={() => onClickChange(row.mID,row.pID,qty)}>확인
+                            </Button>
+                        </TableCell>
+                        <TableCell align="left">{(row.cPRICE)*(row.cQTY)}</TableCell>
+                        <TableCell align="left">
+                            {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
+                                <IconButton
+                                    key={row.cID + 10}
+                                    color="error"
+                                    aria-label="delete"
+                                    size="small"
+                                    onClick={() => onClickDeleteCart(row.mID,row.pID)}
+                                >
+                                    <ClearIcon fontSize="inherit" />
+                                </IconButton>
+                            )}
+                        </TableCell>
+                        
                         </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {data.map((row: any) => (
-                            <TableRow
-                            key={row.wID}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                                <TableCell align="left">
-                                    <CardMedia key={row.pID + 0} component="img" height="200" image={""}/>
-                                </TableCell>
-                                <TableCell align="left">{row.wNAME}</TableCell>
-                                <TableCell align="left">{row.wQUANTITY}</TableCell>
-                                <TableCell align="left">
-                                    {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
-                                        <IconButton
-                                            key={row.wID + 10}
-                                            color="error"
-                                            aria-label="delete"
-                                            size="small"
-                                            onClick={() => LoadImage(row.pID)}
-                                        >
-                                            <ClearIcon fontSize="inherit" />
-                                        </IconButton>
-                                    )}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                        </TableBody>
+                    ))}
+                    </TableBody>
                     </Table>
                 </TableContainer>
             </Container>
