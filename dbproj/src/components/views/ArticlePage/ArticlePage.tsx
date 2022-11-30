@@ -12,6 +12,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ReplyPage from "./ReplyPage";
+import ImagePage2 from "./ImagePage2";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -78,9 +79,14 @@ function ArticlePage() {
                                 <Typography variant="body2" color="text.secondary" key={row.pID + 4 + "a"}>
                                     {row.pDETAIL}
                                 </Typography>
+                                <Typography variant="h6" color="text.secondary" key={row.pID + 5 + "a"}>
+                                    가격 : {row.pPRICE}
+                                </Typography>
+
                             </div>
                         ))
                     }
+
                     <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
                     <Button>찜하기</Button>
                     <Button>장바구니</Button>
@@ -88,10 +94,39 @@ function ArticlePage() {
                     </ButtonGroup>
                 </Stack>
             </Item>
+            <Item>
+                <Stack direction="column" spacing={2}>
+                    {
+                        item.map((row: any) => (
+                            <div key = {row.pID + 2 + "d"}>
+                                <Typography gutterBottom variant="h5" component="div" key={row.pID + 3 + "a"}>
+                                    {row.pNAME}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" key={row.pID + 4 + "a"}>
+                                    {row.pDETAIL}
+                                </Typography>
+                                <Typography variant="h6" color="text.secondary" key={row.pID + 5 + "a"}>
+                                    가격 : {row.pPRICE}
+                                </Typography>
+
+                            </div>
+                        ))
+                    }
+
+                    <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
+                        <Button>찜하기</Button>
+                        <Button>장바구니</Button>
+                        <Button>구매하기</Button>
+                    </ButtonGroup>
+                </Stack>
+            </Item>
+
             </Grid>
 
             <Grid xs={4} sm = {8} md = { 12}>
-
+            <Item>
+                <ImagePage2></ImagePage2>
+            </Item>
             <Item>
                 <ReplyPage boardId = {reply_id} boardType = "item"></ReplyPage>
             </Item>

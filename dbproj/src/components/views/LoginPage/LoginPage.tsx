@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { purple } from "@mui/material/colors";
+import {useNavigate} from "react-router-dom";
 
 const theme = createTheme({
     palette: {
@@ -27,6 +28,7 @@ const theme = createTheme({
 });
 
 function LoginPage() {
+    const navi = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
@@ -44,8 +46,7 @@ function LoginPage() {
                         localStorage.clear();
                         localStorage.setItem("id", email);
                         localStorage.setItem("token", res.data.token);
-                        alert("로그인 성공");
-                        window.location.replace("/");
+                        navi("/");
                     }else if(res.data.result ==="wrong password"){
                         alert("잘못된 비밀번호 입니다.");
                     }else if(res.data.result ==="wrong id"){

@@ -11,7 +11,16 @@ import { styled } from '@mui/material/styles';
 import Paper from "@mui/material/Paper";
 import Container from '@mui/material/Container';
 import Carousel from 'react-material-ui-carousel'
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import StarRateIcon from '@mui/icons-material/StarRate';
+import StarPurple500Icon from '@mui/icons-material/StarPurple500';
+import Popover from '@mui/material/Popover';
+import "./ImagePage.css"
 
+interface props{
+    productCategory : string,
+}
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -21,50 +30,113 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-function ImagePage(props: any) {
+function ImagePage({productCategory = "" } : props) {
     const [data, setdata] = useState([]);
-    const test = {
-        width: "500px",
-        height: "500px",
-    };
-    const callApi = async () => {
-        const res = await axios.get("/setitem/getItem");
-        const result = res.data.rows;
+    let 좋아요 = Array.from({length: data.length}, () => false);
+    const [따봉, 따봉설정] = useState([false]);
+    const id = localStorage.getItem("id");
 
-        setdata(result);
+
+    const 좋아요클릭 = async (index : any, product : any) => {
+
+        if(!따봉[index]){
+            let copy = [...따봉];
+            copy[index] = true;
+            따봉설정(copy);
+            axios.post("/setitem/insertWishlist", null, {
+                params: {
+                    id: id,
+                    product :product
+                }
+            }).then((res) =>{
+                if(res){
+                    alert("")
+                }
+            }).catch((err)=>{
+                console.log(err);
+            });
+        }else {
+            let copy = [...따봉];
+            copy[index] = false;
+            따봉설정(copy);
+            axios.post("/setitem/deleteWishlist", null, {
+                params: {
+                    id: id,
+                    product : product
+                }
+            }).then((res) =>{
+                if(res){
+                    alert("")
+                }
+            }).catch((err)=>{
+                console.log(err);
+            });
+        }
+    }
+
+    const callApi = async () => {
+        axios.post("/setitem/getItemCategory", null, {
+            params: {
+                productCategory: productCategory,
+            }
+        }).then((res) =>{
+            setdata(res.data.rows);
+        }).catch((err)=>{
+            console.log(err);
+        });
     };
-    console.log(data);
     useEffect(() => {
         callApi();
     }, []);
 
     return (
-        <Grid>
-            {data.map((row: any) => (
-                <Grid>
-                    <Card sx={{ maxWidth: 400, border: 1 }}>
-                        <CardMedia key={row.pID + 0} component="img" height="200" image={row.pIMAGE1} />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div" key={row.pID + 3}>
+        <Grid container
+              spacing={3}
+              justifyContent="center"
+              alignItems="stretch">
+            {data.map((row: any, index:number) => (
+                <Grid  xs={12} sm={3}>
+                    <Box sx = {{width : 300, height: 300, alignItems: "center"}}>
+                        <Box sx = { { align : "center"}}>
+                            <CardMedia key={row.pID + 0} component="img" height="200" image={row.pIMAGE1} />
+
+                            <Typography gutterBottom variant="h4" component="div" key={row.pID + 3}>
                                 {row.pNAME}
+
                             </Typography>
+
                             <Typography variant="body2" color="text.secondary" key={row.pID + 4}>
                                 {row.pDETAIL}
-                            </Typography>
-                        </CardContent>
-                        <CardActions>
+                         </Typography>
+
+                        </Box>
+                        <Box sx = { { align : "center"}}>
+                            <div className="aligned">
                             <Button key={row.pID + 1} size="small">
                                 구매하기
                             </Button>
                             <Button key={row.pID + 2} size="small">
                                 장바구니
                             </Button>
-                        </CardActions>
-                    </Card>
+                                <IconButton onClick={() =>{
+                                    좋아요클릭(index, row.pID);
+                                }} color={"primary"}>
+                                    {
+                                        따봉[index] ? (<StarRateIcon/>) : (<StarPurple500Icon/>)
+                                    }
+                                </IconButton>
+                            </div>
+                        </Box>
+                    </Box>
                 </Grid>
             ))}
+
         </Grid>
-    );
+
+
+
+
+);
 }
 
 export default ImagePage;
