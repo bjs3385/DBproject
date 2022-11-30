@@ -2,17 +2,10 @@
 
 .Content {display:block;}
 
-@media (min-width : 1025px){
-    .Content{
-    max-width : 100%;
-    margin : 0 50px;
-    padding : 0 0 44px;
-    }
+.ImgPage2 {
+    font-size: 30px;
+    text-align: center;
+    margin:0px 0 40px
 }
 
-@media (max-width: 1024px){
-    .Content{
-        padding-bottom : 66px;
-        position : relative;
-    }
-}
+

@@ -39,9 +39,10 @@
 
 /*--------------------------------Added------------------------------*/
 * { margin:0; padding:0;
-  font: normal 12px 'Dotum'}
+  font: normal 12px Musinsa;
+  font-family: Musinsa, '카페24써라운드에어', Cafe24SsurroundAir, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;}
   a { text-decoration : none;}
   img { border: 0; }
   ul { list-style:none;}
-  body{ margin: 0 auto;}
+  body{ margin: 0 auto; }
   /*--------------------------------Added------------------------------*/

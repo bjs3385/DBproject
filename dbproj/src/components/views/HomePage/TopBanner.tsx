@@ -9,9 +9,14 @@ import "./TopBanner.css"
 
 const TopBanner = () => {
     return (
-        <div><p>----TopBanner----</p>
-            <img className="TopBanner" src="https://aioli2017.wisacdn.com/data/base/banner/202211118c8ef457bb774bcbbd35ef17c9580c4aamall_ml_11_1Main_PC.jpg"></img>
-        
+        <div>
+            <div className="TopBanner">
+                <img className="TopBanner-img" src="https://aioli2017.wisacdn.com/data/base/banner/202211118c8ef457bb774bcbbd35ef17c9580c4aamall_ml_11_1Main_PC.jpg"></img>
+                <div className="TopBanner-here">
+                    <h2 className="TopBanner-text">WINTER FASHION COLLECTION</h2>
+                    <a href="/product/list.html?cate_no=24" className="button">shop now</a>
+                </div>  
+            </div>
             <section className = "collection">
                 <div className="collection-item">
                     <a href="/product/list.html?cate_no=24">
@@ -29,7 +34,7 @@ const TopBanner = () => {
                         </picture>
                     </a>
                 </div>
-                <div className="collection-item">
+                <div className="collection-item col-item3">
                     <a href="/product/list.html?cate_no=24">
                         <picture>
                             <source srcSet="//img.echosting.cafe24.com/skin/skin_ko_KR/main/img_collection3.webp" type="image/webp" />

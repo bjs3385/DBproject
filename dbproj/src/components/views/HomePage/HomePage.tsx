@@ -15,7 +15,7 @@ import TopBanner from "./TopBanner";    //add
 import TopBar from "./TopBar";
 import {ImageList, ImageListItem} from "@mui/material"
 import {useNavigate} from "react-router-dom";
-
+import Footer from "./Footer";
 
 
 //배너이미지 출처 - TheAmall
@@ -41,12 +41,10 @@ function HomePage() {
             <div className="{styles.Content}">
                 <TopBanner />
             </div>
-            <ImagePage2></ImagePage2>
+            <h1 className={styles.ImgPage2}>Sale Items</h1>
+            <ImagePage2 ></ImagePage2>
+            <Footer />
         </Container>
-
-
-
-
     );
 }
 export default HomePage;
