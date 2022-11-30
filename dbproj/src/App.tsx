@@ -35,6 +35,7 @@ function App() {
                 <Route path="/newregister" element={<NewRegisterPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/image2" element={<ImagePage2 />} />
+                <Route path="/category/:category" element={<CategoryPage/>} />
                 <Route path="/mypage" element={<MyPage />} />
                 <Route path="/cartpage" element={<CartPage />} />
                 <Route path="/reply" element={<ReplyPage boardId={1} boardType="notice" />} />
