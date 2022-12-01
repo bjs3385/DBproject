@@ -1,25 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { purple } from "@mui/material/colors";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import dayjs, { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { koKR } from "@mui/x-date-pickers";
-import koLocale from "date-fns/locale/ko";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -194,7 +178,7 @@ function MyPage() {
                 </ButtonGroup>
             </Container>
             <Container>
-                <h1>Wish List</h1>
+                <h1>장바구니</h1>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 100 }} aria-label="simple table">
                     <TableHead>

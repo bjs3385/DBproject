@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,11 +17,9 @@ import CardMedia from '@mui/material/CardMedia';
 function WishlistPage() {
     const [data, setData] = useState([]);
     const [imageData, setImage] = useState([]);
-    const email = localStorage.getItem('id') as string;
     
+    const email = localStorage.getItem('id') as string;
     const callApi = async () => {
-      if(email !== "")
-      {
         axios
             .post("/wishlist/getWishlist", null, {
                 params: {
@@ -32,7 +29,7 @@ function WishlistPage() {
             .then((res) => {
                 if(res.data.result){
                     setData(res.data.result);
-                    setImage(res.data.imageData);
+                    setImage(res.data.result1);
                 }
                 else if(res.data.result === "wrong id")
                 {
@@ -40,6 +37,9 @@ function WishlistPage() {
                 }
             })
             .catch();
+        if(email !== "")
+        {
+        
         }else if (email === "") {
             alert("로그인을 해주세요.");
         }
@@ -51,24 +51,23 @@ function WishlistPage() {
             alert("잘못된 접근입니다.");
             window.location.replace("/");
         } else {
-            axios
-                .post("/users/onLogin", null, {
-                    params: {
-                        email: localStorage.getItem("id"),
-                        token: localStorage.getItem("token"),
-                    },
-                })
-                .then((res) => {
-                    if (res.data.result === "wrong token") {
-                        window.location.replace("/");
-                        alert("잘못된 접근입니다.");
-                    }
-                });
-        }
-        callApi();
-        
-      }, []);
-      const onClickWishDelete = (mid: any, pid: any) => {
+                axios
+                    .post("/users/onLogin", null, {
+                        params: {
+                            email: localStorage.getItem("id"),
+                            token: localStorage.getItem("token"),
+                        },
+                    })
+                    .then((res) => {
+                        if (res.data.result === "wrong token") {
+                            window.location.replace("/");
+                            alert("잘못된 접근입니다.");
+                        }
+                    });
+            }
+            callApi();
+        }, []);
+    const onClickWishDelete = (mid: any, pid: any) => {
         axios
             .post("/wishlist/deleteWishlist", null, {
                 params: {
@@ -85,28 +84,29 @@ function WishlistPage() {
         window.location.reload();
     };
     const LoadImage = (pid: any) => {
-      axios
-          .post("/wishlist/getWishlistImage", null, {
-              params: {
-                  pid: pid,
-              },
-          })
-          .then((res) => {
-              console.log(res);
-              const result = res.data.result;
-              console.log("값 : "+result.pIMAGE1);
-              return result;
-          })
-          .catch((err) => {
-              console.log(err);
-          });
-      //window.location.reload();
-  };
+        axios
+            .post("/wishlist/getWishlistImage", null, {
+                params: {
+                    pid: pid,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+                const result = res.data.result;
+                console.log("값 : "+result);
+                setImage(result);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        //window.location.reload();
+    };
   //onClickWishDelete(row.mID,row.pID) delete에 들어가야함
+  // onLoad ={() => LoadImage(row.pID)}
     return (
-      <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 100 }} aria-label="simple table">
-      <TableHead>
+    <TableContainer component={Paper}>
+    <Table sx={{ minWidth: 100 }} aria-label="simple table">
+    <TableHead>
             <TableRow>
                 <TableCell align="left">상품사진</TableCell>
                 <TableCell align="left">상품명</TableCell>
@@ -132,7 +132,7 @@ function WishlistPage() {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                     <TableCell align="left">
-                        <CardMedia key={row.pID + 0} component="img" height="200" image={""}/>
+                    <CardMedia key={row.pID} component="img" height="150" width="150" image={row.pIMAGE1}/>
                     </TableCell>
                     <TableCell align="left">{row.wNAME}</TableCell>
                     <TableCell align="left">{row.wQUANTITY}</TableCell>
@@ -152,8 +152,7 @@ function WishlistPage() {
                 </TableRow>
             ))}
             </TableBody>
-        
-      </Table>
+        </Table>
     </TableContainer>
         
     );
