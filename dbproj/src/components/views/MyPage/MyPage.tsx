@@ -13,6 +13,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import ClearIcon from "@mui/icons-material/Clear";
+import CardMedia from '@mui/material/CardMedia';
+import { height } from "@mui/system";
+import { Grid } from "@mui/material";
 
 
 function MyPage() {
@@ -184,6 +187,7 @@ function MyPage() {
                     <TableHead>
           <TableRow>
             <TableCell align="left">상품명</TableCell>
+            <TableCell align="left">상품사진</TableCell>
             <TableCell align="left">개수</TableCell>
             <TableCell align="left">가격</TableCell>
             <Button
@@ -204,7 +208,8 @@ function MyPage() {
                 key={row.cID}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                        <TableCell align="left">{row.cNAME}</TableCell>
+                        <TableCell align="left">{row.pNAME}</TableCell>
+                        <CardMedia key={row.pID} component="img" sx={{width:150, height:150 }} image={row.pIMAGE1}/>
                         <TableCell align="left">
                             <TextField
                                 label={row.cQTY}
@@ -212,14 +217,20 @@ function MyPage() {
                                 type="number"
                                 name="qty"
                                 autoComplete="qty"
-                                autoFocus
+                                sx={{
+                                    width : 50,
+                                    height : 50
+                                }}
                                 onChange={handleInputQTY}
                             ></TextField>
                             <Button 
                                 onClick={() => onClickChange(row.mID,row.pID,qty)}>확인
                             </Button>
                         </TableCell>
-                        <TableCell align="left">{(row.cPRICE)*(row.cQTY)}</TableCell>
+                        <TableCell align="left">
+                            총 가격 : {(row.cPRICE)*(row.cQTY)}<br></br>
+                            개당 가격 : {row.cPRICE}
+                        </TableCell>
                         <TableCell align="left">
                             {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
                                 <IconButton
@@ -240,9 +251,21 @@ function MyPage() {
                     </Table>
                 </TableContainer>
             </Container>
-            
-            
-            
+            <Grid container alignItems="center" maxWidth="xs"
+                sx={{
+                    flexDirection: "column",
+                }}>
+                <Button
+                        variant="contained"
+                        type="submit"
+                        sx={{ mt: 1, mb: 1 }}
+                        onClick={() => {
+                            window.location.replace("/mypage");
+                        }}
+                    >
+                        구매하러 가기
+                </Button>
+            </Grid>
         </div>
         
     );

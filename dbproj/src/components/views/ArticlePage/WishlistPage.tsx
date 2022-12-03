@@ -13,6 +13,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { TextField } from "@mui/material";
 import Homepage from "components/views/HomePage/HomePage";
 import CardMedia from '@mui/material/CardMedia';
+import { Container } from "@mui/system";
 
 function WishlistPage() {
     const [data, setData] = useState([]);
@@ -99,13 +100,11 @@ function WishlistPage() {
             .catch((err) => {
                 console.log(err);
             });
-        //window.location.reload();
+        window.location.reload();
     };
-  //onClickWishDelete(row.mID,row.pID) delete에 들어가야함
-  // onLoad ={() => LoadImage(row.pID)}
     return (
     <TableContainer component={Paper}>
-    <Table sx={{ minWidth: 100 }} aria-label="simple table">
+    <Table sx={{ minWidth: 90 }} aria-label="simple table">
     <TableHead>
             <TableRow>
                 <TableCell align="left">상품사진</TableCell>
@@ -132,9 +131,9 @@ function WishlistPage() {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                     <TableCell align="left">
-                    <CardMedia key={row.pID} component="img" height="150" width="150" image={row.pIMAGE1}/>
+                    <CardMedia key={row.pID} component="img" sx={{width:150, height:150 }} image={row.pIMAGE1}/>
                     </TableCell>
-                    <TableCell align="left">{row.wNAME}</TableCell>
+                    <TableCell align="left">{row.pNAME}</TableCell>
                     <TableCell align="left">{row.wQUANTITY}</TableCell>
                     <TableCell align="left">
                         {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
@@ -143,7 +142,7 @@ function WishlistPage() {
                                 color="error"
                                 aria-label="delete"
                                 size="small"
-                                onClick={() => LoadImage(row.pID)}
+                                onClick={() => onClickWishDelete(row.mID,row.pID)}
                             >
                                 <ClearIcon fontSize="inherit" />
                             </IconButton>
@@ -152,9 +151,8 @@ function WishlistPage() {
                 </TableRow>
             ))}
             </TableBody>
-        </Table>
+        </Table>        
     </TableContainer>
-        
     );
 }
 
