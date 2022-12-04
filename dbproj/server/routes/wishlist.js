@@ -65,7 +65,7 @@ router.post("/deleteWishlist", function (req, res, next) {
 
     connection.query("DELETE FROM wishlist WHERE mID = ? and pID = ?", [user_id,product_id], function (error, results, fields) {
         if (error) throw error;
-        console.log("Sucess solution deleteCart");
+        console.log("Sucess solution deleteWishlist");
     });
 });
 
