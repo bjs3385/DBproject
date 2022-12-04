@@ -34,8 +34,6 @@ function HomePage() {
             <Header />
             <div className={styles.MyMenu}>
                 <p className={styles.Box}>DIV</p>
-                <Logout></Logout>
-                <MyPage></MyPage>
             </div>
             <TopBar />
             <div className="{styles.Content}">

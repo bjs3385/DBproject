@@ -110,4 +110,25 @@ router.post("/deleteWishlist", function (req, res, next){
 
 })
 
+router.post("/insertCart", function (req, res, next){
+    const id = req.query.id;
+    const product = req.query.product;
+    connection.query("SELECT * FROM cart WHERE pID = ?", [product], (err, rows, fields) => {
+        if (err) throw err;
+        if (rows.length > 0) {
+            console.log("fail");
+            res.send({ result: false});
+        } else {
+            connection.query("INSERT INTO cart (mID, pID) VALUES (?, ?)", [id, product], function (err, result, fields){
+                if(err) throw err;
+                console.log(result);
+                res.send({ result: result });
+            });
+        }
+    });
+
+
+
+})
+
 module.exports = router;

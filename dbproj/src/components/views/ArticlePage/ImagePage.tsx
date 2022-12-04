@@ -17,6 +17,7 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 import StarPurple500Icon from '@mui/icons-material/StarPurple500';
 import Popover from '@mui/material/Popover';
 import "./ImagePage.css"
+import {Link} from "react-router-dom";
 
 interface props{
     productCategory : string,
@@ -98,17 +99,15 @@ function ImagePage({productCategory = "" } : props) {
                 <Grid  xs={12} sm={3}>
                     <Box sx = {{width : 300, height: 300, alignItems: "center"}}>
                         <Box sx = { { align : "center"}}>
+                            <Link to={"/article/"+ row.pID}>
                             <CardMedia key={row.pID + 0} component="img" height="200" image={row.pIMAGE1} />
-
+                            </Link>
                             <Typography gutterBottom variant="h4" component="div" key={row.pID + 3}>
                                 {row.pNAME}
-
                             </Typography>
-
                             <Typography variant="body2" color="text.secondary" key={row.pID + 4}>
                                 {row.pDETAIL}
                          </Typography>
-
                         </Box>
                         <Box sx = { { align : "center"}}>
                             <div className="aligned">
@@ -130,12 +129,7 @@ function ImagePage({productCategory = "" } : props) {
                     </Box>
                 </Grid>
             ))}
-
         </Grid>
-
-
-
-
 );
 }
 

@@ -37,28 +37,28 @@ const TopBar = () => {
                         <Link to="/category/all">ALL</Link>
                     </div>
                     <div className="category item2">
-                        <Link to="/category/all">OUTER</Link>
+                        <Link to="/category/outer">OUTER</Link>
                         </div>
                     <div className="category item3">
-                        <Link to="/category/all">DRESS</Link>
+                        <Link to="/category/dress">DRESS</Link>
                     </div>
                     <div className="category item4">
-                        <Link to="/category/all">BAG</Link>
+                        <Link to="/category/bag">BAG</Link>
                     </div>
                     <div className="category item5">
-                        <Link to="/category/all">BOOTS</Link>
+                        <Link to="/category/boots">BOOTS</Link>
                     </div>
                     <div className="category item6">
-                        <Link to="/category/all">SKIRT</Link>
+                        <Link to="/category/skirt">SKIRT</Link>
                     </div>
                     <div className="category item7">
-                        <Link to="/category/all">CAP</Link>
+                        <Link to="/category/cap">CAP</Link>
                     </div>
                     <div className="category item8">
-                        <Link to="/category/all">TSHIRT</Link>
+                        <Link to="/category/tshirt">TSHIRT</Link>
                     </div>
                     <div className="category item10">
-                        <Link to="/category/all">WATCH</Link>
+                        <Link to="/category/watch">WATCH</Link>
                     </div>
                 
             </div>

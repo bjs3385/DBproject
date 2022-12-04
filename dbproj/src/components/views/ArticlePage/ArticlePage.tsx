@@ -7,13 +7,24 @@ import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import { useLocation, useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
-
+import {  Container } from "@mui/system";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ReplyPage from "./ReplyPage";
 import ImagePage2 from "./ImagePage2";
 
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import TopBanner from "../HomePage/TopBanner";
+import Header from "../HomePage/Header";
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref,
+) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -26,7 +37,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function ArticlePage() {
     let {id} = useParams();
-
+    const loginId = localStorage.getItem("id");
     const reply_id = Number(id);
     const [item, setItem] = useState([]);
     const callApi = async () => {
@@ -42,13 +53,52 @@ function ArticlePage() {
                 }})
                 .catch();
     };
+    const onClickLike = () => {
+        axios.post("/setitem/insertWishlist", null, {
+            params :{
+                id : loginId,
+                product : reply_id
+            }
+        }).then((res) =>{
+            if(res){
+            }
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
+    const onClickCart = () =>{
+        axios.post("/setitem/insertCart", null, {
+            params :{
+                id : loginId,
+                product : reply_id
+            }
+        }).then((res) =>{
+            if(res){
+            }
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
 
-    
+    const [open, setOpen] = React.useState(false);
+
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        setOpen(false);
+    };
+
     useEffect(() => {
         callApi();
     }, []);
     return (
+        <Grid>
+            <Container fixed>
+        <Header></Header>
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+
         <Grid xs={4} sm = {4} md = {4}>
             
             <Item>
@@ -88,38 +138,29 @@ function ArticlePage() {
                     }
 
                     <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
-                    <Button>찜하기</Button>
-                    <Button>장바구니</Button>
+                    <Button  onClick={() => {
+                        onClickLike()
+                        handleClick()
+                    }}>찜하기</Button>
+                        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                               성공적으로 추가되었습니다.
+                            </Alert>
+                        </Snackbar>
+
+
+
+                    <Button  onClick={()=> {
+                        onClickCart()
+                        handleClick()
+                    }
+                    }>장바구니</Button>
+
                     <Button>구매하기</Button>
                     </ButtonGroup>
                 </Stack>
             </Item>
-            <Item>
-                <Stack direction="column" spacing={2}>
-                    {
-                        item.map((row: any) => (
-                            <div key = {row.pID + 2 + "d"}>
-                                <Typography gutterBottom variant="h5" component="div" key={row.pID + 3 + "a"}>
-                                    {row.pNAME}
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary" key={row.pID + 4 + "a"}>
-                                    {row.pDETAIL}
-                                </Typography>
-                                <Typography variant="h6" color="text.secondary" key={row.pID + 5 + "a"}>
-                                    가격 : {row.pPRICE}
-                                </Typography>
 
-                            </div>
-                        ))
-                    }
-
-                    <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
-                        <Button>찜하기</Button>
-                        <Button>장바구니</Button>
-                        <Button>구매하기</Button>
-                    </ButtonGroup>
-                </Stack>
-            </Item>
 
             </Grid>
 
@@ -131,6 +172,8 @@ function ArticlePage() {
                 <ReplyPage boardId = {reply_id} boardType = "item"></ReplyPage>
             </Item>
             </Grid>
+        </Grid>
+            </Container>
         </Grid>
     );
 }
