@@ -53,6 +53,20 @@ function ArticlePage() {
                 }})
                 .catch();
     };
+    const onClickBuy = () => {
+
+        console.log("onClickBuy");
+        axios.post("/setitem/setOrderlist", null, {
+            params:{
+                id : loginId,
+                pID : id,
+            }
+        }).then((res) => {
+            if(res){
+                console.log("주문완료");
+            }
+        }).catch();
+    }
     const onClickLike = () => {
         axios.post("/setitem/insertWishlist", null, {
             params :{
@@ -144,7 +158,7 @@ function ArticlePage() {
                     }}>찜하기</Button>
                         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-                               성공적으로 추가되었습니다.
+                                성공
                             </Alert>
                         </Snackbar>
 
@@ -156,7 +170,12 @@ function ArticlePage() {
                     }
                     }>장바구니</Button>
 
-                    <Button>구매하기</Button>
+                    <Button onClick={
+                        ()=>{
+                            onClickBuy()
+                            handleClick()
+                        }
+                    }>구매하기</Button>
                     </ButtonGroup>
                 </Stack>
             </Item>

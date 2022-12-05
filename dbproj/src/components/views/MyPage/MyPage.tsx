@@ -30,6 +30,8 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import ClearIcon from "@mui/icons-material/Clear";
 import CardMedia from '@mui/material/CardMedia';
+import Header from "../HomePage/Header";
+import TopBar from "../HomePage/TopBar";
 
 function MyPage() {
     const [password1, setPassword1] = useState("");
@@ -161,6 +163,10 @@ function MyPage() {
     };
 //onClickWishDelete(row.mID,row.pID) delete에 들어가야함
     return (
+        <Grid>
+        <Container fixed>
+            <Header></Header>
+            <TopBar></TopBar>
         <div>
             <h1>MyPage</h1>
             <Container>
@@ -241,10 +247,11 @@ function MyPage() {
                     </Table>
                 </TableContainer>
             </Container>
-            
-            
-            
         </div>
+        </Container>
+        </Grid>
+            
+
         
     );
 }

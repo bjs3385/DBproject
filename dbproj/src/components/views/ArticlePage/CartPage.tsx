@@ -13,6 +13,10 @@ import Button from '@mui/material/Button';
 import ClearIcon from "@mui/icons-material/Clear";
 import { TextField } from "@mui/material";
 import Homepage from "components/views/HomePage/HomePage";
+import Header from "../HomePage/Header";
+import TopBar from "../HomePage/TopBar";
+import { Box, Container } from "@mui/system";
+import Grid from "@mui/material/Grid";
 
 function CartPage() {
     const [data, setData] = useState([]);
@@ -87,6 +91,10 @@ function CartPage() {
         window.location.reload();
     };
     return (
+        <Grid>
+            <Container fixed>
+                <Header></Header>
+                <TopBar></TopBar>
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 100 }} aria-label="simple table">
         <TableHead>
@@ -94,16 +102,6 @@ function CartPage() {
             <TableCell align="left">상품명</TableCell>
             <TableCell align="left">개수</TableCell>
             <TableCell align="left">가격</TableCell>
-            <Button
-                    variant="contained"
-                    type="submit"
-                    sx={{ mt: 1, mb: 1 }}
-                    onClick={() => {
-                        window.location.replace("/");
-                    }}
-                >
-                     홈페이지로
-            </Button>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -147,6 +145,8 @@ function CartPage() {
         </TableBody>
       </Table>
     </TableContainer>
+            </Container>
+        </Grid>
         
     );
 }

@@ -74,7 +74,19 @@ function ImagePage({productCategory = "" } : props) {
             });
         }
     }
-
+    const onClickBuy = (pID : any) => {
+        console.log("onClickBuy");
+        axios.post("/setitem/setOrderlist", null, {
+            params:{
+                id : id,
+                pID : pID
+            }
+        }).then((res) => {
+            if(res){
+                console.log("주문완료");
+            }
+        }).catch();
+    }
     const callApi = async () => {
         axios.post("/setitem/getItemCategory", null, {
             params: {
@@ -111,7 +123,9 @@ function ImagePage({productCategory = "" } : props) {
                         </Box>
                         <Box key={row.pID + 10000000} sx={{align: "center"}}>
                             <div className="aligned">
-                                <Button key={row.pID + 1} size="small">
+                                <Button onClick={() => {
+                                    onClickBuy(row.pID);
+                                }} key={row.pID + 1} size="small">
                                     구매하기
                                 </Button>
                                 <Button key={row.pID + 2} size="small">

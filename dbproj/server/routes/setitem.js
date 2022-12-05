@@ -131,4 +131,44 @@ router.post("/insertCart", function (req, res, next){
 
 })
 
+router.post("/getOrderList", function (req, res, next) {
+    const id = req.query.id;
+    console.log("getOrderList");
+    connection.query("SELECT distinct * FROM product,orders where product.pID = orders.pID and orders.mID = ?", [id], (err, rows, fields) =>{
+        if(err)throw err;
+        if(rows.length>0){
+            console.log("success");
+            res.send({result: true, rows: rows});
+        }
+    });
+})
+
+router.post("/setOrderlist", function (req, res, next) {
+    const productId = req.query.pID;
+    const memberId = req.query.id;
+    let name;
+    let phoneNum;
+    let address;
+    console.log("setOrderlist");
+    connection.query("SELECT * FROM member WHERE mID = ?", [memberId], (err, rows, fields) =>{
+        if(err) throw err;
+        if(rows.length>0){
+            name = rows[0].mNAME;
+            phoneNum = rows[0].mPHONENUM;
+            address = rows[0].mADDRESS;
+        }
+    });
+
+    connection.query("SELECT * FROM product WHERE pID = ?", [productId], (err, rows, fields) =>{
+        if(err) throw err;
+        const item = rows[0];
+        connection.query("INSERT INTO orders (mID, pID, oNAME, oPHONENUM, oADDRESS, oPRICE, oQTY, oDATE) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [memberId, productId, name, phoneNum, address, item.pPRICE, 1, new Date()], (err, rows, fields) =>{
+            if(err) throw err;
+            res.send({
+                result : true
+            });
+        });
+    });
+});
+
 module.exports = router;

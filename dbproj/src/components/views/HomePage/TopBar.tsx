@@ -17,7 +17,7 @@ const TopBar = () => {
                     </svg>
                     검색
                 </button>
-                <a href="/myshop/index.html" className="menu RW">
+                <a href="/mypage" className="menu RW">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" className="icon" role="img">
                         <circle cx="11.5" cy="6.5" r="3.75" stroke="#f5f5f5" stroke-width="1.5"/>
                         <path stroke="#f5f5f5" stroke-width="1.5" d="M1.78 21.25c.382-4.758 4.364-8.5 9.22-8.5h1c4.856 0 8.838 3.742 9.22 8.5H1.78z"/>
@@ -32,33 +32,32 @@ const TopBar = () => {
                 </a>
             </div>
             <div className="navigation__category RW">
-                
                     <div  className="category item1">
-                        <Link to="/category/all">ALL</Link>
+                        <a href="/category/all">ALL</a>
                     </div>
                     <div className="category item2">
-                        <Link to="/category/outer">OUTER</Link>
+                        <a href="/category/outer">OUTER</a>
                         </div>
                     <div className="category item3">
-                        <Link to="/category/dress">DRESS</Link>
+                        <a href="/category/dress">DRESS</a>
                     </div>
                     <div className="category item4">
-                        <Link to="/category/bag">BAG</Link>
+                        <a href="/category/bag">BAG</a>
                     </div>
                     <div className="category item5">
-                        <Link to="/category/boots">BOOTS</Link>
+                        <a href="/category/boots">BOOTS</a>
                     </div>
                     <div className="category item6">
-                        <Link to="/category/skirt">SKIRT</Link>
+                        <a href="/category/skirt">SKIRT</a>
                     </div>
                     <div className="category item7">
-                        <Link to="/category/cap">CAP</Link>
+                        <a href="/category/cap">CAP</a>
                     </div>
                     <div className="category item8">
-                        <Link to="/category/tshirt">TSHIRT</Link>
+                        <a href="/category/tshirt">TSHIRT</a>
                     </div>
                     <div className="category item10">
-                        <Link to="/category/watch">WATCH</Link>
+                        <a href="/category/watch">WATCH</a>
                     </div>
                 
             </div>
