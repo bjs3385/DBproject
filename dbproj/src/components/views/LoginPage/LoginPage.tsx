@@ -76,6 +76,7 @@ function LoginPage() {
     }, []);
 
     return (
+        <Grid>
         <Container component="main" maxWidth="xs">
             <Box
                 sx={{
@@ -133,6 +134,7 @@ function LoginPage() {
                 </Grid>
             </Box>
         </Container>
+        </Grid>
     );
 }
 

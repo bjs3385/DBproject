@@ -9,6 +9,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 import { koKR } from "@mui/x-date-pickers";
 import koLocale from "date-fns/locale/ko";
+import Grid from "@mui/material/Grid";
+import Header from "../HomePage/Header";
+import TopBar from "../HomePage/TopBar";
+import {Box} from "@mui/material";
 
 function NewRegisterPage() {
     const [email, setEmail] = useState("");
@@ -116,6 +120,10 @@ function NewRegisterPage() {
     }, []);
 
     return (
+        <Grid>
+            <Container fixed>
+            <Header></Header>
+                <Box>
         <Container component="main" maxWidth="xs">
             <TextField
                 sx={{ mt: 3, mb: 2 }}
@@ -129,6 +137,9 @@ function NewRegisterPage() {
                 onChange={handleInputID}
             ></TextField>
             <Button
+                color={
+                "info"
+                }
                 variant="contained"
                 type="submit"
                 fullWidth
@@ -214,6 +225,9 @@ function NewRegisterPage() {
                 회원 가입
             </Button>
         </Container>
+                </Box>
+            </Container>
+        </Grid>
     );
 }
 

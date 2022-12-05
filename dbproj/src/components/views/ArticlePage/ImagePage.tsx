@@ -49,9 +49,9 @@ function ImagePage({productCategory = "" } : props) {
                     id: id,
                     product :product
                 }
-            }).then((res) =>{
-                if(res){
-                    alert("")
+            }).then((res) => {
+                if (res) {
+                    alert("위시리스트에 추가되었습니다.")
                 }
             }).catch((err)=>{
                 console.log(err);
@@ -65,9 +65,9 @@ function ImagePage({productCategory = "" } : props) {
                     id: id,
                     product : product
                 }
-            }).then((res) =>{
-                if(res){
-                    alert("")
+            }).then((res) => {
+                if (res) {
+                    alert("위시리스트에서 제거되었습니다.")
                 }
             }).catch((err)=>{
                 console.log(err);
@@ -96,9 +96,9 @@ function ImagePage({productCategory = "" } : props) {
               justifyContent="center"
               alignItems="stretch">
             {data.map((row: any, index:number) => (
-                <Grid  xs={12} sm={3}>
-                    <Box sx = {{width : 300, height: 300, alignItems: "center"}}>
-                        <Box sx = { { align : "center"}}>
+                <Grid key = {row.pID + 1000} xs={12} sm={3}>
+                    <Box key={row.pID + 10000} sx = {{width : 300, height: 300, alignItems: "center"}}>
+                        <Box key={row.pID + 100000} sx = { { align : "center"}}>
                             <Link to={"/article/"+ row.pID}>
                             <CardMedia key={row.pID + 0} component="img" height="200" image={row.pIMAGE1} />
                             </Link>
@@ -109,15 +109,15 @@ function ImagePage({productCategory = "" } : props) {
                                 {row.pDETAIL}
                          </Typography>
                         </Box>
-                        <Box sx = { { align : "center"}}>
+                        <Box key={row.pID + 10000000} sx={{align: "center"}}>
                             <div className="aligned">
-                            <Button key={row.pID + 1} size="small">
-                                구매하기
-                            </Button>
-                            <Button key={row.pID + 2} size="small">
-                                장바구니
-                            </Button>
-                                <IconButton onClick={() =>{
+                                <Button key={row.pID + 1} size="small">
+                                    구매하기
+                                </Button>
+                                <Button key={row.pID + 2} size="small">
+                                    장바구니
+                                </Button>
+                                <IconButton key={row.pID + 10001001} onClick={() => {
                                     좋아요클릭(index, row.pID);
                                 }} color={"primary"}>
                                     {
@@ -129,7 +129,12 @@ function ImagePage({productCategory = "" } : props) {
                     </Box>
                 </Grid>
             ))}
+
         </Grid>
+
+
+
+
 );
 }
 

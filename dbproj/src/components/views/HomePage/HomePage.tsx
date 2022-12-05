@@ -32,9 +32,7 @@ function HomePage() {
     return (
         <Container fixed>
             <Header />
-            <div className={styles.MyMenu}>
-                <p className={styles.Box}>DIV</p>
-            </div>
+
             <TopBar />
             <div className="{styles.Content}">
                 <TopBanner />
