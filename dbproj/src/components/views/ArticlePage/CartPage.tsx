@@ -11,11 +11,10 @@ import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import ClearIcon from "@mui/icons-material/Clear";
-import { TextField } from "@mui/material";
-import Homepage from "components/views/HomePage/HomePage";
+import {TextField} from "@mui/material";
 import Header from "../HomePage/Header";
 import TopBar from "../HomePage/TopBar";
-import { Box, Container } from "@mui/system";
+import {Container} from "@mui/system";
 import Grid from "@mui/material/Grid";
 
 function CartPage() {
@@ -23,41 +22,38 @@ function CartPage() {
     const [qty, setQty] = useState("");
     const email = localStorage.getItem('id') as string;
     const callApi = async () => {
-      if(email !== "")
-      {
-        axios
-            .post("/cart/getCart", null, {
-              params: {
-                  email: email,
-              },
-          })
-            .then((res) => {
-                if(res.data.result){
-                    setData(res.data.result);
-                }
-                else if(res.data.result === "wrong id")
-                {
-                  alert("로그인을 해주시길 바랍니다.");
-                }
-            })
-            .catch();
-        }else if (email === "") {
-          alert("로그인을 해주세요.");
-      }
+        if (email !== "") {
+            axios
+                .post("/cart/getCart", null, {
+                    params: {
+                        email: email,
+                    },
+                })
+                .then((res) => {
+                    if (res.data.result) {
+                        setData(res.data.result);
+                    } else if (res.data.result === "wrong id") {
+                        alert("로그인을 해주시길 바랍니다.");
+                    }
+                })
+                .catch();
+        } else if (email === "") {
+            alert("로그인을 해주세요.");
+        }
     }
     const handleInputQTY = (e: any) => {
         setQty(e.target.value);
         console.log(qty);
-    };   
+    };
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
             alert("잘못된 접근입니다.");
-          window.location.replace('/')
+            window.location.replace('/')
         }
         callApi();
-        
-      }, []);
-      const onClickDelete = (mid: any, pid: any) => {
+
+    }, []);
+    const onClickDelete = (mid: any, pid: any) => {
         axios
             .post("/cart/deleteCart", null, {
                 params: {
@@ -73,12 +69,12 @@ function CartPage() {
             });
         window.location.reload();
     };
-    const onClickChange = (mid : any, pid : any, qty: any) => {
+    const onClickChange = (mid: any, pid: any, qty: any) => {
         axios
             .post("/cart/updateCart", null, {
                 params: {
-                    mid : mid,
-                    pid : pid,
+                    mid: mid,
+                    pid: pid,
                     qty: qty,
                 },
             })
@@ -95,59 +91,59 @@ function CartPage() {
             <Container fixed>
                 <Header></Header>
                 <TopBar></TopBar>
-      <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 100 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">상품명</TableCell>
-            <TableCell align="left">개수</TableCell>
-            <TableCell align="left">가격</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row: any) => (
-            <TableRow
-              key={row.cID}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell align="left">{row.cNAME}</TableCell>
-              <TableCell align="left">
-                  <TextField
-                    label={row.cQTY}
-                    required
-                    type="number"
-                    name="qty"
-                    autoComplete="qty"
-                    autoFocus
-                    onChange={handleInputQTY}
-                ></TextField>
-                  <Button 
-                    onClick={() => onClickChange(row.mID,row.pID,qty)}>확인
-                  </Button>
-              </TableCell>
-              <TableCell align="left">{(row.cPRICE)*(row.cQTY)}</TableCell>
-              <TableCell align="left">
-                {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
-                    <IconButton
-                        key={row.cID + 10}
-                        color="error"
-                        aria-label="delete"
-                        size="small"
-                        onClick={() => onClickDelete(row.mID,row.pID)}
-                    >
-                        <ClearIcon fontSize="inherit" />
-                    </IconButton>
-                )}
-              </TableCell>
-              
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                <TableContainer component={Paper}>
+                    <Table sx={{minWidth: 100}} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="left">상품명</TableCell>
+                                <TableCell align="left">개수</TableCell>
+                                <TableCell align="left">가격</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {data.map((row: any) => (
+                                <TableRow
+                                    key={row.cID}
+                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                >
+                                    <TableCell align="left">{row.cNAME}</TableCell>
+                                    <TableCell align="left">
+                                        <TextField
+                                            label={row.cQTY}
+                                            required
+                                            type="number"
+                                            name="qty"
+                                            autoComplete="qty"
+                                            autoFocus
+                                            onChange={handleInputQTY}
+                                        ></TextField>
+                                        <Button
+                                            onClick={() => onClickChange(row.mID, row.pID, qty)}>확인
+                                        </Button>
+                                    </TableCell>
+                                    <TableCell align="left">{(row.cPRICE) * (row.cQTY)}</TableCell>
+                                    <TableCell align="left">
+                                        {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
+                                            <IconButton
+                                                key={row.cID + 10}
+                                                color="error"
+                                                aria-label="delete"
+                                                size="small"
+                                                onClick={() => onClickDelete(row.mID, row.pID)}
+                                            >
+                                                <ClearIcon fontSize="inherit"/>
+                                            </IconButton>
+                                        )}
+                                    </TableCell>
+
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Container>
         </Grid>
-        
+
     );
 }
 

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -11,9 +10,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { purple } from "@mui/material/colors";
+import {purple} from "@mui/material/colors";
 import {useNavigate} from "react-router-dom";
 
 const theme = createTheme({
@@ -31,7 +30,7 @@ function LoginPage() {
     const navi = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
+
     const onClickLogin = () => {
         if (email !== "" && password !== "") {
             axios
@@ -42,14 +41,14 @@ function LoginPage() {
                     },
                 })
                 .then((res) => {
-                    if(res.data.result ==="success"){
+                    if (res.data.result === "success") {
                         localStorage.clear();
                         localStorage.setItem("id", email);
                         localStorage.setItem("token", res.data.token);
                         navi("/");
-                    }else if(res.data.result ==="wrong password"){
+                    } else if (res.data.result === "wrong password") {
                         alert("잘못된 비밀번호 입니다.");
-                    }else if(res.data.result ==="wrong id"){
+                    } else if (res.data.result === "wrong id") {
                         alert("존재하지 않는 아이디 입니다.");
                     }
                 })
@@ -77,63 +76,63 @@ function LoginPage() {
 
     return (
         <Grid>
-        <Container component="main" maxWidth="xs">
-            <Box
-                sx={{
-                    marginTop: 8,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }}
-            >
-                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                    <LockOutlinedIcon></LockOutlinedIcon>
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    로그인
-                </Typography>
-                <TextField
-                    sx={{ mt: 3, mb: 2 }}
-                    label="아이디"
-                    required
-                    fullWidth
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    autoFocus
-                    onChange={handleInputID}
-                ></TextField>
-                <TextField
-                    label="비밀번호"
-                    required
-                    fullWidth
-                    name="password"
-                    type="password"
-                    onChange={handleInputPW}
-                ></TextField>
-                <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-                <ThemeProvider theme={theme}>
-                    <Button
-                        color="secondary"
-                        variant="contained"
-                        type="submit"
-                        fullWidth
-                        sx={{ mt: 3, mb: 2 }}
-                        onClick={() => onClickLogin()}
-                    >
+            <Container component="main" maxWidth="xs">
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}
+                >
+                    <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
+                        <LockOutlinedIcon></LockOutlinedIcon>
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
                         로그인
-                    </Button>
-                </ThemeProvider>
-                <Grid container>
-                    <Grid item xs>
-                        <Link href="http://localhost:3000/article/:articleId">비밀번호 찾기</Link>
+                    </Typography>
+                    <TextField
+                        sx={{mt: 3, mb: 2}}
+                        label="아이디"
+                        required
+                        fullWidth
+                        type="email"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                        onChange={handleInputID}
+                    ></TextField>
+                    <TextField
+                        label="비밀번호"
+                        required
+                        fullWidth
+                        name="password"
+                        type="password"
+                        onChange={handleInputPW}
+                    ></TextField>
+                    <FormControlLabel control={<Checkbox value="remember" color="primary"/>} label="Remember me"/>
+                    <ThemeProvider theme={theme}>
+                        <Button
+                            color="secondary"
+                            variant="contained"
+                            type="submit"
+                            fullWidth
+                            sx={{mt: 3, mb: 2}}
+                            onClick={() => onClickLogin()}
+                        >
+                            로그인
+                        </Button>
+                    </ThemeProvider>
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="http://localhost:3000/article/:articleId">비밀번호 찾기</Link>
+                        </Grid>
+                        <Grid item>
+                            <Link href="http://localhost:3000/newRegister">회원 가입</Link>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <Link href="http://localhost:3000/newRegister">회원 가입</Link>
-                    </Grid>
-                </Grid>
-            </Box>
-        </Container>
+                </Box>
+            </Container>
         </Grid>
     );
 }

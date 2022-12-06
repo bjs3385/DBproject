@@ -10,63 +10,60 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 
-
-
 function BoardPage() {
-    
+
     const callApi = async () => {
         const res = await axios.get("/setboard/getBoard");
         const result = res.data.result;
         setData(result);
     }
     const [data, setData] = useState([]);
-    
-    
+
+
     const clickBoard = (boardId: any) => {
-      window.location.href = "/board/" + boardId;
+        window.location.href = "/board/" + boardId;
     };
-      
-      
+
 
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
             alert("잘못된 접근입니다.");
-          window.location.replace('/')
+            window.location.replace('/')
         }
         callApi();
-        
-      }, []);
+
+    }, []);
     return (
         <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>게시판 제목</TableCell>
-            <TableCell align="right">게시판 번호</TableCell>
-            <TableCell align="right">작성자</TableCell>
-            <TableCell align="right">작성일</TableCell>
-            <TableCell align="right">조회수</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((row: any) => (
-            <TableRow
-              key={row.nID}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row" onClick={()=>clickBoard(row.nID)}> 
-                {row.nTITLE}
-              </TableCell>
-              <TableCell align="right">{row.nID}</TableCell>
-              <TableCell align="right">{row.nWRITER}</TableCell>
-              <TableCell align="right">{row.nDATE}</TableCell>
-              <TableCell align="right">{row.views}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-        
+            <Table sx={{minWidth: 650}} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>게시판 제목</TableCell>
+                        <TableCell align="right">게시판 번호</TableCell>
+                        <TableCell align="right">작성자</TableCell>
+                        <TableCell align="right">작성일</TableCell>
+                        <TableCell align="right">조회수</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {data.map((row: any) => (
+                        <TableRow
+                            key={row.nID}
+                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                        >
+                            <TableCell component="th" scope="row" onClick={() => clickBoard(row.nID)}>
+                                {row.nTITLE}
+                            </TableCell>
+                            <TableCell align="right">{row.nID}</TableCell>
+                            <TableCell align="right">{row.nWRITER}</TableCell>
+                            <TableCell align="right">{row.nDATE}</TableCell>
+                            <TableCell align="right">{row.views}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+
     );
 }
 

@@ -1,25 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { purple } from "@mui/material/colors";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import dayjs, { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { koKR } from "@mui/x-date-pickers";
-import koLocale from "date-fns/locale/ko";
+import dayjs, {Dayjs} from "dayjs";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -48,8 +33,7 @@ function MyPage() {
 
     const email = localStorage.getItem('id') as string;
     const callApi = async () => {
-            if(email !== "")
-            {
+        if (email !== "") {
             axios
                 .post("/wishlist/getWishlist", null, {
                     params: {
@@ -57,20 +41,18 @@ function MyPage() {
                     },
                 })
                 .then((res) => {
-                    if(res.data.result){
+                    if (res.data.result) {
                         setData(res.data.result);
                         setImage(res.data.imageData);
-                    }
-                    else if(res.data.result === "wrong id")
-                    {
+                    } else if (res.data.result === "wrong id") {
                         alert("로그인을 해주시길 바랍니다.");
                     }
                 })
                 .catch();
-            }else if (email === "") {
-                alert("로그인을 해주세요.");
-            }
+        } else if (email === "") {
+            alert("로그인을 해주세요.");
         }
+    }
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
             alert("잘못된 접근입니다.");
@@ -92,37 +74,34 @@ function MyPage() {
         }
         callApi();
     }, []);
-    
+
     //const email = JSON.parse(localStorage.getItem('id') as string);
     const onClickDelete = () => {
         if (email !== "") {
-            if(email == "admin")
-            {
+            if (email == "admin") {
                 alert("관리자 계정은 삭제가 불가능합니다.")
-            }
-            else
-            {
+            } else {
                 axios
-                .post("/delete/onDelete", null, {
-                    params: {
-                        email: email,
-                    },
-                })
-                .then((res) => {
-                    const rest = axios.post("/delete/token",null);
-                    if(res.data.result ===""){
-                        alert("존재하지 않는 아이디 입니다.");
-                    }else{
-                        localStorage.clear();
-                        localStorage.setItem("id", email);
-                        localStorage.setItem("token", res.data.token);
-                        alert(email + " 계정이 삭제되었습니다.");
-                        window.location.replace("/");
-                    }
-                })
-                .catch();
+                    .post("/delete/onDelete", null, {
+                        params: {
+                            email: email,
+                        },
+                    })
+                    .then((res) => {
+                        const rest = axios.post("/delete/token", null);
+                        if (res.data.result === "") {
+                            alert("존재하지 않는 아이디 입니다.");
+                        } else {
+                            localStorage.clear();
+                            localStorage.setItem("id", email);
+                            localStorage.setItem("token", res.data.token);
+                            alert(email + " 계정이 삭제되었습니다.");
+                            window.location.replace("/");
+                        }
+                    })
+                    .catch();
             }
-            
+
         }
     };
 
@@ -153,7 +132,7 @@ function MyPage() {
             .then((res) => {
                 console.log(res);
                 const result = res.data.result;
-                console.log("값 : "+result.pIMAGE1);
+                console.log("값 : " + result.pIMAGE1);
                 return result;
             })
             .catch((err) => {
@@ -164,95 +143,95 @@ function MyPage() {
 //onClickWishDelete(row.mID,row.pID) delete에 들어가야함
     return (
         <Grid>
-        <Container fixed>
-            <Header></Header>
-            <TopBar></TopBar>
-        <div>
-            <h1>MyPage</h1>
-            <Container>
-                <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
-                    <Button
-                        variant="contained"
-                        type="submit"
-                        fullWidth
-                        sx={{ mt: 1, mb: 2 }}
-                        onClick={() => {
-                            onClickDelete();
-                        }}
-                    >
-                        계정삭제
-                    </Button>
-                    <Button
-                        variant="contained"
-                        type="submit"
-                        fullWidth
-                        sx={{ mt: 1, mb: 2 }}
-                        onClick={() => {
-                            window.location.replace("/CartPage");
-                        }}
-                    >
-                        장바구니
-                    </Button>
-                    <Button
-                        variant="contained"
-                        type="submit"
-                        fullWidth
-                        sx={{ mt: 1, mb: 2 }}
-                        onClick={() => {
-                            window.location.replace("/UpdatePage");
-                        }}
-                    >
-                        회원정보수정
-                    </Button>
-                </ButtonGroup>
-            </Container>
-            <Container>
-                <h1>Wish List</h1>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 100 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="left">상품사진</TableCell>
-                            <TableCell align="left">상품명</TableCell>
-                            <TableCell align="left">개수</TableCell>
-                        </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {data.map((row: any) => (
-                            <TableRow
-                            key={row.wID}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            <Container fixed>
+                <Header></Header>
+                <TopBar></TopBar>
+                <div>
+                    <h1>MyPage</h1>
+                    <Container>
+                        <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth={true}>
+                            <Button
+                                variant="contained"
+                                type="submit"
+                                fullWidth
+                                sx={{mt: 1, mb: 2}}
+                                onClick={() => {
+                                    onClickDelete();
+                                }}
                             >
-                                <TableCell align="left">
-                                    <CardMedia key={row.pID + 0} component="img" height="200" image={""}/>
-                                </TableCell>
-                                <TableCell align="left">{row.wNAME}</TableCell>
-                                <TableCell align="left">{row.wQUANTITY}</TableCell>
-                                <TableCell align="left">
-                                    {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
-                                        <IconButton
-                                            key={row.wID + 10}
-                                            color="error"
-                                            aria-label="delete"
-                                            size="small"
-                                            onClick={() => LoadImage(row.pID)}
+                                계정삭제
+                            </Button>
+                            <Button
+                                variant="contained"
+                                type="submit"
+                                fullWidth
+                                sx={{mt: 1, mb: 2}}
+                                onClick={() => {
+                                    window.location.replace("/CartPage");
+                                }}
+                            >
+                                장바구니
+                            </Button>
+                            <Button
+                                variant="contained"
+                                type="submit"
+                                fullWidth
+                                sx={{mt: 1, mb: 2}}
+                                onClick={() => {
+                                    window.location.replace("/UpdatePage");
+                                }}
+                            >
+                                회원정보수정
+                            </Button>
+                        </ButtonGroup>
+                    </Container>
+                    <Container>
+                        <h1>Wish List</h1>
+                        <TableContainer component={Paper}>
+                            <Table sx={{minWidth: 100}} aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align="left">상품사진</TableCell>
+                                        <TableCell align="left">상품명</TableCell>
+                                        <TableCell align="left">개수</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {data.map((row: any) => (
+                                        <TableRow
+                                            key={row.wID}
+                                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                         >
-                                            <ClearIcon fontSize="inherit" />
-                                        </IconButton>
-                                    )}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                                            <TableCell align="left">
+                                                <CardMedia key={row.pID + 0} component="img" height="200" image={""}/>
+                                            </TableCell>
+                                            <TableCell align="left">{row.wNAME}</TableCell>
+                                            <TableCell align="left">{row.wQUANTITY}</TableCell>
+                                            <TableCell align="left">
+                                                {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
+                                                    <IconButton
+                                                        key={row.wID + 10}
+                                                        color="error"
+                                                        aria-label="delete"
+                                                        size="small"
+                                                        onClick={() => LoadImage(row.pID)}
+                                                    >
+                                                        <ClearIcon fontSize="inherit"/>
+                                                    </IconButton>
+                                                )}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Container>
+                </div>
             </Container>
-        </div>
-        </Container>
         </Grid>
-            
 
-        
+
     );
 }
+
 export default MyPage;

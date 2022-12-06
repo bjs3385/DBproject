@@ -138,7 +138,7 @@ function bottomNav(){
     var fixedButton = document.getElementById("orderFixArea");
     if(fixedButton){
         document.body.classList.add("button--fixed");
-    };
+    }
 
 	window.addEventListener("scroll", function(){
 		var scroll = window.pageYOffset || document.documentElement.scrollTop;

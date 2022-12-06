@@ -1,4 +1,3 @@
-import { response } from "express";
 import React from "react";
 
 interface Props {
@@ -6,7 +5,7 @@ interface Props {
     loading: boolean;
 }
 
-const Posts = ({ posts, loading }: Props) => {
+const Posts = ({posts, loading}: Props) => {
     return (
         <>
             {loading && <div> loading ... </div>}

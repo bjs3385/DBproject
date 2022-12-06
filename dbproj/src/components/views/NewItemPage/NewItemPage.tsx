@@ -3,10 +3,8 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Container from '@mui/material/Container';
 import Header from "../HomePage/Header";
 import TopBar from "../HomePage/TopBar";
-import {Button, TextField, Typography} from "@mui/material";
+import {TextField, Typography} from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
-
-
 
 
 function NewItemPage() {
@@ -46,37 +44,37 @@ function NewItemPage() {
     const [value, setValue] = React.useState<FilmOptionType | null>(null);
 
 
-
     return (
         <Grid>
             <Container fixed>
                 <Header></Header>
                 <TopBar></TopBar>
 
-                <Grid container rowSpacing={1} columnSpacing={{xs:2, sm: 2, md : 3}}>
-                        <Grid xs={6}>
-                        <Typography align={"center"} variant="h4">상품명</Typography>
-                        </Grid>
+                <Grid container rowSpacing={1} columnSpacing={{xs: 2, sm: 2, md: 3}}>
                     <Grid xs={6}>
-                        <TextField onChange={handleInputPName} fullWidth={true} ></TextField>
+                        <Typography align={"center"} variant="h4">상품명</Typography>
+                    </Grid>
+                    <Grid xs={6}>
+                        <TextField onChange={handleInputPName} fullWidth={true}></TextField>
                     </Grid>
                     <Grid xs={6}>
                         <Typography align={"center"} variant="h4">가격</Typography>
                     </Grid>
                     <Grid xs={6}>
-                        <TextField onChange={handleInputPPrice} fullWidth={true} ></TextField>
+                        <TextField onChange={handleInputPPrice} fullWidth={true}></TextField>
                     </Grid>
                     <Grid xs={6}>
                         <Typography align={"center"} variant="h4">재고</Typography>
                     </Grid>
                     <Grid xs={6}>
-                        <TextField onChange={handleInputPStock} fullWidth={true} ></TextField>
+                        <TextField onChange={handleInputPStock} fullWidth={true}></TextField>
                     </Grid>
                     <Grid xs={6}>
                         <Typography align={"center"} variant="h4">상품 설명</Typography>
                     </Grid>
                     <Grid xs={6}>
-                        <TextField multiline={true} minRows={20} onChange={handleInputPDescription} fullWidth={true} ></TextField>
+                        <TextField multiline={true} minRows={20} onChange={handleInputPDescription}
+                                   fullWidth={true}></TextField>
                     </Grid>
                     <Grid xs={6}>
                         <Typography align={"center"} variant="h4">카테고리</Typography>
@@ -88,20 +86,20 @@ function NewItemPage() {
                             disableCloseOnSelect
                             onChange={handleInputPCategory}
                             renderInput={(params) => (
-                                <TextField {...params} label="disableCloseOnSelect" variant="standard" />
+                                <TextField {...params} label="disableCloseOnSelect" variant="standard"/>
                             )}
                         />
                     </Grid>
                     <Grid xs={6}>
-                        <Typography align={"center"}  variant="h4">이미지</Typography>
+                        <Typography align={"center"} variant="h4">이미지</Typography>
                     </Grid>
                     <Grid xs={6}>
-                        <TextField fullWidth={true} ></TextField>
+                        <TextField fullWidth={true}></TextField>
                     </Grid>
                     <Grid xs={6}>
                     </Grid>
                     <Grid xs={6}>
-                        <input type="file" accept={"dbproj/src/components/views/image/*"} onChange={handleInputPImage} />
+                        <input type="file" accept={"dbproj/src/components/views/image/*"} onChange={handleInputPImage}/>
                     </Grid>
 
                 </Grid>
@@ -109,25 +107,27 @@ function NewItemPage() {
         </Grid>
     )
 }
+
 interface FilmOptionType {
     title: string;
 }
+
 const category = [
-    { title: 'SKIRT' },
-    { title: 'BAG' },
-    { title: 'SNIKERS' },
-    { title: 'BOOTS' },
-    { title: 'LOAFER' },
-    { title: 'SHOES' },
-    { title: 'SANDAL' },
-    { title: 'SNEAKERS' },
-    { title: 'SHIRT' },
-    { title: 'T-SHIRT' },
-    { title: 'JACKET' },
-    { title: 'COAT' },
-    { title: 'PANTS' },
-    { title: "WATCH"},
-    { title: "SUNGLASSES"},
+    {title: 'SKIRT'},
+    {title: 'BAG'},
+    {title: 'SNIKERS'},
+    {title: 'BOOTS'},
+    {title: 'LOAFER'},
+    {title: 'SHOES'},
+    {title: 'SANDAL'},
+    {title: 'SNEAKERS'},
+    {title: 'SHIRT'},
+    {title: 'T-SHIRT'},
+    {title: 'JACKET'},
+    {title: 'COAT'},
+    {title: 'PANTS'},
+    {title: "WATCH"},
+    {title: "SUNGLASSES"},
 ];
 
 export default NewItemPage;

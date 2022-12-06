@@ -21,8 +21,8 @@
 .TopBanner-text {
     color: rgb(255, 255, 255);
     font-weight: bold;
-    font-size : clamp(18px, 3vw, 60px);
-    
+    font-size: clamp(18px, 3vw, 60px);
+
 }
 
 .TopBanner a {
@@ -30,14 +30,14 @@
     min-width: 187px;
     padding: 18px 20px;
     font-size: 16px;
-    text-align: center; 
+    text-align: center;
     box-sizing: border-box;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     color: black;
-    
-    height : 54px;
-    margin : 4vw 0 1vw;
+
+    height: 54px;
+    margin: 4vw 0 1vw;
     font-weight: bold;
     font-family: 'Dotum';
 }
@@ -48,7 +48,7 @@
 }
 
 .collection > div.col-item3 {
-    margin : 0;
+    margin: 0;
 }
 
 .collection-item {
@@ -56,17 +56,17 @@
     flex: 1;
 }
 
-@media (min-width : 1025px){
-    .collection{
-    max-width : 100%;
-    margin : 20px 0px;
-    padding : 0 0 44px;
+@media (min-width: 1025px) {
+    .collection {
+        max-width: 100%;
+        margin: 20px 0px;
+        padding: 0 0 44px;
     }
 }
 
-@media (max-width: 1024px){
-    .collection{
-        padding-bottom : 44px;
-        position : relative;
+@media (max-width: 1024px) {
+    .collection {
+        padding-bottom: 44px;
+        position: relative;
     }
 }

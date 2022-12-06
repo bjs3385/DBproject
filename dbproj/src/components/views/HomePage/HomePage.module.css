@@ -1,11 +1,18 @@
-.MyMenu { position:absolute; right:0; top:28px; color:blue}
+.MyMenu {
+    position: absolute;
+    right: 0;
+    top: 28px;
+    color: blue
+}
 
-.Content {display:block;}
+.Content {
+    display: block;
+}
 
 .ImgPage2 {
     font-size: 30px;
     text-align: center;
-    margin:0px 0 40px
+    margin: 0px 0 40px
 }
 
 

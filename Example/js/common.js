@@ -22,7 +22,7 @@ function getQueryString(sKey)
 
     aParam.page = aParam.page ? aParam.page : 1;
     return sKey ? aParam[sKey] : aParam;
-};
+}
 
 /**
   *  구매버튼
@@ -65,6 +65,6 @@ $(function(){
     }
     if ( window.call_eTab ) {
         call_eTab();
-    };
+    }
     globalBuyBtnScrollFunc();
 });

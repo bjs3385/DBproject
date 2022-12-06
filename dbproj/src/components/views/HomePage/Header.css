@@ -1,29 +1,56 @@
-#Header{
-    position : relative;
-    height : 120px;
-    margin : 0px 0 25px;
-} 
+#Header {
+    position: relative;
+    height: 120px;
+    margin: 0px 0 25px;
+}
 
 #Header-logo {
-    position:absolute;
-    left:15px; top:30px;
+    position: absolute;
+    left: 15px;
+    top: 30px;
 }
 
 #Header-menu {
-    position : absolute;
-    top:8px; right:0px;
+    position: absolute;
+    top: 8px;
+    right: 0px;
 }
 
 
 /********************* Mobile / Tablet *********************/
-@media all and (max-width:1024px) {
-    #Header-logo a { font-size:27px; line-height:1; color:#000; font-weight:bold; text-decoration:none; font-style:normal; }
-    #Header-logo img { max-width:800px; max-height:125px; }
+@media all and (max-width: 1024px) {
+    #Header-logo a {
+        font-size: 27px;
+        line-height: 1;
+        color: #000;
+        font-weight: bold;
+        text-decoration: none;
+        font-style: normal;
+    }
+
+    #Header-logo img {
+        max-width: 800px;
+        max-height: 125px;
+    }
 }
-    
+
 /********************* PC *********************/
-@media all and (min-width:1025px) {
-    #Header-logo { width:800px; margin:0 auto; }
-    #Header-logo a { font-size:35px; color:#000; font-weight:bold; text-decoration:none; font-style:normal; }
-    #Header-logo img { max-width:800px; max-height:125px; }
+@media all and (min-width: 1025px) {
+    #Header-logo {
+        width: 800px;
+        margin: 0 auto;
+    }
+
+    #Header-logo a {
+        font-size: 35px;
+        color: #000;
+        font-weight: bold;
+        text-decoration: none;
+        font-style: normal;
+    }
+
+    #Header-logo img {
+        max-width: 800px;
+        max-height: 125px;
+    }
 }

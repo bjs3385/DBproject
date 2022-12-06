@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,12 +14,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {styled} from "@mui/material/styles";
+
 interface props {
     boardId?: number;
     boardType?: string;
 }
 
-const Item = styled(Paper)(({ theme }) => ({
+const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -27,7 +28,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-function ReplyPage({ boardId = 0, boardType = "" }: props) {
+function ReplyPage({boardId = 0, boardType = ""}: props) {
 
     console.log(boardId);
     const [data, setData] = useState([]);
@@ -72,20 +73,20 @@ function ReplyPage({ boardId = 0, boardType = "" }: props) {
                 id: id
             },
         })
-            .then((res) =>{
-                if(res.data.result){
+            .then((res) => {
+                if (res.data.result) {
                     console.log("success!");
                     callApi();
-                }else console.log("fail");
+                } else console.log("fail");
             })
-            .catch((err) =>{
+            .catch((err) => {
                     console.log(err);
                 }
             );
 
     }
 
-    const onTextHandler = (e : any) =>{
+    const onTextHandler = (e: any) => {
         setText(e.currentTarget.value);
     }
 
@@ -115,60 +116,62 @@ function ReplyPage({ boardId = 0, boardType = "" }: props) {
     }, []);
     return (
         <div>
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{width: '100%'}}>
                 <Grid container spacing={3} columns={2}>
 
                     <Grid xs={6}>
                         <Item>
-                            <TextField InputProps={{ disableUnderline: true }} label={"댓글"}  onChange={onTextHandler} rows={5}  multiline={true} fullWidth={true} size={"medium"} ></TextField>
+                            <TextField InputProps={{disableUnderline: true}} label={"댓글"} onChange={onTextHandler}
+                                       rows={5} multiline={true} fullWidth={true} size={"medium"}></TextField>
                         </Item>
                     </Grid>
                     <Grid xs>
                         <Item>
-                            <Button onClick={onClickCreate} fullWidth={true} variant={"contained"} size={"medium"}>등록하기</Button>
+                            <Button onClick={onClickCreate} fullWidth={true} variant={"contained"}
+                                    size={"medium"}>등록하기</Button>
                         </Item>
                     </Grid>
                 </Grid>
             </Box>
 
-    <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>번호</TableCell>
-                        <TableCell align="right"></TableCell>
-                        <TableCell align="right">댓글</TableCell>
-                        <TableCell align="right">작성자</TableCell>
-                        <TableCell align="right"></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((row: any, index) => (
-                        <TableRow key={row.rID} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                            <TableCell component="th" scope="row">
-                                {index + 1}
-                            </TableCell>
+            <TableContainer component={Paper}>
+                <Table sx={{minWidth: 650}} size="small" aria-label="a dense table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>번호</TableCell>
                             <TableCell align="right"></TableCell>
-                            <TableCell align="right">{row.rREPLY}</TableCell>
-                            <TableCell align="right">{row.mID}</TableCell>
-                            <TableCell align="right">
-                                {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
-                                    <IconButton
-                                        key={row.rID + 10}
-                                        color="error"
-                                        aria-label="delete"
-                                        size="small"
-                                        onClick={() => onClickDelete(row.rID)}
-                                    >
-                                        <ClearIcon fontSize="inherit" />
-                                    </IconButton>
-                                )}
-                            </TableCell>
+                            <TableCell align="right">댓글</TableCell>
+                            <TableCell align="right">작성자</TableCell>
+                            <TableCell align="right"></TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row: any, index) => (
+                            <TableRow key={row.rID} sx={{"&:last-child td, &:last-child th": {border: 0}}}>
+                                <TableCell component="th" scope="row">
+                                    {index + 1}
+                                </TableCell>
+                                <TableCell align="right"></TableCell>
+                                <TableCell align="right">{row.rREPLY}</TableCell>
+                                <TableCell align="right">{row.mID}</TableCell>
+                                <TableCell align="right">
+                                    {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
+                                        <IconButton
+                                            key={row.rID + 10}
+                                            color="error"
+                                            aria-label="delete"
+                                            size="small"
+                                            onClick={() => onClickDelete(row.rID)}
+                                        >
+                                            <ClearIcon fontSize="inherit"/>
+                                        </IconButton>
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     );
 }

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import TextField from "@mui/material/TextField";
 
 function BoardList(props: any) {
     const [data, setData] = useState([
@@ -28,13 +27,13 @@ function BoardList(props: any) {
     };
     console.log("data : ", data);
     const row = data.map((row: any) => (
-        <div key = "main">
-            <div key={row.nID+1}>{row.nID}</div>
-            <div key={row.nID+2}>{row.nTITLE}</div>
-            <div key={row.nID+3}>{row.nWRITER}</div>
-            <div key={row.nID+4}>{row.nDATE}</div>
-            <div key={row.nID+5}>{row.nCONTENT}</div>
-            <div key={row.nID+6}>{row.views}</div>
+        <div key="main">
+            <div key={row.nID + 1}>{row.nID}</div>
+            <div key={row.nID + 2}>{row.nTITLE}</div>
+            <div key={row.nID + 3}>{row.nWRITER}</div>
+            <div key={row.nID + 4}>{row.nDATE}</div>
+            <div key={row.nID + 5}>{row.nCONTENT}</div>
+            <div key={row.nID + 6}>{row.views}</div>
         </div>
     ));
     console.log();
@@ -47,4 +46,5 @@ function BoardList(props: any) {
         </div>
     );
 }
+
 export default BoardList;

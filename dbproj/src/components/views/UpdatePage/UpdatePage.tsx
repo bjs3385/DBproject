@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
-import dayjs, { Dayjs } from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { koKR } from "@mui/x-date-pickers";
-import koLocale from "date-fns/locale/ko";
+import dayjs, {Dayjs} from "dayjs";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -28,10 +25,9 @@ function UpdatePage() {
     const Dateformat = dayjs(Date).format("YYYY-MM-DD");
     const [data, setData] = useState([]);
 
-    const email = localStorage.getItem('id') as string; 
+    const email = localStorage.getItem('id') as string;
     const callApi = async () => {
-        if(email !== "")
-            {
+        if (email !== "") {
             axios
                 .post("/users/getUser", null, {
                     params: {
@@ -39,18 +35,16 @@ function UpdatePage() {
                     },
                 })
                 .then((res) => {
-                    if(res.data.result){
+                    if (res.data.result) {
                         setData(res.data.result);
-                    }
-                    else if(res.data.result === "wrong id")
-                    {
+                    } else if (res.data.result === "wrong id") {
                         alert("로그인을 해주시길 바랍니다.");
                     }
                 })
                 .catch();
-            }else if (email === "") {
-                alert("로그인을 해주세요.");
-            }
+        } else if (email === "") {
+            alert("로그인을 해주세요.");
+        }
     };
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
@@ -73,65 +67,61 @@ function UpdatePage() {
         }
         callApi();
     }, []);
-    
+
     //const email = JSON.parse(localStorage.getItem('id') as string);
     const onClickDelete = () => {
         if (email !== "") {
-            if(email == "admin")
-            {
+            if (email == "admin") {
                 alert("관리자 계정은 삭제가 불가능합니다.")
-            }
-            else
-            {
+            } else {
                 axios
-                .post("/delete/onDelete", null, {
-                    params: {
-                        email: email,
-                    },
-                })
-                .then((res) => {
-                    const rest = axios.post("/delete/token",null);
-                    if(res.data.result ===""){
-                        alert("존재하지 않는 아이디 입니다.");
-                    }else{
-                        localStorage.clear();
-                        localStorage.setItem("id", email);
-                        localStorage.setItem("token", res.data.token);
-                        alert(email + " 계정이 삭제되었습니다.");
-                        window.location.replace("/");
-                    }
-                })
-                .catch();
+                    .post("/delete/onDelete", null, {
+                        params: {
+                            email: email,
+                        },
+                    })
+                    .then((res) => {
+                        const rest = axios.post("/delete/token", null);
+                        if (res.data.result === "") {
+                            alert("존재하지 않는 아이디 입니다.");
+                        } else {
+                            localStorage.clear();
+                            localStorage.setItem("id", email);
+                            localStorage.setItem("token", res.data.token);
+                            alert(email + " 계정이 삭제되었습니다.");
+                            window.location.replace("/");
+                        }
+                    })
+                    .catch();
             }
-            
+
         }
     };
 
-    const onClickChangePW = (mid : any, mpw : any) => {
-        if(password1 !== "" && password2 !== "" && password3 !== "" && password2 == password3)
-        {
+    const onClickChangePW = (mid: any, mpw: any) => {
+        if (password1 !== "" && password2 !== "" && password3 !== "" && password2 == password3) {
             axios
-            .post("/users/updatePassword", null, {
-                params: {
-                    mid : mid,
-                    mpw : mpw,
-                },
-            })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(err);
-                alert("비밀번호 변경 실패");
-            });
+                .post("/users/updatePassword", null, {
+                    params: {
+                        mid: mid,
+                        mpw: mpw,
+                    },
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    alert("비밀번호 변경 실패");
+                });
             alert("비밀번호 변경 완료");
             window.location.reload();
-        } else if(password1 == "") {
+        } else if (password1 == "") {
             alert("현재 비밀번호를 입력해주세요");
-        } else if(password2 == "") {
+        } else if (password2 == "") {
             alert("변경할 비밀번호를 입력해주세요");
         }
-        
+
     };
     const handleInputPW1 = (e: any) => {
         setPassword1(e.target.value);
@@ -147,12 +137,12 @@ function UpdatePage() {
         <div>
             <h1>UpdatePage</h1>
             <Container>
-                <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
+                <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth={true}>
                     <Button
                         variant="contained"
                         type="submit"
                         fullWidth
-                        sx={{ mt: 1, mb: 2 }}
+                        sx={{mt: 1, mb: 2}}
                         onClick={() => {
                             onClickDelete();
                         }}
@@ -163,7 +153,7 @@ function UpdatePage() {
                         variant="contained"
                         type="submit"
                         fullWidth
-                        sx={{ mt: 1, mb: 2 }}
+                        sx={{mt: 1, mb: 2}}
                         onClick={() => {
                             window.location.replace("/");
                         }}
@@ -173,39 +163,39 @@ function UpdatePage() {
                 </ButtonGroup>
             </Container>
             <Container>
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 100 }} aria-label="simple table">
-                    <TableHead>
-                        <TableCell align="left">계정</TableCell>
-                        <TableCell align="left">이름</TableCell>
-                        <TableCell align="left">주소</TableCell>
-                        <TableCell align="left">보유 캐쉬</TableCell>
-                        <TableCell align="left">전화번호</TableCell>
-                        <TableCell align="left">생년월일</TableCell>
-                    </TableHead>
-                    <TableBody>
-                    {data.map((row: any) => (
-                        <TableRow
-                        key={row.mID}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell align="left">{row.mID}</TableCell>
-                            <TableCell align="left">{row.mNAME}</TableCell>
-                            <TableCell align="left">{row.mADDRESS}</TableCell>
-                            <TableCell align="left">{row.mCASH}</TableCell>
-                            <TableCell align="left">{row.mPHONENUM}</TableCell>
-                            <TableCell align="left">{row.mBIRTH}</TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                <TableContainer component={Paper}>
+                    <Table sx={{minWidth: 100}} aria-label="simple table">
+                        <TableHead>
+                            <TableCell align="left">계정</TableCell>
+                            <TableCell align="left">이름</TableCell>
+                            <TableCell align="left">주소</TableCell>
+                            <TableCell align="left">보유 캐쉬</TableCell>
+                            <TableCell align="left">전화번호</TableCell>
+                            <TableCell align="left">생년월일</TableCell>
+                        </TableHead>
+                        <TableBody>
+                            {data.map((row: any) => (
+                                <TableRow
+                                    key={row.mID}
+                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                >
+                                    <TableCell align="left">{row.mID}</TableCell>
+                                    <TableCell align="left">{row.mNAME}</TableCell>
+                                    <TableCell align="left">{row.mADDRESS}</TableCell>
+                                    <TableCell align="left">{row.mCASH}</TableCell>
+                                    <TableCell align="left">{row.mPHONENUM}</TableCell>
+                                    <TableCell align="left">{row.mBIRTH}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Container>
-            <Container component="main" maxWidth="xs" sx={{ mt : 3, mb : 3}}>
-                
+            <Container component="main" maxWidth="xs" sx={{mt: 3, mb: 3}}>
+
                 <h1>회원정보 수정</h1>
                 <TextField
-                    sx={{ mt: 0, mb: 2 }}
+                    sx={{mt: 0, mb: 2}}
                     label="현재 비밀번호"
                     required
                     fullWidth
@@ -214,7 +204,7 @@ function UpdatePage() {
                     onChange={handleInputPW1}
                 ></TextField>
                 <TextField
-                    sx={{ mt: 0, mb: 2 }}
+                    sx={{mt: 0, mb: 2}}
                     label="새 비밀번호"
                     required
                     fullWidth
@@ -223,7 +213,7 @@ function UpdatePage() {
                     onChange={handleInputPW2}
                 ></TextField>
                 <TextField
-                sx={{ mt: 0, mb: 2 }}
+                    sx={{mt: 0, mb: 2}}
                     label="새 비밀번호 확인"
                     required
                     fullWidth
@@ -235,7 +225,7 @@ function UpdatePage() {
                     variant="contained"
                     type="submit"
                     fullWidth
-                    sx={{ mt: 0, mb: 2 }}
+                    sx={{mt: 0, mb: 2}}
                     onClick={() => {
                         onClickChangePW(email, password2);
                     }}
@@ -243,9 +233,10 @@ function UpdatePage() {
                     비밀번호 변경
                 </Button>
             </Container>
-            
+
         </div>
-        
+
     );
 }
+
 export default UpdatePage;

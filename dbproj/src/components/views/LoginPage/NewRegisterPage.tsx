@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs, { Dayjs } from "dayjs";
-import { koKR } from "@mui/x-date-pickers";
+import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs, {Dayjs} from "dayjs";
+import {koKR} from "@mui/x-date-pickers";
 import koLocale from "date-fns/locale/ko";
 import Grid from "@mui/material/Grid";
 import Header from "../HomePage/Header";
-import TopBar from "../HomePage/TopBar";
 import {Box} from "@mui/material";
 
 function NewRegisterPage() {
@@ -70,7 +69,7 @@ function NewRegisterPage() {
                     }
                 })
                 .catch();
-        }  else if (password1 !== password2) {
+        } else if (password1 !== password2) {
             alert("비밀번호가 일치하지 않습니다.");
         } else if (email === "") {
             alert("아이디를 입력해주세요.");
@@ -82,12 +81,12 @@ function NewRegisterPage() {
             alert("생년월일을 입력해주세요.");
         } else if (name === null) {
             alert("이름을 입력해주세요.");
-        } else if( address === null) {
+        } else if (address === null) {
             alert("주소를 입력해주세요.");
-        }else if (emailCheck === false) {
+        } else if (emailCheck === false) {
             alert("이메일 중복확인을 해주세요.");
         }
-        
+
     };
     const handleInputID = (e: any) => {
         emailCheck = false;
@@ -111,7 +110,7 @@ function NewRegisterPage() {
     const handleChange = (newValue: Dayjs | null) => {
         setDate(newValue);
     };
-    
+
     const callApi = async () => {
         axios.get("/users").then((res) => console.log(res.data));
     };
@@ -122,109 +121,109 @@ function NewRegisterPage() {
     return (
         <Grid>
             <Container fixed>
-            <Header></Header>
+                <Header></Header>
                 <Box>
-        <Container component="main" maxWidth="xs">
-            <TextField
-                sx={{ mt: 3, mb: 2 }}
-                label="아이디"
-                required
-                fullWidth
-                type="email"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                onChange={handleInputID}
-            ></TextField>
-            <Button
-                color={
-                "info"
-                }
-                variant="contained"
-                type="submit"
-                fullWidth
-                sx={{ mt: 1, mb: 2 }}
-                onClick={() => {
-                    onClickCheckEmail();
-                }}
-            >
-                중복 확인
-            </Button>            
-            <TextField
-                sx={{ mt: 3, mb: 2 }}
-                label="비밀번호"
-                required
-                fullWidth
-                name="password"
-                type="password"
-                onChange={handleInputPW1}
-            ></TextField>
-            <TextField
-            sx={{ mt: 3, mb: 2 }}
-                label="비밀번호 확인"
-                required
-                fullWidth
-                name="check_password"
-                type="password"
-                onChange={handleInputPW2}
-            ></TextField>
-            <TextField
-                sx={{ mt: 3, mb: 2 }}
-                label="이름"
-                required
-                fullWidth
-                type="name"
-                name="name"
-                autoComplete="name"
-                autoFocus
-                onChange={handleInputName}
-            ></TextField>
-            <LocalizationProvider
-            sx={{ mt: 3, mb: 2 }}
-                dateAdapter={AdapterDayjs}
-                adapterLocale={koLocale}
-                localeText={koKR.components.MuiLocalizationProvider.defaultProps.localeText}
-            >
-                <DesktopDatePicker
-                
-                    label="생년월일"
-                    inputFormat="MM/DD/YYYY"
-                    value={Date?.format("YYYY-MM-DD")}
-                    onChange={handleChange}
-                    renderInput={(params : any) => <TextField {...params} />}
-                />
-            </LocalizationProvider>
+                    <Container component="main" maxWidth="xs">
+                        <TextField
+                            sx={{mt: 3, mb: 2}}
+                            label="아이디"
+                            required
+                            fullWidth
+                            type="email"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                            onChange={handleInputID}
+                        ></TextField>
+                        <Button
+                            color={
+                                "info"
+                            }
+                            variant="contained"
+                            type="submit"
+                            fullWidth
+                            sx={{mt: 1, mb: 2}}
+                            onClick={() => {
+                                onClickCheckEmail();
+                            }}
+                        >
+                            중복 확인
+                        </Button>
+                        <TextField
+                            sx={{mt: 3, mb: 2}}
+                            label="비밀번호"
+                            required
+                            fullWidth
+                            name="password"
+                            type="password"
+                            onChange={handleInputPW1}
+                        ></TextField>
+                        <TextField
+                            sx={{mt: 3, mb: 2}}
+                            label="비밀번호 확인"
+                            required
+                            fullWidth
+                            name="check_password"
+                            type="password"
+                            onChange={handleInputPW2}
+                        ></TextField>
+                        <TextField
+                            sx={{mt: 3, mb: 2}}
+                            label="이름"
+                            required
+                            fullWidth
+                            type="name"
+                            name="name"
+                            autoComplete="name"
+                            autoFocus
+                            onChange={handleInputName}
+                        ></TextField>
+                        <LocalizationProvider
+                            sx={{mt: 3, mb: 2}}
+                            dateAdapter={AdapterDayjs}
+                            adapterLocale={koLocale}
+                            localeText={koKR.components.MuiLocalizationProvider.defaultProps.localeText}
+                        >
+                            <DesktopDatePicker
 
-            <TextField
-            sx={{ mt: 3, mb: 2 }}
-                label="번호"
-                required
-                fullWidth
-                name="phonenum"
-                type="text"
-                onChange={handleInputPhone}
-            ></TextField>
-            <TextField
-            sx={{ mt: 1, mb: 1 }}
-                label="주소"
-                required
-                fullWidth
-                name="address"
-                type="text"
-                onChange={handleInputAddress}
-            ></TextField>
-            <Button
-                variant="contained"
-                type="submit"
-                fullWidth
-                sx={{ mt: 3, mb: 2 }}
-                onClick={() => {
-                    onClickRegister();
-                }}
-            >
-                회원 가입
-            </Button>
-        </Container>
+                                label="생년월일"
+                                inputFormat="MM/DD/YYYY"
+                                value={Date?.format("YYYY-MM-DD")}
+                                onChange={handleChange}
+                                renderInput={(params: any) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>
+
+                        <TextField
+                            sx={{mt: 3, mb: 2}}
+                            label="번호"
+                            required
+                            fullWidth
+                            name="phonenum"
+                            type="text"
+                            onChange={handleInputPhone}
+                        ></TextField>
+                        <TextField
+                            sx={{mt: 1, mb: 1}}
+                            label="주소"
+                            required
+                            fullWidth
+                            name="address"
+                            type="text"
+                            onChange={handleInputAddress}
+                        ></TextField>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            fullWidth
+                            sx={{mt: 3, mb: 2}}
+                            onClick={() => {
+                                onClickRegister();
+                            }}
+                        >
+                            회원 가입
+                        </Button>
+                    </Container>
                 </Box>
             </Container>
         </Grid>

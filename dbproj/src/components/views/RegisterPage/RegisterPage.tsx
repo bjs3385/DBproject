@@ -1,6 +1,4 @@
-import { addListener } from "process";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import RegisterOrEdit from "../BoardPage/Sections/RegisterOrEdit";
 
