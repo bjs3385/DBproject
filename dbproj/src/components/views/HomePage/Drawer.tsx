@@ -48,12 +48,14 @@ export default function TemporaryDrawer() {
       <List>
         {['All', 'Outer', 'Dress', 'Bag', 'Boots', 'Skirt', 'Cap', 'Tshirt', 'Watch'].map((text, index) => (
           <ListItem key={text} disablePadding>
+            <a href={"/category/" + text.toLowerCase()}>
             <ListItemButton>
               <ListItemIcon>
                 {index===0 ? <GridViewIcon /> : <CheckroomIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
+            </a>
           </ListItem>
         ))}
       </List>
