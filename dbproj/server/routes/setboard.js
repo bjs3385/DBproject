@@ -74,15 +74,25 @@ router.post("/createReply", function (req, res, next ){
     const boardId = req.query.boardId;
     const text = req.query.text;
     const id = req.query.id;
+    const rate = req.query.rate;
 
-    console.log("replyId : " + boardId + " Id : " + id);
+    console.log("replyId : " + boardId + " Id : " + id+ "rate : "+rate);
 
-    connection.query("INSERT INTO reply (nID, rREPLY, mID, pID) VALUES (?, ?, ?, ?)", [boardId, text, id, boardId], function (err, result, fields){
+    connection.query("INSERT INTO reply (nID, rREPLY, mID, pID, rRATING) VALUES (?, ?, ?, ?, ?)", [boardId, text, id, boardId, rate], function (err, result, fields){
        if(err) throw err;
        console.log(result);
        res.send({ result: result });
 
     });
+});
 
+router.post("/updateReplyRating", function (req, res, next) {
+    const user_id = req.query.id;
+    const rate = req.query.rateValue;
+    console.log("replyId: "+user_id);
+    connection.query("UPDATE reply SET rRATING = ? WHERE mID = ?", [rate,user_id], function (error, results, fields) {
+        if (error) throw error;
+        console.log("Sucess solution update rating");
+    });
 });
 module.exports = router;

@@ -14,6 +14,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {styled} from "@mui/material/styles";
+import Rating, { ratingClasses } from "@mui/material/Rating";
 
 interface props {
     boardId?: number;
@@ -33,6 +34,7 @@ function ReplyPage({boardId = 0, boardType = ""}: props) {
     console.log(boardId);
     const [data, setData] = useState([]);
     const [text, setText] = useState("");
+    const [value, setValue] = useState<number | null>(2);
     const id = localStorage.getItem("id");
     const callApi = async () => {
         if (boardType === "item") {
@@ -70,7 +72,8 @@ function ReplyPage({boardId = 0, boardType = ""}: props) {
             params: {
                 boardId: boardId,
                 text,
-                id: id
+                id: id,
+                rate : value
             },
         })
             .then((res) => {
@@ -123,6 +126,15 @@ function ReplyPage({boardId = 0, boardType = ""}: props) {
                         <Item>
                             <TextField InputProps={{disableUnderline: true}} label={"댓글"} onChange={onTextHandler}
                                        rows={5} multiline={true} fullWidth={true} size={"medium"}></TextField>
+                                       <Rating
+                                        name="size-large"
+                                        defaultValue={0.0}
+                                        precision={0.5}
+                                        size="large"
+                                        onChange={(event, newValue) => {
+                                            setValue(newValue);
+                                          }}                                 
+                                        />
                         </Item>
                     </Grid>
                     <Grid xs>
@@ -140,6 +152,7 @@ function ReplyPage({boardId = 0, boardType = ""}: props) {
                         <TableRow>
                             <TableCell>번호</TableCell>
                             <TableCell align="right"></TableCell>
+                            <TableCell align="right">별점</TableCell>
                             <TableCell align="right">댓글</TableCell>
                             <TableCell align="right">작성자</TableCell>
                             <TableCell align="right"></TableCell>
@@ -152,6 +165,15 @@ function ReplyPage({boardId = 0, boardType = ""}: props) {
                                     {index + 1}
                                 </TableCell>
                                 <TableCell align="right"></TableCell>
+                                <TableCell align="right">
+                                    <Rating
+                                        name="half-rating-read"
+                                        defaultValue={row.rRATING}
+                                        precision={0.5}
+                                        size="large"
+                                        readOnly                                        
+                                        />
+                                </TableCell>
                                 <TableCell align="right">{row.rREPLY}</TableCell>
                                 <TableCell align="right">{row.mID}</TableCell>
                                 <TableCell align="right">
