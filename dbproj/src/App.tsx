@@ -1,6 +1,6 @@
 import axios from "axios";
 import {Route, Routes} from "react-router-dom";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import BoardPage from "./components/views/BoardPage/BoardPage";
 import ArticlePage from "./components/views/ArticlePage/ArticlePage";
@@ -16,6 +16,7 @@ import ImagePage2 from "components/views/ArticlePage/ImagePage2";
 import CategoryPage from "./components/views/CategoryPage/CategoryPage";
 import OrderlistPage from "./components/views/OrderListPage/OrderlistPage";
 import NewItemPage from "./components/views/NewItemPage/NewItemPage";
+import UpdatePage from "./components/views/UpdatePage/UpdatePage";
 
 function App() {
     const callApi = async () => {

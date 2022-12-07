@@ -16,6 +16,7 @@ import ImagePage2 from "./ImagePage2";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, {AlertProps} from '@mui/material/Alert';
 import Header from "../HomePage/Header";
+import TopBar from "../HomePage/TopBar";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -110,6 +111,7 @@ function ArticlePage() {
         <Grid>
             <Container fixed>
                 <Header></Header>
+                <TopBar></TopBar>
                 <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
 
                     <Grid xs={4} sm={4} md={4}>

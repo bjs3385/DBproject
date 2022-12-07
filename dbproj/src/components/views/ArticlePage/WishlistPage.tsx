@@ -14,6 +14,9 @@ import { TextField } from "@mui/material";
 import Homepage from "components/views/HomePage/HomePage";
 import CardMedia from '@mui/material/CardMedia';
 import { Container } from "@mui/system";
+import { Grid } from "@mui/material";
+import Header from "../HomePage/Header";
+import TopBar from "../HomePage/TopBar";
 
 function WishlistPage() {
     const [data, setData] = useState([]);
@@ -103,6 +106,10 @@ function WishlistPage() {
         window.location.reload();
     };
     return (
+        <Grid>
+            <Container fixed>
+                <Header></Header>
+                <TopBar></TopBar>
     <TableContainer component={Paper}>
     <Table sx={{ minWidth: 90 }} aria-label="simple table">
     <TableHead>
@@ -153,6 +160,8 @@ function WishlistPage() {
             </TableBody>
         </Table>        
     </TableContainer>
+            </Container>
+        </Grid>
     );
 }
 

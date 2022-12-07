@@ -20,7 +20,7 @@ const Header = () => {
                 {
                     !id ? (<span><Link to="/newRegister">회원가입</Link> | </span>) : (<span></span>)
                 }
-                <span><Link to="/cartpage">장바구니</Link></span>
+                <span><Link to="/mypage">장바구니</Link></span>
                 <span> | </span>
                 <span><Link to="/order">주문내역</Link></span>
             </div>

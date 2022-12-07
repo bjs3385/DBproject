@@ -28,7 +28,7 @@ const TopBar = () => {
                     </svg>
                     마이쇼핑
                 </a>
-                <a href="/myshop/wish_list.html" className="menu RW">
+                <a href="/wishpage" className="menu RW">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
                          className="icon" role="img">
                         <path fill="#f5f5f5"
