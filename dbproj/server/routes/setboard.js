@@ -85,14 +85,4 @@ router.post("/createReply", function (req, res, next ){
 
     });
 });
-
-router.post("/updateReplyRating", function (req, res, next) {
-    const user_id = req.query.id;
-    const rate = req.query.rateValue;
-    console.log("replyId: "+user_id);
-    connection.query("UPDATE reply SET rRATING = ? WHERE mID = ?", [rate,user_id], function (error, results, fields) {
-        if (error) throw error;
-        console.log("Sucess solution update rating");
-    });
-});
 module.exports = router;

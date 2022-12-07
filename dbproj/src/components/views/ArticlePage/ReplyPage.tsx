@@ -34,7 +34,7 @@ function ReplyPage({boardId = 0, boardType = ""}: props) {
     console.log(boardId);
     const [data, setData] = useState([]);
     const [text, setText] = useState("");
-    const [value, setValue] = useState<number | null>(2);
+    const [value, setValue] = useState<number | null>();
     const id = localStorage.getItem("id");
     const callApi = async () => {
         if (boardType === "item") {
