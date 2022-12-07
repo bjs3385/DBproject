@@ -1,5 +1,6 @@
 import React from "react";
 import "./TopBar.css"
+import TemporaryDrawer from "./Drawer";
 
 //<img src={$logo} alt={$mall_name} />
 //.topArea__logo
@@ -7,7 +8,7 @@ import "./TopBar.css"
 const TopBar = () => {
     return (
         <nav className="navigation">
-            <button type="button" className="btnNav eNavFold"><i aria-hidden="true" className="icon icoNav"></i>네비게이션
+            <button type="button" className="btnNav eNavFold"><i aria-hidden="true" className="icon icoNav"><TemporaryDrawer /></i>네비게이션
             </button>
             <div className="navigation__util">
                 <button type="button" className="menu btnSearch eSearch">

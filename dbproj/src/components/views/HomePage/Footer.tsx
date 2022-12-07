@@ -27,13 +27,11 @@ const Footer = () => {
                     </div>
                     <div className="info">
                         <div className="info__address">
-                            <h3 className="title RW">Company info</h3>
-                            <span>법인명(상호) : $company_name </span> <span>대표자(성명) : $president_name</span> <span>사업자 등록번호 안내 : [$company_regno]</span>
-                            <span>통신판매업 신고 $network_regno</span> <span>$biz_no_link</span> <br/>
-                            <span>전화 : $phone</span> <span>팩스 : $fax</span> <span>주소 : $mall_zipcode $mall_addr1 $mall_addr2</span><br/>
-                            <span className="{$cpo_email|display}">개인정보보호책임자 : <a
-                                href="mailto:{$cpo_email}">$cpo_name($cpo_email)</a></span><br/>
-                            <span>Contact <a href="mailto:{$email}">$email</a> for more information.</span>
+                        <h3 className="title RW">Company info</h3>
+                    <span>법인명(상호) : ㈜Artworks Korea - BrooksBrothers </span> <span>대표자(성명) : 박춘하 </span> <span>사업자 등록번호 안내 : [643-85-01841]</span> <span>통신판매업 신고 제 2021-서울동대문-1799호</span> <span></span> <br />
+                    <span>전화 : 010-1234-5678</span> <span>팩스 : 02-345-6789</span> <span>주소 : 서울특별시 용산구 한강대로 372, 16층 (동자동, KDB타워)</span><br />
+                    <span className="{$cpo_email|display}">개인정보보호책임자 : <a href="mailto:{$cpo_email}">박춘하(abc@abc.com)</a></span><br />
+                    <span>Contact <a href="mailto:{$email}">abc@abc.com</a> for more information.</span>
                         </div>
                         <div className="info__customer">
                             <div className="heading">
@@ -43,8 +41,8 @@ const Footer = () => {
                                 </button>
                             </div>
                             <ul className="content">
-                                <li className="tel">$phone</li>
-                                <li className="runtime">$runtime</li>
+                            <li className="tel">010-1234-1234</li>
+                        <li className="runtime">오전 09:00~18:00 점심시간 12:00~13:00<br/>주말/공휴일 휴무</li>
                             </ul>
                         </div>
                         <div className="info__community RW">
@@ -57,8 +55,7 @@ const Footer = () => {
                             </ul>
                         </div>
                     </div>
-                    <p className="copyright">Copyright &copy; <strong>$mall_name</strong>. All rights reserved. Hosting
-                        by <span className="hosting">cafe24</span></p>
+                    <p className="copyright">Copyright &copy; <strong>BROOKS BROTHERS GROUP, INC</strong>. All rights reserved.</p>
                 </div>
             </div>
         </footer>
