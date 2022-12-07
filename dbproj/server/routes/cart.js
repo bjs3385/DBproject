@@ -10,7 +10,7 @@ router.get("/", function (req, res, next) {
 
 router.post("/getCart", function (req, res, next) {
     const user_id = req.query.email;
-    connection.query("SELECT * FROM cart WHERE mID = ?",[user_id], function (error, results, fields) {
+    connection.query("SELECT distinct * FROM product,cart where product.pID = cart.pID and mID = ?",[user_id], function (error, results, fields) {
         if (error) throw error;
         if (results.length > 0) {
             res.send({ result: results });

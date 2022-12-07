@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
 import Container from "@mui/material/Container";
 import dayjs, {Dayjs} from "dayjs";
 import Table from '@mui/material/Table';
@@ -17,6 +19,8 @@ import ClearIcon from "@mui/icons-material/Clear";
 import CardMedia from '@mui/material/CardMedia';
 import Header from "../HomePage/Header";
 import TopBar from "../HomePage/TopBar";
+import { height } from "@mui/system";
+
 
 function MyPage() {
     const [password1, setPassword1] = useState("");
@@ -33,26 +37,28 @@ function MyPage() {
 
     const email = localStorage.getItem('id') as string;
     const callApi = async () => {
-        if (email !== "") {
-            axios
-                .post("/wishlist/getWishlist", null, {
-                    params: {
-                        email: email,
-                    },
-                })
-                .then((res) => {
-                    if (res.data.result) {
-                        setData(res.data.result);
-                        setImage(res.data.imageData);
-                    } else if (res.data.result === "wrong id") {
-                        alert("로그인을 해주시길 바랍니다.");
-                    }
-                })
-                .catch();
-        } else if (email === "") {
+        if(email !== "")
+        {
+          axios
+              .post("/cart/getCart", null, {
+                params: {
+                    email: email,
+                },
+            })
+              .then((res) => {
+                  if(res.data.result){
+                      setData(res.data.result);
+                  }
+                  else if(res.data.result === "wrong id")
+                  {
+                    alert("로그인을 해주시길 바랍니다.");
+                  }
+              })
+              .catch();
+          }else if (email === "") {
             alert("로그인을 해주세요.");
         }
-    }
+      }
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
             alert("잘못된 접근입니다.");
@@ -74,40 +80,9 @@ function MyPage() {
         }
         callApi();
     }, []);
-
-    //const email = JSON.parse(localStorage.getItem('id') as string);
-    const onClickDelete = () => {
-        if (email !== "") {
-            if (email == "admin") {
-                alert("관리자 계정은 삭제가 불가능합니다.")
-            } else {
-                axios
-                    .post("/delete/onDelete", null, {
-                        params: {
-                            email: email,
-                        },
-                    })
-                    .then((res) => {
-                        const rest = axios.post("/delete/token", null);
-                        if (res.data.result === "") {
-                            alert("존재하지 않는 아이디 입니다.");
-                        } else {
-                            localStorage.clear();
-                            localStorage.setItem("id", email);
-                            localStorage.setItem("token", res.data.token);
-                            alert(email + " 계정이 삭제되었습니다.");
-                            window.location.replace("/");
-                        }
-                    })
-                    .catch();
-            }
-
-        }
-    };
-
-    const onClickWishDelete = (mid: any, pid: any) => {
+    const onClickDeleteCart = (mid: any, pid: any) => {
         axios
-            .post("/wishlist/deleteWishlist", null, {
+            .post("/cart/deleteCart", null, {
                 params: {
                     mid: mid,
                     pid: pid,
@@ -121,6 +96,61 @@ function MyPage() {
             });
         window.location.reload();
     };
+    const onClickChange = (mid : any, pid : any, qty: any) => {
+        axios
+            .post("/cart/updateCart", null, {
+                params: {
+                    mid : mid,
+                    pid : pid,
+                    qty: qty,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        window.location.reload();
+    };
+
+    //const email = JSON.parse(localStorage.getItem('id') as string);
+    const onClickDelete = () => {
+        if (email !== "") {
+            if(email == "admin")
+            {
+                alert("관리자 계정은 삭제가 불가능합니다.")
+            }
+            else
+            {
+                axios
+                .post("/delete/onDelete", null, {
+                    params: {
+                        email: email,
+                    },
+                })
+                .then((res) => {
+                    const rest = axios.post("/delete/token",null);
+                    if(res.data.result ===""){
+                        alert("존재하지 않는 아이디 입니다.");
+                    }else{
+                        localStorage.clear();
+                        localStorage.setItem("id", email);
+                        localStorage.setItem("token", res.data.token);
+                        alert(email + " 계정이 삭제되었습니다.");
+                        window.location.replace("/");
+                    }
+                })
+                .catch();
+            }
+            
+        }
+    };
+    const handleInputQTY = (e: any) => {
+        setQty(e.target.value);
+        console.log(qty);
+    };
+
 
     const LoadImage = (pid: any) => {
         axios
@@ -132,7 +162,7 @@ function MyPage() {
             .then((res) => {
                 console.log(res);
                 const result = res.data.result;
-                console.log("값 : " + result.pIMAGE1);
+                console.log("값 : "+result.pIMAGE1);
                 return result;
             })
             .catch((err) => {
@@ -142,96 +172,133 @@ function MyPage() {
     };
 //onClickWishDelete(row.mID,row.pID) delete에 들어가야함
     return (
-        <Grid>
-            <Container fixed>
-                <Header></Header>
-                <TopBar></TopBar>
-                <div>
-                    <h1>MyPage</h1>
-                    <Container>
-                        <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth={true}>
-                            <Button
-                                variant="contained"
-                                type="submit"
-                                fullWidth
-                                sx={{mt: 1, mb: 2}}
-                                onClick={() => {
-                                    onClickDelete();
-                                }}
-                            >
-                                계정삭제
-                            </Button>
-                            <Button
-                                variant="contained"
-                                type="submit"
-                                fullWidth
-                                sx={{mt: 1, mb: 2}}
-                                onClick={() => {
-                                    window.location.replace("/CartPage");
-                                }}
-                            >
-                                장바구니
-                            </Button>
-                            <Button
-                                variant="contained"
-                                type="submit"
-                                fullWidth
-                                sx={{mt: 1, mb: 2}}
-                                onClick={() => {
-                                    window.location.replace("/UpdatePage");
-                                }}
-                            >
-                                회원정보수정
-                            </Button>
-                        </ButtonGroup>
-                    </Container>
-                    <Container>
-                        <h1>Wish List</h1>
-                        <TableContainer component={Paper}>
-                            <Table sx={{minWidth: 100}} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align="left">상품사진</TableCell>
-                                        <TableCell align="left">상품명</TableCell>
-                                        <TableCell align="left">개수</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {data.map((row: any) => (
-                                        <TableRow
-                                            key={row.wID}
-                                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                        >
-                                            <TableCell align="left">
-                                                <CardMedia key={row.pID + 0} component="img" height="200" image={""}/>
-                                            </TableCell>
-                                            <TableCell align="left">{row.wNAME}</TableCell>
-                                            <TableCell align="left">{row.wQUANTITY}</TableCell>
-                                            <TableCell align="left">
-                                                {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
-                                                    <IconButton
-                                                        key={row.wID + 10}
-                                                        color="error"
-                                                        aria-label="delete"
-                                                        size="small"
-                                                        onClick={() => LoadImage(row.pID)}
-                                                    >
-                                                        <ClearIcon fontSize="inherit"/>
-                                                    </IconButton>
-                                                )}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Container>
-                </div>
+        <div>
+            <h1>MyPage</h1>
+            <Container>
+                <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        fullWidth
+                        sx={{ mt: 1, mb: 2 }}
+                        onClick={() => {
+                            onClickDelete();
+                        }}
+                    >
+                        계정삭제
+                    </Button>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        fullWidth
+                        sx={{ mt: 1, mb: 2 }}
+                        onClick={() => {
+                            window.location.replace("/wishpage");
+                        }}
+                    >
+                        위시 리스트
+                    </Button>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        fullWidth
+                        sx={{ mt: 1, mb: 2 }}
+                        onClick={() => {
+                            window.location.replace("/updatepage");
+                        }}
+                    >
+                        회원정보수정
+                    </Button>
+                </ButtonGroup>
             </Container>
-        </Grid>
+            <Container>
+                <h1>장바구니</h1>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 100 }} aria-label="simple table">
+                    <TableHead>
+          <TableRow>
+            <TableCell align="left">상품명</TableCell>
+            <TableCell align="left">상품사진</TableCell>
+            <TableCell align="left">개수</TableCell>
+            <TableCell align="left">가격</TableCell>
+            <Button
+                    variant="contained"
+                    type="submit"
+                    sx={{ mt: 1, mb: 1 }}
+                    onClick={() => {
+                        window.location.replace("/");
+                    }}
+                >
+                     홈페이지로
+            </Button>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((row: any) => (
+                <TableRow
+                key={row.cID}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                        <TableCell align="left">{row.pNAME}</TableCell>
+                        <CardMedia key={row.pID} component="img" sx={{width:150, height:150 }} image={row.pIMAGE1}/>
+                        <TableCell align="left">
+                            <TextField
+                                label={row.cQTY}
+                                required
+                                type="number"
+                                name="qty"
+                                autoComplete="qty"
+                                sx={{
+                                    width : 50,
+                                    height : 50
+                                }}
+                                onChange={handleInputQTY}
+                            ></TextField>
+                            <Button
+                                onClick={() => onClickChange(row.mID,row.pID,qty)}>확인
+                            </Button>
+                        </TableCell>
+                        <TableCell align="left">
+                            총 가격 : {(row.cPRICE)*(row.cQTY)}<br></br>
+                            개당 가격 : {row.cPRICE}
+                        </TableCell>
+                        <TableCell align="left">
+                            {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
+                                <IconButton
+                                    key={row.cID + 10}
+                                    color="error"
+                                    aria-label="delete"
+                                    size="small"
+                                    onClick={() => onClickDeleteCart(row.mID,row.pID)}
+                                >
+                                    <ClearIcon fontSize="inherit" />
+                                </IconButton>
+                            )}
+                        </TableCell>
 
-
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                    </Table>
+                </TableContainer>
+            </Container>
+            <Grid container alignItems="center" maxWidth="xs"
+                sx={{
+                    flexDirection: "column",
+                }}>
+                <Button
+                        variant="contained"
+                        type="submit"
+                        sx={{ mt: 1, mb: 1 }}
+                        onClick={() => {
+                            window.location.replace("/mypage");
+                        }}
+                    >
+                        구매하러 가기
+                </Button>
+            </Grid>
+        </div>
+        
     );
 }
-
 export default MyPage;
