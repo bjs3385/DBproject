@@ -16,6 +16,12 @@
     right: 0px;
 }
 
+#Logo{
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    padding-top:20px;
+}
 
 /********************* Mobile / Tablet *********************/
 @media all and (max-width: 1024px) {

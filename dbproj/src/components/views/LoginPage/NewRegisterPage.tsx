@@ -12,6 +12,8 @@ import koLocale from "date-fns/locale/ko";
 import Grid from "@mui/material/Grid";
 import Header from "../HomePage/Header";
 import {Box} from "@mui/material";
+import "../Btn.css"
+import Logo from "../HomePage/Logo";
 
 function NewRegisterPage() {
     const [email, setEmail] = useState("");
@@ -121,7 +123,7 @@ function NewRegisterPage() {
     return (
         <Grid>
             <Container fixed>
-                <Header></Header>
+                <Logo />
                 <Box>
                     <Container component="main" maxWidth="xs">
                         <TextField
@@ -135,14 +137,14 @@ function NewRegisterPage() {
                             autoFocus
                             onChange={handleInputID}
                         ></TextField>
-                        <Button
+                        <Button className="Btn"
                             color={
                                 "info"
                             }
                             variant="contained"
                             type="submit"
                             fullWidth
-                            sx={{mt: 1, mb: 2}}
+                            sx={{mt: 0, mb: 2, height:45}}
                             onClick={() => {
                                 onClickCheckEmail();
                             }}
@@ -150,7 +152,7 @@ function NewRegisterPage() {
                             중복 확인
                         </Button>
                         <TextField
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 1, mb: 2}}
                             label="비밀번호"
                             required
                             fullWidth
@@ -159,16 +161,16 @@ function NewRegisterPage() {
                             onChange={handleInputPW1}
                         ></TextField>
                         <TextField
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 1, mb: 3}}
                             label="비밀번호 확인"
                             required
                             fullWidth
                             name="check_password"
                             type="password"
                             onChange={handleInputPW2}
-                        ></TextField>
+                        ></TextField><hr/>
                         <TextField
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 3, mb: 3}}
                             label="이름"
                             required
                             fullWidth
@@ -212,11 +214,11 @@ function NewRegisterPage() {
                             type="text"
                             onChange={handleInputAddress}
                         ></TextField>
-                        <Button
+                        <Button className="Btn"
                             variant="contained"
                             type="submit"
                             fullWidth
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 3, mb: 8, height:45}}
                             onClick={() => {
                                 onClickRegister();
                             }}

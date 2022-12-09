@@ -45,4 +45,5 @@
   img { border: 0; }
   ul { list-style:none;}
   body{ margin: 0 auto; }
+  span{ text-decoration : none; color: black;}
   /*--------------------------------Added------------------------------*/

@@ -16,7 +16,7 @@ const Footer = () => {
                         <li><a href="/index.html">Home</a></li>
                         <li><a href="/shopinfo/company.html">About Us</a></li>
                         <li><a href="/member/mall_agreement.html">Terms&amp;Conditions</a></li>
-                        <li><a href="/member/privacy.html"><strong>Privacy Policy</strong></a></li>
+                        <li><a href="/member/privacy.html">Privacy Policy<strong></strong></a></li>
                         <li><a href="/shopinfo/guide.html">Help</a></li>
                     </ul>
                     <div className="sns">
@@ -30,7 +30,7 @@ const Footer = () => {
                         <h3 className="title RW">Company info</h3>
                     <span>법인명(상호) : ㈜Artworks Korea - BrooksBrothers </span> <span>대표자(성명) : 박춘하 </span> <span>사업자 등록번호 안내 : [643-85-01841]</span> <span>통신판매업 신고 제 2021-서울동대문-1799호</span> <span></span> <br />
                     <span>전화 : 010-1234-5678</span> <span>팩스 : 02-345-6789</span> <span>주소 : 서울특별시 용산구 한강대로 372, 16층 (동자동, KDB타워)</span><br />
-                    <span className="{$cpo_email|display}">개인정보보호책임자 : <a href="mailto:{$cpo_email}">박춘하(abc@abc.com)</a></span><br />
+                    <span className="{$cpo_email|display}">개인정보보호책임자 : 박춘하<a href="mailto:{$cpo_email}">(abc@abc.com)</a></span><br />
                     <span>Contact <a href="mailto:{$email}">abc@abc.com</a> for more information.</span>
                         </div>
                         <div className="info__customer">
@@ -56,6 +56,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <p className="copyright">Copyright &copy; <strong>BROOKS BROTHERS GROUP, INC</strong>. All rights reserved.</p>
+                    <br />
                 </div>
             </div>
         </footer>

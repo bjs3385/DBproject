@@ -1,0 +1,15 @@
+.Btn {
+    background-color: black;
+}
+.Btn:hover{
+    background-color: rgb(52, 52, 52);
+}
+.Btn_H {
+    height: 4.5em;
+}
+
+.Hov{
+    
+    color: gray;
+}
+.Hov:hover{ text-decoration: underline; cursor: pointer;}

@@ -14,6 +14,9 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {purple} from "@mui/material/colors";
 import {useNavigate} from "react-router-dom";
+import "../Btn.css"
+import { text } from "body-parser";
+import { warning } from "@remix-run/router";
 
 const theme = createTheme({
     palette: {
@@ -117,7 +120,7 @@ function LoginPage() {
                             variant="contained"
                             type="submit"
                             fullWidth
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 3, mb: 2, height: 45}}
                             onClick={() => onClickLogin()}
                         >
                             로그인
@@ -131,7 +134,24 @@ function LoginPage() {
                             <Link href="http://localhost:3000/newRegister">회원 가입</Link>
                         </Grid>
                     </Grid>
+
+                    <br/><br/>
+                   
+                <br /><br /><br /><br/><br/>
+                
+                <div>
+                <span><a className="Hov">이용약관</a></span>
+                <span style={{color:"lightgrey"}}>　|　</span>
+                <span><a className="Hov">개인정보처리방침</a></span>
+                <span style={{color:"lightgrey"}}>　|　</span>
+                <span><a className="Hov">법적고지</a></span>
+                <span style={{color:"lightgrey"}}>　|　</span>
+                <span><a className="Hov">Q&A</a></span>
+                </div>
+                <br/>
+                <p style={{color:"lightgrey"}} className="copyright">Copyright &copy; <strong>DBMall, INC</strong>. All rights reserved.</p>
                 </Box>
+                
             </Container>
         </Grid>
     );
