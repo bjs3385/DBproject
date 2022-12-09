@@ -1,5 +1,8 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
 const connection = require("./db");
 
 router.get("/", function (req, res, next) {
@@ -169,6 +172,37 @@ router.post("/setOrderlist", function (req, res, next) {
             });
         });
     });
+});
+fs.readdir('image', (err) =>{
+    if(err){
+        fs.mkdirSync('image');
+    }
+})
+const upload = multer({
+    storage: multer.diskStorage({
+        destination(req, file, cb){
+        cb(null, 'image/');
+
+    },
+    filename(req, file, cb){
+        const ext = path.extname(file.originalname);
+        cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+
+},
+}),
+limits : {fileSize : 5 * 1024 * 1024},
+})
+router.post("/newitem", upload.single('image') , function (req, res, next) {
+
+    const pName = req.query.pName;
+    const pPrice = req.query.pPrice;
+    const pDescription = req.query.pDescription;
+    const pCategory = req.query.pCategory;
+    const pStock = req.query.pStock;
+
+    //TODO 파일 URL 확인 필요
+
+
 });
 
 module.exports = router;

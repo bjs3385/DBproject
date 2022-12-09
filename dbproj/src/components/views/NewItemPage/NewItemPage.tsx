@@ -1,10 +1,12 @@
-import React, {useState} from "react";
+import React, {useCallback, useRef, useState} from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Container from '@mui/material/Container';
 import Header from "../HomePage/Header";
 import TopBar from "../HomePage/TopBar";
 import {TextField, Typography} from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
+import Button from "@mui/material/Button";
+import axios from "axios";
 
 
 function NewItemPage() {
@@ -14,6 +16,41 @@ function NewItemPage() {
     const [pCategory, setpCategory] = useState("");
     const [pDescription, setpDescription] = useState("");
     const [pImage, setpImage] = useState("");
+
+
+    const inPutItem = useRef<HTMLInputElement | null>(null);
+    const onUploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        if(!e.target.files){
+            return;
+        }
+        console.log(e.target.files[0].name);
+
+        const formData = new FormData();
+        formData.append('image', e.target.files[0]);
+
+        axios.post("/setitem/newitem", formData, {
+            params: {
+                data : formData,
+                pName : pName,
+                pPrice : pPrice,
+                pStock : pStock,
+                pCategory : pCategory,
+                pDescription : pDescription,
+            },
+        }).then((res) => {
+            console.log(res);
+            //TODO 이미지 추가시 받는 정보 확인 필요
+        }).catch((err) =>{
+            console.log(err);
+        });
+    }, []);
+
+    const onUploadImageButtonClick = useCallback(()=>{
+        if(!inPutItem.current){
+            return;
+        }
+        inPutItem.current.click();
+    }, []);
 
     const handleInputPName = (e: any) => {
         setPName(e.target.value);
@@ -86,7 +123,7 @@ function NewItemPage() {
                             disableCloseOnSelect
                             onChange={handleInputPCategory}
                             renderInput={(params) => (
-                                <TextField {...params} label="disableCloseOnSelect" variant="standard"/>
+                                <TextField {...params} label="Category" variant="standard"/>
                             )}
                         />
                     </Grid>
@@ -99,7 +136,18 @@ function NewItemPage() {
                     <Grid xs={6}>
                     </Grid>
                     <Grid xs={6}>
-                        <input type="file" accept={"dbproj/src/components/views/image/*"} onChange={handleInputPImage}/>
+                        <input type="file" accept={"dbproj/src/components/views/image/*"} ref={inPutItem} onChange={onUploadImage}/>
+                    </Grid>
+                    <Grid xs = {9}>
+
+                    </Grid>
+                    <Grid xs={3} alignItems={"right"} >
+                        <Button onClick={onUploadImageButtonClick} variant={"contained"} size={"medium"}>
+                            확인
+                        </Button>
+                        <Button variant={"contained"} size={"medium"}>
+                            취소
+                        </Button>
                     </Grid>
 
                 </Grid>

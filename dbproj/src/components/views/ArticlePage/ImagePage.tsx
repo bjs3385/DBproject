@@ -103,8 +103,8 @@ function ImagePage({productCategory = ""}: props) {
               alignItems="stretch">
             {data.map((row: any, index: number) => (
                 <Grid key={row.pID + 1000} xs={12} sm={3}>
-                    <Box key={row.pID + 10000} sx={{width: 300, height: 300, alignItems: "center"}}>
-                        <Box key={row.pID + 100000} sx={{align: "center"}}>
+                    <Box key={row.pID + 10000} >
+                        <Box key={row.pID + 100000} >
                             <Link to={"/article/" + row.pID}>
                                 <CardMedia key={row.pID + 0} component="img" height="200" image={row.pIMAGE1}/>
                             </Link>

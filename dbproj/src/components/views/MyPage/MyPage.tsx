@@ -233,8 +233,8 @@ function MyPage() {
                                         </Button>
                                     </TableCell>
                                     <TableCell align="left">
-                                        총 가격 : {(row.cPRICE)*(row.cQTY)}<br></br>
-                                        개당 가격 : {row.cPRICE}
+                                        총 가격 : {(row.pPRICE)*(row.cQTY)}<br></br>
+                                        개당 가격 : {row.pPRICE}
                                     </TableCell>
                                     <TableCell align="left">
                                         {(localStorage.getItem("id") === row.mID || localStorage.getItem("id") === "admin") && (
