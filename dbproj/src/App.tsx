@@ -19,6 +19,7 @@ import NewItemPage from "./components/views/NewItemPage/NewItemPage";
 import UpdatePage from "./components/views/UpdatePage/UpdatePage";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {grey} from "@mui/material/colors";
+import SearchPage from "./components/views/SearchPage/SearchPage";
 
 const theme = createTheme({
     palette: {
@@ -32,12 +33,6 @@ const theme = createTheme({
 });
 
 function App() {
-    const callApi = async () => {
-        axios.get("/api").then((res) => console.log(res.data.test));
-    };
-    useEffect(() => {
-        callApi();
-    }, []);
     return (
         <div><ThemeProvider theme={theme}>
             <Routes>
@@ -56,6 +51,7 @@ function App() {
                 <Route path="/reply" element={<ReplyPage boardId={1} boardType="notice" />} />
                 <Route path={"/order"} element={<OrderlistPage></OrderlistPage>} />
                 <Route path={"/newItem"} element={<NewItemPage></NewItemPage>} />
+                <Route path={"/testPage"} element={<SearchPage></SearchPage>} />
             </Routes>
         </ThemeProvider>
         </div>

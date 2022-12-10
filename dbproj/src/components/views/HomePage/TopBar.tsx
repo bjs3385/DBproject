@@ -1,6 +1,7 @@
 import React from "react";
 import "./TopBar.css"
 import TemporaryDrawer from "./Drawer";
+import {Link} from "react-router-dom";
 
 //<img src={$logo} alt={$mall_name} />
 //.topArea__logo
@@ -11,6 +12,7 @@ const TopBar = () => {
             <button type="button" className="btnNav eNavFold"><i aria-hidden="true" className="icon icoNav"><TemporaryDrawer /></i>네비게이션
             </button>
             <div className="navigation__util">
+                <Link to={"/testPage"}>
                 <button type="button" className="menu btnSearch eSearch">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
                          className="icon" role="img">
@@ -20,7 +22,9 @@ const TopBar = () => {
                     </svg>
                     검색
                 </button>
-                <a href="/mypage" className="menu RW">
+                </Link>
+                <Link to={"/myPage"}>
+                <a className="menu RW">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
                          className="icon" role="img">
                         <circle cx="11.5" cy="6.5" r="3.75" stroke="#f5f5f5" stroke-width="1.5"/>
@@ -29,7 +33,9 @@ const TopBar = () => {
                     </svg>
                     마이쇼핑
                 </a>
-                <a href="/wishpage" className="menu RW">
+                </Link>
+                <Link to={"/wishpage"}>
+                <a className="menu RW">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"
                          className="icon" role="img">
                         <path fill="#f5f5f5"
@@ -37,6 +43,7 @@ const TopBar = () => {
                     </svg>
                     관심상품
                 </a>
+                </Link>
             </div>
             <div className="navigation__category RW">
                 <div className="category item1">

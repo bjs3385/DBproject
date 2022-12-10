@@ -31,7 +31,6 @@ function ImagePage({productCategory = ""}: props) {
     const [따봉, 따봉설정] = useState([false]);
     const id = localStorage.getItem("id");
 
-
     const 좋아요클릭 = async (index: any, product: any) => {
 
         if (!따봉[index]) {

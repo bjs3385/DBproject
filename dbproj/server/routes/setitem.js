@@ -223,7 +223,7 @@ router.post("/setProduct", function (req, res, next) {
 
     if(category){
         console.log("is working");
-        connection.query("INSERT INTO product (pNAME, pPRICE, pDETAIL, pCATEGORY, pSTOCK, pIMAGE1) VALUES (?, ?, ?, ?, ?, ?)", [pName, pPrice, pDescription, category, pStock, pImage], function (err, result, fields){
+        connection.query("INSERT INTO product (pNAME, pPRICE, pDETAIL, pCATEGORY, 시계pSTOCK, pIMAGE1) VALUES (?, ?, ?, ?, ?, ?)", [pName, pPrice, pDescription, category, pStock, pImage], function (err, result, fields){
             if(err) throw err;
             console.log(result);
             res.send({ result: result });
@@ -231,6 +231,19 @@ router.post("/setProduct", function (req, res, next) {
 
         });
     } else console.log("is not working");
+});
+
+
+router.post("/searchItem", function (req, res, next) {
+    const search = req.query.search;
+    console.log(search);
+    connection.query("SELECT * FROM product WHERE pNAME LIKE ?", ["%"+search+"%"], (err, rows, fields) =>{
+        if(err) throw err;
+        if(rows.length>0){
+            console.log("success");
+            res.send({result: true, rows: rows});
+        }
+    });
 });
 
 
