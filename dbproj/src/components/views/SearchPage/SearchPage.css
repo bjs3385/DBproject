@@ -1,0 +1,23 @@
+.searchForm{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    float: right;
+}
+.searchBar{
+    margin : 2px;
+    width: 300px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
+    outline: none;
+}
+.searchButton{
+    margin : 2px;
+}
+
+.mainForm{
+    text-align: right;
+}

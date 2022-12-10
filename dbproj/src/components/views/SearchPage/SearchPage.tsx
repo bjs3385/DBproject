@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import StarPurple500Icon from "@mui/icons-material/StarPurple500";
-
+import "./SearchPage.css"
 
 
 
@@ -91,11 +91,27 @@ function SearchPage() {
 
     return (
         <Grid>
+
             <Container fixed>
                 <Header></Header>
                 <TopBar></TopBar>
-                <input onChange={onChangeSearch}/>
-                <Button onClick={onClickSearch}>검색</Button>
+                <div className={"mainForm"}>
+                <div className={"searchForm"}>
+                <input className={"searchBar"} onChange={onChangeSearch}/>
+                <div className={"searchButton"}>
+                <Button variant={"contained"} onClick={onClickSearch}>검색</Button>
+                </div>
+                </div>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div>
+                <Grid container
+                      spacing={3}
+                      justifyContent="center"
+                      alignItems="stretch">
                 {data.map((row: any, index: number) => (
                     <Grid key={row.pID + 1000} xs={12} sm={3}>
                         <Box key={row.pID + 10000} >
@@ -145,8 +161,10 @@ function SearchPage() {
                         </Box>
                     </Grid>
                 ))}
+                </Grid>
                 <Grid>
                 </Grid>
+                </div>
             </Container>
         </Grid>
     );
