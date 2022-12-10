@@ -151,7 +151,7 @@ function MyPage() {
             <Container>
                 <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth = {true} >
                     <Button
-                        variant="contained"
+                        variant="outlined"
                         type="submit"
                         fullWidth
                         sx={{ mt: 1, mb: 2 }}
@@ -173,7 +173,7 @@ function MyPage() {
                         위시 리스트
                     </Button>
                     <Button
-                        variant="contained"
+                        variant="outlined"
                         type="submit"
                         fullWidth
                         sx={{ mt: 1, mb: 2 }}

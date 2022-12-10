@@ -17,6 +17,19 @@ import CategoryPage from "./components/views/CategoryPage/CategoryPage";
 import OrderlistPage from "./components/views/OrderListPage/OrderlistPage";
 import NewItemPage from "./components/views/NewItemPage/NewItemPage";
 import UpdatePage from "./components/views/UpdatePage/UpdatePage";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {grey} from "@mui/material/colors";
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: grey[900],
+        },
+        secondary: {
+            main: "#000000FF",
+        },
+    },
+});
 
 function App() {
     const callApi = async () => {
@@ -26,7 +39,7 @@ function App() {
         callApi();
     }, []);
     return (
-        <div>
+        <div><ThemeProvider theme={theme}>
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/article/:id" element={<ArticlePage />} />
@@ -44,6 +57,7 @@ function App() {
                 <Route path={"/order"} element={<OrderlistPage></OrderlistPage>} />
                 <Route path={"/newItem"} element={<NewItemPage></NewItemPage>} />
             </Routes>
+        </ThemeProvider>
         </div>
     );
 }

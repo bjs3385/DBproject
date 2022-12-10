@@ -14,7 +14,6 @@ import Header from "../HomePage/Header";
 import {Box} from "@mui/material";
 import "../Btn.css"
 import Logo from "../HomePage/Logo";
-import {createTheme} from "@mui/material/styles";
 
 
 
@@ -141,9 +140,6 @@ function NewRegisterPage() {
                             onChange={handleInputID}
                         ></TextField>
                         <Button className="Btn"
-                            color={
-                                "info"
-                            }
                             variant="contained"
                             type="submit"
                             fullWidth

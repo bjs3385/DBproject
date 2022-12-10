@@ -1,5 +1,12 @@
 .aligned {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    float: right;
 }
+
+.itemButton{
+    margin : 2px;
+
+}
+

@@ -7,7 +7,7 @@ import {TextField, Typography} from "@mui/material";
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from "@mui/material/Button";
 import axios from "axios";
-
+import "./NewItemPage.css";
 
 function NewItemPage() {
     const [pName, setPName] = useState("");
@@ -106,6 +106,7 @@ function NewItemPage() {
             <Container fixed>
                 <Header></Header>
                 <TopBar></TopBar>
+                <div className={"newItem"}>
                 <Grid container rowSpacing={1} columnSpacing={{xs: 2, sm: 2, md: 3}}>
                     <Grid xs={6}>
                         <Typography align={"center"} variant="h4">상품명</Typography>
@@ -170,8 +171,8 @@ function NewItemPage() {
                             취소
                         </Button>
                     </Grid>
-
                 </Grid>
+                </div>
             </Container>
         </Grid>
     )

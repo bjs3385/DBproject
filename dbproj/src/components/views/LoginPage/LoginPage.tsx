@@ -10,21 +10,18 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import {purple} from "@mui/material/colors";
 import {useNavigate} from "react-router-dom";
 import "../Btn.css"
-import { text } from "body-parser";
-import { warning } from "@remix-run/router";
-
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 const theme = createTheme({
     palette: {
         primary: {
             main: purple[500],
         },
         secondary: {
-            main: "#11cb5f",
+            main: "#000000FF",
         },
     },
 });
@@ -137,7 +134,7 @@ function LoginPage() {
 
                     <br/><br/>
                    
-                <br /><br /><br /><br/><br/>
+                <br/><br/><br/><br/><br/>
                 
                 <div>
                 <span><a className="Hov">이용약관</a></span>

@@ -3,7 +3,6 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import TextField from "@mui/material/TextField";
-import Container from "@mui/material/Container";
 import dayjs, {Dayjs} from "dayjs";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,6 +11,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Grid from "@mui/material/Unstable_Grid2";
+import Header from "../HomePage/Header";
+import {Container} from "@mui/system";
+import TopBar from "../HomePage/TopBar";
 
 function UpdatePage() {
     const [password1, setPassword1] = useState("");
@@ -134,8 +137,12 @@ function UpdatePage() {
     };
 
     return (
+        <Grid>
+            <Container fixed>
+                <Header></Header>
+                <TopBar></TopBar>
+                <Grid>
         <div>
-            <h1>UpdatePage</h1>
             <Container>
                 <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth={true}>
                     <Button
@@ -235,6 +242,9 @@ function UpdatePage() {
             </Container>
 
         </div>
+                </Grid>
+            </Container>
+        </Grid>
 
     );
 }

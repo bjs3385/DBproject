@@ -108,23 +108,35 @@ function ImagePage({productCategory = ""}: props) {
                             <Link to={"/article/" + row.pID}>
                                 <CardMedia key={row.pID + 0} component="img" height="200" image={row.pIMAGE1}/>
                             </Link>
-                            <Typography gutterBottom variant="h4" component="div" key={row.pID + 3}>
+                            <div>
+                            <Typography gutterBottom variant="h6" component="div" key={row.pID + 3}>
                                 {row.pNAME}
                             </Typography>
+                            </div>
+                            <div>
                             <Typography variant="body2" color="text.secondary" key={row.pID + 4}>
                                 {row.pDETAIL}
                             </Typography>
+                            </div>
                         </Box>
                         <Box key={row.pID + 10000000} sx={{align: "center"}}>
                             <div className="aligned">
-                                <Button onClick={() => {
+                                <div className={"itemButton"}>
+                                <Button
+                                    variant="outlined" onClick={() => {
                                     onClickBuy(row.pID);
                                 }} key={row.pID + 1} size="small">
                                     구매하기
                                 </Button>
-                                <Button key={row.pID + 2} size="small">
+                                </div>
+                                <div className={"itemButton"}>
+                                <Button
+                                    variant="outlined" key={row.pID + 2} size="small">
                                     장바구니
                                 </Button>
+                                </div>
+                                <div className={"itemButton"}>
+
                                 <IconButton key={row.pID + 10001001} onClick={() => {
                                     좋아요클릭(index, row.pID);
                                 }} color={"primary"}>
@@ -132,6 +144,7 @@ function ImagePage({productCategory = ""}: props) {
                                         따봉[index] ? (<StarRateIcon/>) : (<StarPurple500Icon/>)
                                     }
                                 </IconButton>
+                                </div>
                             </div>
                         </Box>
                     </Box>
