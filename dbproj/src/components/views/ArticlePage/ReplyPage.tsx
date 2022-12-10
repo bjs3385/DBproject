@@ -68,24 +68,26 @@ function ReplyPage({boardId = 0, boardType = ""}: props) {
     };
     const onClickCreate = () => {
         console.log(id);
-        axios.post("/setboard/createReply", null, {
-            params: {
-                boardId: boardId,
-                text,
-                id: id,
-                rate : value
-            },
-        })
-            .then((res) => {
-                if (res.data.result) {
-                    console.log("success!");
-                    callApi();
-                } else console.log("fail");
+        if(!(id === null)) {
+            axios.post("/setboard/createReply", null, {
+                params: {
+                    boardId: boardId,
+                    text,
+                    id: id,
+                    rate: value
+                },
             })
-            .catch((err) => {
-                    console.log(err);
-                }
-            );
+                .then((res) => {
+                    if (res.data.result) {
+                        console.log("success!");
+                        callApi();
+                    } else console.log("fail");
+                })
+                .catch((err) => {
+                        console.log(err);
+                    }
+                );
+        }
 
     }
 
@@ -95,26 +97,26 @@ function ReplyPage({boardId = 0, boardType = ""}: props) {
 
     const onClickDelete = (id: any) => {
 
-        axios
-            .post("/setboard/deleteReply", null, {
-                params: {
-                    id: id,
-                },
-            })
-            .then((res) => {
-                console.log(res.data.result);
-                callApi();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+
+        if(!(id === null)) {
+            axios
+                .post("/setboard/deleteReply", null, {
+                    params: {
+                        id: id,
+                    },
+                })
+                .then((res) => {
+                    console.log(res.data.result);
+                    callApi();
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     };
 
     useEffect(() => {
-        if (localStorage.getItem("token") === null) {
-            alert("잘못된 접근입니다.");
-            window.location.replace("/");
-        }
+
         callApi();
     }, []);
     return (

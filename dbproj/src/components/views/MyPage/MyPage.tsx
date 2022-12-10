@@ -141,7 +141,6 @@ function MyPage() {
         console.log(qty);
     };
 
-
     return (
         <Grid>
         <Container fixed>

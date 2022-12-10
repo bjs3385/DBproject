@@ -32,7 +32,7 @@ function ImagePage({productCategory = ""}: props) {
     const id = localStorage.getItem("id");
 
     const 좋아요클릭 = async (index: any, product: any) => {
-
+        if(!id === null){
         if (!따봉[index]) {
             let copy = [...따봉];
             copy[index] = true;
@@ -66,19 +66,37 @@ function ImagePage({productCategory = ""}: props) {
                 console.log(err);
             });
         }
+        }
     }
     const onClickBuy = (pID: any) => {
         console.log("onClickBuy");
-        axios.post("/setitem/setOrderlist", null, {
-            params: {
-                id: id,
-                pID: pID
-            }
-        }).then((res) => {
-            if (res) {
-                console.log("주문완료");
-            }
-        }).catch();
+        if(!(id === null)) {
+            axios.post("/setitem/setOrderlist", null, {
+                params: {
+                    id: id,
+                    pID: pID
+                }
+            }).then((res) => {
+                if (res) {
+                    console.log("주문완료");
+                }
+            }).catch();
+        }
+    }
+    const onClickCart = (pID: any) => {
+        console.log("onClickCart");
+        if(!(id === null)) {
+            axios.post("/setitem/insertCart", null, {
+                params: {
+                    id: id,
+                    product: pID
+                }
+            }).then((res) => {
+                if (res) {
+                    console.log("장바구니에 추가");
+                }
+            }).catch();
+        }
     }
     const callApi = async () => {
         axios.post("/setitem/getItemCategory", null, {
@@ -130,6 +148,11 @@ function ImagePage({productCategory = ""}: props) {
                                 </div>
                                 <div className={"itemButton"}>
                                 <Button
+                                    onClick={
+                                        () => {
+                                            onClickCart(row.pID);
+                                        }
+                                    }
                                     variant="outlined" key={row.pID + 2} size="small">
                                     장바구니
                                 </Button>
