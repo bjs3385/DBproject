@@ -15,7 +15,7 @@ function NewItemPage() {
     const [pStock, setpStock] = useState("");
     const [pCategory, setpCategory] = useState("");
     const [pDescription, setpDescription] = useState("");
-    const [pImage, setpImage] = useState("");
+    const [pImage, setpImage] = useState("/");
 
 
     const inPutItem = useRef<HTMLInputElement | null>(null);
@@ -23,13 +23,24 @@ function NewItemPage() {
         if(!e.target.files){
             return;
         }
-        console.log(e.target.files[0].name);
-
+        console.log(e.target.files[0]);
         const formData = new FormData();
-        formData.append('image', e.target.files[0]);
 
+        if(e.target.files[0]){
+            formData.append("image", e.target.files[0]);
+            for(let key of formData.entries()){
+                console.log(key);
+            }
+            for(let value of formData.values()){
+                console.log(value);
+            }
+        }
         axios.post("/setitem/newitem", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
             params: {
+
                 data : formData,
                 pName : pName,
                 pPrice : pPrice,
@@ -70,7 +81,6 @@ function NewItemPage() {
     const handleInputPImage = (e: any) => {
         setpImage(e.target.value);
     }
-
     const defaultProps = {
         options: category,
         getOptionLabel: (option: FilmOptionType) => option.title,
@@ -86,7 +96,6 @@ function NewItemPage() {
             <Container fixed>
                 <Header></Header>
                 <TopBar></TopBar>
-
                 <Grid container rowSpacing={1} columnSpacing={{xs: 2, sm: 2, md: 3}}>
                     <Grid xs={6}>
                         <Typography align={"center"} variant="h4">상품명</Typography>

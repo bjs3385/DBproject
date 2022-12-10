@@ -1,8 +1,9 @@
 const express = require("express");
+const cors = require("cors");
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
-const multer = require('multer');
+const multer = require("multer");
 const connection = require("./db");
 
 router.get("/", function (req, res, next) {
@@ -173,36 +174,45 @@ router.post("/setOrderlist", function (req, res, next) {
         });
     });
 });
-fs.readdir('image', (err) =>{
-    if(err){
-        fs.mkdirSync('image');
-    }
-})
+
+
 const upload = multer({
     storage: multer.diskStorage({
-        destination(req, file, cb){
-        cb(null, 'image/');
+        destination: 'image'
+        , filename: function (req, file, cb) {
+            console.log("?");
+            console.log(file);
+            const ext = path.extname(file.originalname);
+            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        },
+    }),
+    limits : {fileSize : 5 * 1024 * 1024},
+});
 
-    },
-    filename(req, file, cb){
-        const ext = path.extname(file.originalname);
-        cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+router.use('/image', express.static('./dbproj/server/image'));
 
-},
-}),
-limits : {fileSize : 5 * 1024 * 1024},
-})
-router.post("/newitem", upload.single('image') , function (req, res, next) {
 
+router.post("/newitem", upload.single("image") , function (req, res, next) {
+    const data = req.query.data;
+    console.log(data);
     const pName = req.query.pName;
     const pPrice = req.query.pPrice;
     const pDescription = req.query.pDescription;
     const pCategory = req.query.pCategory;
     const pStock = req.query.pStock;
-
+    console.log("newitem");
     //TODO 파일 URL 확인 필요
+    const file = req.file;
+    console.log(file);
+    const filePath = file.path;
+    console.log(filePath);
 
+    res.send({
+        fileName : req.file,
+    });
 
 });
+
+
 
 module.exports = router;

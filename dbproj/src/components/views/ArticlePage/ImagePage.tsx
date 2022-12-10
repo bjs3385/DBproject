@@ -137,10 +137,7 @@ function ImagePage({productCategory = ""}: props) {
                     </Box>
                 </Grid>
             ))}
-
         </Grid>
-
-
     );
 }
 

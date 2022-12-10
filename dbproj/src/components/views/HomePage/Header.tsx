@@ -11,7 +11,7 @@ const Header = () => {
         <div id="Header">
             <div id="Header-menu">
                 {
-                    id == "admin" ? (<span><Link to={"/"}>상품 추가</Link> | </span>) : (<span></span>)
+                    id == "admin" ? (<span><Link to={"/newItem"}>상품 추가</Link> | </span>) : (<span></span>)
                 }
                 {
                     !id ? (<span><Link to="/login">로그인</Link> | </span>) : (

@@ -14,7 +14,8 @@ const connection = require("./routes/db");
 const deleteRouter = require("./routes/delete");
 const cartRouter = require("./routes/cart");
 const wishlistRouter = require("./routes/wishlist");
-
+const fs = require("fs");
+const multer = require("multer");
 
 const app = express();
 
@@ -37,6 +38,20 @@ app.use("/setitem", itmeRouter);
 app.use("/delete", deleteRouter);
 app.use("/cart", cartRouter);
 app.use("/wishlist", wishlistRouter);
+
+
+
+app.use("/image", express.static("image"));
+
+app.get("/image/:imageName", function (req, res) {
+    console.log("get image");
+    const imageName = req.params.imageName;
+    console.log(imageName);
+    const readStream = fs.createReadStream('./dbproj/server/image/${imageName}');
+    readStream.pipe(res);
+});
+
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
