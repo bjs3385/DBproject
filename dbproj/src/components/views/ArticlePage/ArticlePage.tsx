@@ -150,8 +150,18 @@ function ArticlePage() {
                                             <Typography variant="h6" color="text.secondary" key={row.pID + 5 + "a"}>
                                                 가격 : {row.pPRICE}
                                             </Typography>
-
+                                            <br/>
+                                            <br/><br/>
+                                            <br/><br/>
+                                            <br/><br/>
+                                            <br/><br/>
+                                            <br/><br/>
+                                            <br/><br/>
+                                            <br/><br/>
+                                            <br/><br/>
+                                            <br/><br/>
                                         </div>
+
                                     ))
                                 }
 
@@ -182,6 +192,7 @@ function ArticlePage() {
                                     }>구매하기</Button>
                                 </ButtonGroup>
                             </Stack>
+
                         </Item>
 
 
