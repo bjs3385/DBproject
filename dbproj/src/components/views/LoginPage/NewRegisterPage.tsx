@@ -14,6 +14,9 @@ import Header from "../HomePage/Header";
 import {Box} from "@mui/material";
 import "../Btn.css"
 import Logo from "../HomePage/Logo";
+import {createTheme} from "@mui/material/styles";
+
+
 
 function NewRegisterPage() {
     const [email, setEmail] = useState("");

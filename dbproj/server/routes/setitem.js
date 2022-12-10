@@ -183,7 +183,7 @@ const upload = multer({
             console.log("?");
             console.log(file);
             const ext = path.extname(file.originalname);
-            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+            cb(null, Date.now() + ext);
         },
     }),
     limits : {fileSize : 5 * 1024 * 1024},
@@ -195,11 +195,6 @@ router.use('/image', express.static('./dbproj/server/image'));
 router.post("/newitem", upload.single("image") , function (req, res, next) {
     const data = req.query.data;
     console.log(data);
-    const pName = req.query.pName;
-    const pPrice = req.query.pPrice;
-    const pDescription = req.query.pDescription;
-    const pCategory = req.query.pCategory;
-    const pStock = req.query.pStock;
     console.log("newitem");
     //TODO 파일 URL 확인 필요
     const file = req.file;
@@ -208,11 +203,35 @@ router.post("/newitem", upload.single("image") , function (req, res, next) {
     console.log(filePath);
 
     res.send({
-        fileName : req.file,
+        fileName : file,
+        filePath : filePath,
     });
-
 });
+router.post("/setProduct", function (req, res, next) {
 
+    const pName = req.query.pName;
+    const pPrice = parseInt(req.query.pPrice);
+    const pDescription = req.query.pDescription;
+    const pCategory = req.query.pCategory;
+    const pStock =  parseInt(req.query.pStock);
+    const pImage = req.query.pImage;
+    let category;
+    if(pCategory.title){
+        category = pCategory.title;
+    }
+
+
+    if(category){
+        console.log("is working");
+        connection.query("INSERT INTO product (pNAME, pPRICE, pDETAIL, pCATEGORY, pSTOCK, pIMAGE1) VALUES (?, ?, ?, ?, ?, ?)", [pName, pPrice, pDescription, category, pStock, pImage], function (err, result, fields){
+            if(err) throw err;
+            console.log(result);
+            res.send({ result: result });
+
+
+        });
+    } else console.log("is not working");
+});
 
 
 module.exports = router;

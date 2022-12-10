@@ -13,19 +13,19 @@ function NewItemPage() {
     const [pName, setPName] = useState("");
     const [pPrice, setpPrice] = useState("");
     const [pStock, setpStock] = useState("");
-    const [pCategory, setpCategory] = useState("");
+    const [pCategory, setpCategory] = useState<{ title: string } | null>(null);
     const [pDescription, setpDescription] = useState("");
     const [pImage, setpImage] = useState("/");
 
 
     const inPutItem = useRef<HTMLInputElement | null>(null);
     const onUploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+
+        const formData = new FormData();
         if(!e.target.files){
             return;
         }
         console.log(e.target.files[0]);
-        const formData = new FormData();
-
         if(e.target.files[0]){
             formData.append("image", e.target.files[0]);
             for(let key of formData.entries()){
@@ -39,18 +39,12 @@ function NewItemPage() {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
-            params: {
-
+            params:{
                 data : formData,
-                pName : pName,
-                pPrice : pPrice,
-                pStock : pStock,
-                pCategory : pCategory,
-                pDescription : pDescription,
-            },
+            }
         }).then((res) => {
-            console.log(res);
-            //TODO 이미지 추가시 받는 정보 확인 필요
+            setpImage(res.data.filePath);
+            console.log(pImage);
         }).catch((err) =>{
             console.log(err);
         });
@@ -62,7 +56,24 @@ function NewItemPage() {
         }
         inPutItem.current.click();
     }, []);
+    const onUploadImageSubmit =  () => {
 
+        axios.post("/setitem/setProduct", null,{
+            params: {
+                pName : pName,
+                pPrice : pPrice,
+                pStock : pStock,
+                pCategory : pCategory,
+                pDescription : pDescription,
+                pImage : pImage,
+            },
+        }).then((res) => {
+            console.log(res);
+        }).catch((err) =>{
+            console.log(err);
+        });
+
+    };
     const handleInputPName = (e: any) => {
         setPName(e.target.value);
     };
@@ -72,9 +83,8 @@ function NewItemPage() {
     const handleInputPStock = (e: any) => {
         setpStock(e.target.value);
     }
-    const handleInputPCategory = (e: any) => {
-        setpCategory(e.target.value);
-    }
+
+
     const handleInputPDescription = (e: any) => {
         setpDescription(e.target.value);
     }
@@ -130,7 +140,10 @@ function NewItemPage() {
                             fullWidth={true}
                             {...defaultProps}
                             disableCloseOnSelect
-                            onChange={handleInputPCategory}
+                            onChange={(event, value ) => {
+                                setpCategory(value);
+                                console.log(pCategory);
+                            }}
                             renderInput={(params) => (
                                 <TextField {...params} label="Category" variant="standard"/>
                             )}
@@ -140,7 +153,6 @@ function NewItemPage() {
                         <Typography align={"center"} variant="h4">이미지</Typography>
                     </Grid>
                     <Grid xs={6}>
-                        <TextField fullWidth={true}></TextField>
                     </Grid>
                     <Grid xs={6}>
                     </Grid>
@@ -151,7 +163,7 @@ function NewItemPage() {
 
                     </Grid>
                     <Grid xs={3} alignItems={"right"} >
-                        <Button onClick={onUploadImageButtonClick} variant={"contained"} size={"medium"}>
+                        <Button onClick={onUploadImageSubmit}  variant={"contained"} size={"medium"}>
                             확인
                         </Button>
                         <Button variant={"contained"} size={"medium"}>
