@@ -178,7 +178,7 @@ router.post("/setOrderlist", function (req, res, next) {
 
 const upload = multer({
     storage: multer.diskStorage({
-        destination: 'image'
+        destination: './public/image'
         , filename: function (req, file, cb) {
             console.log("?");
             console.log(file);
@@ -189,7 +189,7 @@ const upload = multer({
     limits : {fileSize : 5 * 1024 * 1024},
 });
 
-router.use('/image', express.static('./dbproj/server/image'));
+router.use('./public/image', express.static('./dbproj/public/image'));
 
 
 router.post("/newitem", upload.single("image") , function (req, res, next) {
@@ -214,7 +214,7 @@ router.post("/setProduct", function (req, res, next) {
     const pDescription = req.query.pDescription;
     const pCategory = req.query.pCategory;
     const pStock =  parseInt(req.query.pStock);
-    const pImage = req.query.pImage;
+    const pImage = "http:\\\\localhost:3000\\" + req.query.pImage.replace("public\\", "");
     let category;
     if(pCategory.title){
         category = pCategory.title;

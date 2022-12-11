@@ -8,6 +8,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Button from "@mui/material/Button";
 import axios from "axios";
 import "./NewItemPage.css";
+import {useNavigate} from "react-router-dom";
 
 function NewItemPage() {
     const [pName, setPName] = useState("");
@@ -16,7 +17,7 @@ function NewItemPage() {
     const [pCategory, setpCategory] = useState<{ title: string } | null>(null);
     const [pDescription, setpDescription] = useState("");
     const [pImage, setpImage] = useState("/");
-
+    const navigate = useNavigate();
 
     const inPutItem = useRef<HTMLInputElement | null>(null);
     const onUploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +69,10 @@ function NewItemPage() {
                 pImage : pImage,
             },
         }).then((res) => {
-            console.log(res);
+            if(res){
+                alert("상품이 등록되었습니다.");
+                navigate("/");
+            }
         }).catch((err) =>{
             console.log(err);
         });
@@ -164,10 +168,14 @@ function NewItemPage() {
 
                         </Grid>
                         <Grid xs={6} alignItems={"right"} textAlign={"right"}>
-                            <Button onClick={onUploadImageSubmit} sx={{margin:0.5}} variant={"contained"} size={"medium"}>
+                            <Button onClick={
+                                onUploadImageSubmit
+                            } sx={{margin:0.5}} variant={"contained"} size={"medium"}>
                                 확인
                             </Button>
-                            <Button variant={"contained"} sx={{margin:0.5, mr:1}} size={"medium"}>
+                            <Button onClick={()=>{
+                                navigate("/");
+                            }} variant={"contained"} sx={{margin:0.5, mr:1}} size={"medium"}>
                                 취소
                             </Button>
                         </Grid>
