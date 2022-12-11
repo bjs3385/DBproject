@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="inner">
                 <div>
                     <ul className="util">
-                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li><a href="/shopinfo/company.html">About Us</a></li>
                         <li><a href="/member/mall_agreement.html">Terms&amp;Conditions</a></li>
                         <li><a href="/member/privacy.html">Privacy Policy<strong></strong></a></li>

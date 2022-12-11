@@ -27,7 +27,7 @@ function HomePage() {
             <div className="{styles.Content}">
                 <TopBanner/>
             </div>
-            <h1 className={styles.ImgPage2}>Sale Items</h1>
+            <h1 className={styles.ImgPage2}>SALE ITEMS</h1>
             <ImagePage2></ImagePage2>
             <Footer/>
         </Container>

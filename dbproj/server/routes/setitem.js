@@ -223,7 +223,7 @@ router.post("/setProduct", function (req, res, next) {
 
     if(category){
         console.log("is working");
-        connection.query("INSERT INTO product (pNAME, pPRICE, pDETAIL, pCATEGORY, 시계pSTOCK, pIMAGE1) VALUES (?, ?, ?, ?, ?, ?)", [pName, pPrice, pDescription, category, pStock, pImage], function (err, result, fields){
+        connection.query("INSERT INTO product (pNAME, pPRICE, pDETAIL, pCATEGORY, pSTOCK, pIMAGE1) VALUES (?, ?, ?, ?, ?, ?)", [pName, pPrice, pDescription, category, pStock, pImage], function (err, result, fields){
             if(err) throw err;
             console.log(result);
             res.send({ result: result });

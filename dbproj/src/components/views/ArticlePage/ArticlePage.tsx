@@ -199,9 +199,11 @@ function ArticlePage() {
                     </Grid>
 
                     <Grid xs={4} sm={8} md={12}>
+                        <h1 style={{ marginTop:10, marginBottom:15, textAlign:"center", fontSize:25, fontWeight:"bold"}}>RECOMMEND ITEMS</h1>
                         <Item>
                             <ImagePage2></ImagePage2>
                         </Item>
+                        <h1 style={{ marginTop:70, marginBottom:15, textAlign:"center", fontSize:25, fontWeight:"bold"}}>REVIEWS</h1>
                         <Item>
                             <ReplyPage boardId={reply_id} boardType="item"></ReplyPage>
                         </Item>

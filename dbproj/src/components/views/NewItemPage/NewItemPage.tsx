@@ -107,71 +107,71 @@ function NewItemPage() {
                 <Header></Header>
                 <TopBar></TopBar>
                 <div className={"newItem"}>
-                <Grid container rowSpacing={1} columnSpacing={{xs: 2, sm: 2, md: 3}}>
-                    <Grid xs={6}>
-                        <Typography align={"center"} variant="h4">상품명</Typography>
-                    </Grid>
-                    <Grid xs={6}>
-                        <TextField onChange={handleInputPName} fullWidth={true}></TextField>
-                    </Grid>
-                    <Grid xs={6}>
-                        <Typography align={"center"} variant="h4">가격</Typography>
-                    </Grid>
-                    <Grid xs={6}>
-                        <TextField onChange={handleInputPPrice} fullWidth={true}></TextField>
-                    </Grid>
-                    <Grid xs={6}>
-                        <Typography align={"center"} variant="h4">재고</Typography>
-                    </Grid>
-                    <Grid xs={6}>
-                        <TextField onChange={handleInputPStock} fullWidth={true}></TextField>
-                    </Grid>
-                    <Grid xs={6}>
-                        <Typography align={"center"} variant="h4">상품 설명</Typography>
-                    </Grid>
-                    <Grid xs={6}>
-                        <TextField multiline={true} minRows={20} onChange={handleInputPDescription}
-                                   fullWidth={true}></TextField>
-                    </Grid>
-                    <Grid xs={6}>
-                        <Typography align={"center"} variant="h4">카테고리</Typography>
-                    </Grid>
-                    <Grid xs={6}>
-                        <Autocomplete
-                            fullWidth={true}
-                            {...defaultProps}
-                            disableCloseOnSelect
-                            onChange={(event, value ) => {
-                                setpCategory(value);
-                                console.log(pCategory);
-                            }}
-                            renderInput={(params) => (
-                                <TextField {...params} label="Category" variant="standard"/>
-                            )}
-                        />
-                    </Grid>
-                    <Grid xs={6}>
-                        <Typography align={"center"} variant="h4">이미지</Typography>
-                    </Grid>
-                    <Grid xs={6}>
-                    </Grid>
-                    <Grid xs={6}>
-                    </Grid>
-                    <Grid xs={6}>
-                        <input type="file" accept={"dbproj/src/components/views/image/*"} ref={inPutItem} onChange={onUploadImage}/>
-                    </Grid>
-                    <Grid xs = {9}>
+                    <Grid container rowSpacing={1} columnSpacing={{xs: 2, sm: 2, md: 3}}>
+                        <Grid xs={3}>
+                            <Typography align={"left"} sx={{margin:1}} variant="h5">상품명</Typography>
+                        </Grid>
+                        <Grid xs={9}>
+                            <TextField onChange={handleInputPName} fullWidth={true}></TextField>
+                        </Grid>
+                        <Grid xs={3}>
+                            <Typography align={"left"} sx={{margin:1}} variant="h5">가격</Typography>
+                        </Grid>
+                        <Grid xs={9}>
+                            <TextField onChange={handleInputPPrice} fullWidth={true}></TextField>
+                        </Grid>
+                        <Grid xs={3}>
+                            <Typography align={"left"} sx={{margin:1}} variant="h5">재고</Typography>
+                        </Grid>
+                        <Grid xs={9}>
+                            <TextField onChange={handleInputPStock} fullWidth={true}></TextField>
+                        </Grid>
+                        <Grid xs={3}>
+                            <Typography align={"left"} sx={{margin:1}} variant="h5">상품 설명</Typography>
+                        </Grid>
+                        <Grid xs={9}>
+                            <TextField multiline={true} minRows={20} onChange={handleInputPDescription}
+                                       fullWidth={true}></TextField>
+                        </Grid>
+                        <Grid xs={3}>
+                            <Typography align={"left"} sx={{margin:1}} variant="h5">카테고리</Typography>
+                        </Grid>
+                        <Grid xs={9}>
+                            <Autocomplete
+                                fullWidth={true}
+                                {...defaultProps}
+                                disableCloseOnSelect
+                                onChange={(event, value ) => {
+                                    setpCategory(value);
+                                    console.log(pCategory);
+                                }}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="Category" variant="standard"/>
+                                )}
+                            />
+                        </Grid>
+                        <Grid xs={3}>
+                            <Typography align={"left"} sx={{mt:1, ml:1}} variant="h5">이미지</Typography>
+                        </Grid>
+                        <Grid xs={9}>
+                        </Grid>
+                        <Grid xs={3}>
+                        </Grid>
+                        <Grid xs={9}>
+                            <input type="file" accept={"dbproj/src/components/views/image/*"} ref={inPutItem} onChange={onUploadImage}/>
+                        </Grid>
+                        <Grid xs = {6}>
 
+                        </Grid>
+                        <Grid xs={6} alignItems={"right"} textAlign={"right"}>
+                            <Button onClick={onUploadImageSubmit} sx={{margin:0.5}} variant={"contained"} size={"medium"}>
+                                확인
+                            </Button>
+                            <Button variant={"contained"} sx={{margin:0.5, mr:1}} size={"medium"}>
+                                취소
+                            </Button>
+                        </Grid>
                     </Grid>
-                    <Grid xs={3} alignItems={"right"} >
-                        <Button onClick={onUploadImageSubmit}  variant={"contained"} size={"medium"}>
-                            확인
-                        </Button>
-                        <Button variant={"contained"} size={"medium"}>
-                            취소
-                        </Button>
-                    </Grid>
-                </Grid>
                 </div>
             </Container>
         </Grid>
